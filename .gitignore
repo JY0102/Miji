@@ -1,0 +1,17 @@
+# Godot 4 generated files
+.godot/
+
+# Export presets (contains credentials if exporting)
+export_presets.cfg
+
+# Mono/C# specific
+.mono/
+data_*/
+mono_crash.*.json
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Claude local settings (개인 환경별 설정)
+.claude/settings.local.json
