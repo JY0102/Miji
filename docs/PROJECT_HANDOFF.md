@@ -22,11 +22,26 @@
 ---
 
 [Agent 구조]
-- ORCHESTRATOR: 요청 분석 → 에이전트 배분
+- ORCHESTRATOR: 요청 분석 → 에이전트 배분 (복합 요청은 자동 병렬 처리)
 - PLANNING: docs/planning/ 하위 MD 파일로 기획 관리
 - IMPLEMENTATION: src/ 하위 Godot 4 코드 구현, 대형 기능은 IMPL_REGISTRY.md에 먼저 등록
 - ART: Codex가 담당. STYLE_GUIDE.md + ART_LOG.md 기반으로 OpenAI 프롬프트 생성.
   사용자가 ChatGPT에 수동 실행. API 직접 호출 없음.
+
+---
+
+[Claude Code 세팅 — 완료]
+
+▶ 자동화 훅 (.claude/settings.json)
+- PostToolUse (Write|Edit): src/ 파일 수정 시 → IMPL_REGISTRY.md 자동 기록
+- PostToolUse (Write|Edit): art/ 파일 수정 시 → ART_LOG.md 자동 타임스탬프
+- Stop: 응답 완료 시 에이전트 역할 체계 리마인더 표시
+- 훅은 PowerShell로 동작. jq 없음, Node.js(v26) 있음.
+- 새 세션 시작 시 자동 활성화 (또는 /hooks 타이핑으로 리로드)
+
+▶ 플러그인
+- superpowers@claude-plugins-official: 브레인스토밍 스킬 (/superpowers:brainstorming)
+- codex@openai-codex: 아트 프롬프트 일관성 관리
 
 ---
 
@@ -90,9 +105,12 @@
 [디렉토리 구조]
 Game/
 ├── CLAUDE.md                        ← 오케스트레이션 규칙
-├── .claude/settings.json
+├── .gitignore                       ← Godot 4 기준
+├── .claude/
+│   └── settings.json               ← 플러그인 + 자동화 훅 3개
 ├── docs/
 │   ├── DECISIONS.md                 ← 공통 의사결정 로그
+│   ├── PROJECT_HANDOFF.md           ← 이 파일
 │   ├── planning/
 │   │   ├── map/MAP_FORMAT.md        ← 맵 작성 기준
 │   │   ├── story/
@@ -111,11 +129,23 @@ Game/
 
 ---
 
-[현재 상태]
+[새 환경 세팅 체크리스트]
+1. Claude Code 설치
+2. superpowers 플러그인 설치: /marketplace → superpowers
+3. codex 플러그인 설치: /marketplace → codex
+4. .claude/settings.json 확인 (훅 포함 커밋되어 있음 — 별도 설정 불필요)
+5. Godot 4 설치: winget install --id=GodotEngine.GodotEngine -e
+6. Godot 실행 → src/ 폴더에 프로젝트 생성
+
+---
+
+[현재 상태 — 2026-07-24]
 - 게임 기획 4개 스펙 전부 확정 완료
-- Godot 4 엔진 선택 완료 (아직 미설치)
-- Codex CLI 설치 및 ChatGPT 인증 완료 (아트 프롬프트 관리 담당)
-- 다음 단계: Godot 4 설치 → src/ 에 프로젝트 초기화 → 구현 시작
+- Godot 4 엔진 선택 완료 (미설치)
+- Agent Orchestration 구조 완성 (CLAUDE.md)
+- 자동화 훅 3개 설정 완료 (.claude/settings.json)
+- Git 초기화 및 초기 커밋 완료
+- 다음 단계: Godot 4 설치 → src/ 프로젝트 초기화 → 구현 시작
 
 ---
 
