@@ -1,9 +1,4 @@
 {
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true,
-    "codex@openai-codex": true
-  },
-  "mcpServers": {},
   "hooks": {
     "PostToolUse": [
       {
@@ -11,13 +6,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$json=$input|ConvertFrom-Json;$f=$json.tool_input.file_path;if($f-match \"[/\\\\]src[/\\\\]\"){Add-Content -Path 'C:\\Work\\Project\\Game\\docs\\agents\\IMPL_REGISTRY.md' -Value ('| '+(Get-Date -Format 'yyyy-MM-dd')+' | IMPLEMENTATION | '+$f+' | [자동 기록] |')}",
+            "command": "$json=$input|ConvertFrom-Json;$f=$json.tool_input.file_path;if($f-match \"[/\\\\]src[/\\\\]\"){Add-Content -Encoding utf8 -Path (Join-Path $env:CLAUDE_PROJECT_DIR 'docs\\agents\\IMPL_REGISTRY.md') -Value ('| '+(Get-Date -Format 'yyyy-MM-dd')+' | IMPLEMENTATION | '+$f+' | [자동 기록] |')}",
             "shell": "powershell",
             "async": true
           },
           {
             "type": "command",
-            "command": "$json=$input|ConvertFrom-Json;$f=$json.tool_input.file_path;if($f-match \"[/\\\\]art[/\\\\]\"){Add-Content -Path 'C:\\Work\\Project\\Game\\docs\\art\\ART_LOG.md' -Value ('['+( Get-Date -Format 'yyyy-MM-dd HH:mm')+'] '+[System.IO.Path]::GetFileName($f)+' 수정됨')}",
+            "command": "$json=$input|ConvertFrom-Json;$f=$json.tool_input.file_path;if($f-match \"[/\\\\]art[/\\\\]\"){Add-Content -Encoding utf8 -Path (Join-Path $env:CLAUDE_PROJECT_DIR 'docs\\art\\ART_LOG.md') -Value ('['+( Get-Date -Format 'yyyy-MM-dd HH:mm')+'] '+[System.IO.Path]::GetFileName($f)+' 수정됨')}",
             "shell": "powershell",
             "async": true
           }
@@ -35,5 +30,10 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "codex@openai-codex": true
+  },
+  "mcpServers": {}
 }
