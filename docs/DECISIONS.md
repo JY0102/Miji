@@ -18,3 +18,10 @@
 | 2026-07-24 | PLANNING | 맵 표현: ASCII Grid + Mermaid Graph + Room Table | 가독성 및 진행 동선 표현 최적화 |
 | 2026-07-24 | IMPLEMENTATION | 엔진: Godot 4 / 언어: GDScript | 무료, 2D 메트로배니아 최적, 낮은 진입장벽 |
 | 2026-07-24 | ART | 프롬프트 관리: Codex 위임 | 스타일 일관성 유지, ART_LOG.md 자동 관리 |
+| 2026-07-24 | ORCHESTRATOR | 게임 제목: 미지 (Miji) | 매개체의 정체가 밝혀지지 않는 중심 미스터리("알 수 없다")를 직접 함축 |
+| 2026-07-24 | PLANNING | 로봇 이름: 관찰자→얼개(Ulgeh) / 행동가→온기(Ongi) | 얼개(구조/틀)=관찰자의 분석적 성격, 온기(따뜻함)=행동가의 즉흥적·감정적 성격과 매칭 |
+| 2026-07-24 | ORCHESTRATOR | 얼개 로마자 표기: Ulgeh (표준 Eolgae 대신) | 표준 표기 "-gae"가 영어권에서 "-gay"(장음)로 오독되는 문제 회피, 발음 우선 스펠링 채택 |
+| 2026-07-25 | IMPLEMENTATION | 입력 액션은 `project.godot [input]`에 선언 (코드 등록 금지) | 에디터 Input Map 패널에서 확인·리맵 가능, 리바인딩 기능 추가 시 표준 경로 사용 |
+| 2026-07-25 | IMPLEMENTATION | 2D 콜리전 레이어: 1=world, 2=hurtbox, 3=hitbox | 히트박스/허트박스가 같은 레이어를 쓰면 엔진이 버릴 쌍까지 보고함. Phase 11 적 추가 시 마스크만으로 피아 구분 가능 |
+| 2026-07-25 | IMPLEMENTATION | 로봇 업그레이드 스탯은 `Robot.STAT_KEYS` 테이블 단일 출처 | 스탯 추가 시 4곳(필드/조회/증가/UI) 수정하던 것을 테이블 1곳으로 축소. 입력 액션명은 `upgrade_<스탯>` 규칙으로 파생 |
+| 2026-07-25 | IMPLEMENTATION | 진행 순서 결정은 GameFlow, 데이터 보관은 RunState | 체크포인트 순서가 씬 프롭에 있고 저장이 setter에 숨어 있어 경계가 흐려짐. 싱글톤 역할 분리 |
