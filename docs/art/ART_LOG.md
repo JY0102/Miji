@@ -20,7 +20,314 @@
 
 ## 요청 기록
 
-### 2026-07-25 — 주인공 2인 (얼개 / 온기) 컨셉 레퍼런스
+### 2026-07-25 (7차) — 신규 5방향 ★I안 / K안 유력
+
+- **목적**: 방향 추가 탐색 5종. 6차에서 배경에 지형이 생긴 문제를 프롬프트로 차단 (`no scenery, no ground plane, no horizon`) — **성공, 5개 모두 플랫 배경**.
+- **모델**: `z_image` / **비용**: 0.15 × 8장 = 1.2 크레딧
+- **설계**: 이동 방식 5종 전부 상이 (견인 / 외바퀴 / 자벌레 / 무한궤도 / 구르기), 얼개는 규칙 ①로 고정
+
+| 안 | 팔레트 | 온기 이동 | 결과 |
+|---|---|---|---|
+| **G** 심해 열수구 | 슬레이트+자홍 | 견인(갈고리) | △ 갈고리+바퀴 혼종. 둘 다 회색 드럼형이라 대비 약함 |
+| **H** 설림 | 냉회색+주황 | 외바퀴 | ✗ **최약.** 외바퀴가 이륜 수레로 나왔고, 몸통이 얼개와 거의 동일 |
+| **I** 산성 늪 | 황동+라임 | 자벌레(풀무) | ★ **실루엣 대비 최강.** 얼개=컴팩트 구형 / 온기=길게 늘어난 발광 마디 |
+| **J** 잿더미 | 목탄+용암 | 무한궤도 | ○ 기계다움·픽셀 품질 우수. 단 둘 다 "회색 상자+주황 눈" |
+| **K** 청동 신전 | 청동+녹청+흰빛 | 구르기(장갑판) | ★ **온기 매력 최고.** 녹청 낀 얼개도 우수. 대비 양호 |
+
+**I안** (`f3757eaf`): 얼개=황동 구체 포드+라임 렌즈, 온기=풀무로 늘어나는 자벌레. 두 개체의 **가로세로 비율 자체가 달라** 저해상도에서도 확실히 구분됨. 단 라임 발광부가 과채도라 규칙 ②에서 다소 이탈.
+
+**K안** (`490f10d2`): 얼개=녹청 청동 포드+흰 렌즈(부유·그림자 정상), 온기=장갑판을 두른 아르마딜로. 온기가 다소 유기체로 읽히나 판 구조가 명확해 F안 두꺼비보다는 기계에 가까움.
+
+---
+
+#### ★ 발견 #4 수정 — 이동 방식만 다르면 부족하다. **몸통 비율**이 달라야 한다
+
+6차에서 *"두 개체의 이동 방식을 서로 간섭하지 않는 축으로 설계"* 라고 적었으나, 7차에서 **이동 방식을 5개 다 다르게 했는데도 G·H·J가 실패**했다.
+
+원인: 세 안 모두 얼개의 껍데기와 온기의 몸통을 **비슷한 명사**(rounded shell / broad drum / low slab)로 지정 → 부속만 다른 같은 덩어리가 됨.
+성공한 I·K는 온기에 **근본적으로 다른 비율**을 준 경우:
+- I: 길게 늘어난 가로형 마디 몸통 (얼개=정사각 구형)
+- K: 반원형 장갑 셸 + 다리 (얼개=컴팩트 박스)
+
+→ **규칙 갱신: 얼개와 온기는 이동 방식이 아니라 몸통의 종횡비로 구분할 것.** 부속(바퀴·궤도·갈고리)만 바꾸면 실루엣이 수렴한다.
+
+#### ★ 발견 #5 — 배경 오염은 명시적 부정으로 차단 가능
+`no scenery, no ground plane, no horizon, no <테마명사>` 를 배경 지시에 붙이자 8장 전부 플랫 배경 유지. 6차 E안의 사막 지형 생성 문제 해소.
+
+- **파일 경로**: 미저장 (CDN 원본만)
+  - G `424a76a1` / H `b3e14974` / **I `f3757eaf` ★** / J `b3260c90` / **K `490f10d2` ★**
+
+- **탐색 팔레트** (미확정)
+```
+G 열수구: #06100E #12242A #24404A #3E6470 #6E8E96 #B6CBCB #E8F0EC #5A1240 #C2308A #F27ACA
+H 설림:   #0C1016 #1C2430 #333E4C #55637A #8A97A8 #C6D2DE #F0F6FA #6B2A0E #D9642A #F5A65E
+I 산성늪: #0E1108 #1E2612 #36421E #5A6B2E #8A9A52 #C2C88E #EAEEC4 #3A5A0A #8ED12A #C8F26A
+J 잿더미: #0A0A0C #1A1A1E #2E2E34 #4E4E56 #7A7A84 #ADADB6 #E0E0E4 #6B1A08 #D93E12 #FF9A3C
+K 청동:   #0F0B08 #241A10 #4A3418 #7A5A26 #A8863E #4E7A62 #86B49A #D8C89A #F0EDE0 #FFFFFF
+```
+
+---
+
+### 2026-07-25 (6차) — 신규 3방향 (팔레트 + 형태 + 이동방식 동시 변경)
+
+- **목적**: 색다른 방향 추가 탐색. 5차까지 누적된 규칙 3개를 전부 적용한 첫 라운드.
+- **적용한 규칙**: ① 얼개 = `pod` 명사 + 렌즈 + `hovering, casting a shadow` (사물 명사 금지) ② 어둡고 저채도 팔레트 ③ 온기는 큰 덩어리 위주 (`few large shapes rather than many small details` 명시)
+- **추가 변수**: 이동 방식을 셋 다 다르게 설계 (활주 / 구름 / 도약)
+- **모델**: `z_image` / **비용**: 0.15 × 6장 = 0.9 크레딧
+- **검토 범위**: 각 방향의 대표 1컷씩 상세 검토 (`_1` 계열)
+
+**D — 얼음 동굴 / 민트, 온기=썰매 활주형** (`70bae89d`, `05e9f409`) — 최약
+- ✗ **얼개가 부유하지 않고 스키를 달고 접지함.** `hovering` 지시가 온기의 활주부에 오염된 것으로 보임
+- ✗ 결과적으로 **둘 다 타원 몸통 + 활주부**라 실루엣 구분이 이번 라운드 최악. 스왑 가독성 불충족
+- 교훈: 두 개체에 유사한 이동 부속을 지정하면 형태가 서로 수렴한다
+
+**E — 사막 토기 / 청록, 온기=드럼 롤러형** (`193441c2`, `d6d3238a`) ★**이번 라운드 최선**
+- ✓ 얼개: 끈으로 감긴 둥근 토기 포드, 큰 청록 렌즈, **부유 + 그림자 명확**. 규칙 ①이 처음으로 완벽하게 작동
+- ✓ 온기: 옆으로 누운 드럼통 롤러 + 짧은 안정각. **큰 단일 덩어리 → 16px 생존 확실**
+- ✓ 이동 방식(구름)이 얼개(부유)와 확실히 대비됨
+- △ 온기의 발광하는 드럼 단면이 측면을 향한 "얼굴"로 읽혀 진행 방향이 모호
+- △ 배경에 사막 지형·바위가 생성됨 (플랫 배경 지시 무시). 에셋화 시 크롭 필요
+
+**F — 곰팡이 / 탁한 노랑, 온기=두꺼비 도약형** (`0620fd6d`, `1232f6f2`)
+- ✓ **얼개가 이번 라운드에서 가장 사랑스러움** — 버섯 갓을 쓴 부유 포드, 큰 연노랑 렌즈, 부유·그림자 정상
+- ✗ **온기가 완전한 유기체 두꺼비로 나옴.** 발톱 달린 발까지 생성 — 기계 요소 전무. "매개체 로봇" 설정과 불일치
+- 활용안: 얼개만 따로 채택하고 온기는 다른 방향에서 가져오는 조합 가능
+
+---
+
+#### ★ 발견 #4 — 두 개체에 유사한 이동 부속을 주면 형태가 수렴한다
+D안에서 온기에 활주부(runners)를 지정하자 얼개까지 스키를 달고 접지함. 얼개의 `hovering` 지시를 덮어씀.
+→ **두 개체의 이동 방식은 서로 간섭하지 않는 축으로 설계할 것** (부유 vs 접지처럼). 유사 계열(활주 vs 활주)은 금지.
+
+#### ★ 규칙 ①~③ 검증 결과
+- **규칙 ① (pod + 렌즈 + hovering) — 유효.** E·F에서 얼개가 처음으로 안정적으로 "부유하는 생물"로 생성됨. 단 D처럼 다른 지시와 충돌하면 깨진다.
+- **규칙 ② (어두운 저채도 팔레트) — 유효.** 3라운드 연속 확인.
+- **규칙 ③ (큰 덩어리) — 유효.** E의 드럼, F의 두꺼비 모두 16px 생존 가능한 단순 실루엣.
+
+- **파일 경로**: 미저장 (CDN 원본만 존재)
+  - D: `hf_20260725_133854_70bae89d-...png`, `hf_20260725_133854_05e9f409-...png`
+  - E: `hf_20260725_133924_193441c2-...png` ★, `hf_20260725_133924_d6d3238a-...png`
+  - F: `hf_20260725_133954_0620fd6d-...png`, `hf_20260725_133954_1232f6f2-...png`
+
+- **탐색 팔레트** (모두 미확정)
+```
+D 얼음:   #080D14 #16222E #2A3C4E #4A6478 #7E97A6 #C4D6DC #EAF4F2 #1E5A50 #4FBFA0 #A8E8D0
+E 토기:   #140E0A #2E1C12 #6B3A22 #A8552E #D08A52 #E8C48E #F4E4C4 #0E4A4A #2FA8A0 #7FE0D4
+F 곰팡이: #120A12 #2A1620 #4A2836 #7A4A5C #A87A8C #D8BCC0 #F0E4DC #6B5A18 #D8C24A #F4EBA8
+```
+
+---
+
+### 2026-07-25 (5차) — 조합 / 리컬러 / 신규탐색 3종
+
+- **목적**: 4차에서 나온 세 갈래를 동시 검증. 1번과 2번은 얼개·팔레트를 고정하고 **온기 형태만 교체**한 통제 비교.
+- **모델**: `z_image` / **비용**: 0.15 × 4장 = 0.6 크레딧 (429 rate limit 1회, 실패분 과금 없음)
+
+**1번 — 조합안** (`4078d6ba`): 얼개=3차 H형 부유 포드 + 온기=4차 B형 촉수 블롭 + A 이끼 팔레트
+- ✓ 얼개 우수 — 이끼 낀 둥근 포드, 보라 렌즈, 조작 팔, 착지 프롱, 부유 그림자 명확
+- ✗ **온기의 촉수 링이 저해상도에서 뭉갠다.** 작고 반복되는 형상이 12개 → 16x16에서 죽 형태로 뭉개질 위험 큼
+- ✗ 온기 얼굴이 점 하나뿐이라 캐릭터성 약함
+
+**2번 — H형 리컬러** (`f5973ff5`) ★**전체 라운드 최선**
+- 얼개=1번과 동일 부유 포드(각진 버전) + 온기=다리형 크롤러 + A 이끼 팔레트
+- ✓ **둘 다 명확히 살아 움직이는 생물로 읽힘** (이번 전체에서 이게 성립한 유일한 조합)
+- ✓ 온기 등껍질이 넓고 평평 → **§3 발판 메카닉 충족**
+- ✓ 온기에 눈+입이 생겨 캐릭터성 최고, 크기 균형도 양호
+- △ 온기가 6족이 아닌 **4족 거북**으로 나옴 (스펙 드리프트). 기계보다 유기체로 읽힘 — 세계관상 "매개체 로봇"인지 재검토 필요
+
+**3번 — 신규탐색: 밤/등불 (남색+뼈색+금색)** (`b6201ad6`, `890ebf05`)
+- ✓ **픽셀 아트 품질 전체 최고.** 플랫 컬러·아웃라인·해상감 모두 지금까지 중 가장 우수
+- ✓ 온기(다절 애벌레)가 생물로 잘 읽히고 귀여움
+- ✗ **얼개가 또 천장 사슬에 매달림** — 2장 모두. 주인공으로 사용 불가
+
+---
+
+#### ★ 4차 발견 #1 수정 — "렌즈만으로는 부족하다"
+
+4차에서 *"부유형 관찰자는 렌즈(눈)가 없으면 사물이 된다"* 고 적었으나, **이번 3번에서 렌즈를 넣었는데도 천장 설비가 나옴** (실패 4연속: 3차 I안 → 4차 B안 → 4차 C안 → 5차 3번).
+
+수정된 규칙:
+- **렌즈는 필요조건이지 충분조건이 아니다.**
+- 진짜 원인은 **명사 선택**. `lantern`, `obelisk`, `lamp` 처럼 실세계 사물 명사를 쓰면 렌즈가 있어도 그 사물의 관습적 배치(매달림·받침대)를 따라간다.
+- **성공한 케이스는 모두 `pod`(3차 H, 5차 1·2번)** — 사물 명사가 아닌 중립적 형태 명사.
+- → 얼개 프롬프트에는 **`pod` 계열 명사 + 렌즈 + `hovering ... casting a shadow beneath it`** 를 함께 쓸 것. 사물 명사는 피한다.
+
+#### ★ 발견 #2 — 팔레트가 픽셀 아트 충실도를 좌우한다 (4차 발견 #2 재확인)
+어둡고 채도 낮은 소수 색 팔레트(A 이끼 / 3번 남색)에서 플랫 컬러가 확연히 잘 나옴. 1·2차의 밝은 러스트/스틸 팔레트 대비 명백한 차이. **팔레트 확정 시 이 특성을 우선 고려할 것.**
+
+#### ★ 발견 #3 — 저해상도 뭉개짐은 형태 단계에서 걸러야 한다
+1번의 촉수 12개처럼 **작고 반복되는 요소가 많은 형태는 16x16에서 죽이 된다.** 컨셉 단계에서 "이 형태가 16px로 줄었을 때 남는가"를 판정 기준에 포함할 것.
+
+- **파일 경로**: 미저장 (CDN 원본만 존재)
+  - 1번: `hf_20260725_133114_4078d6ba-3fc7-4116-bd1f-04e359b9aae8.png`
+  - 2번: `hf_20260725_133153_f5973ff5-d030-4602-bc74-1ebaf987ef2b.png` ★
+  - 3번a: `hf_20260725_133224_b6201ad6-9be5-490d-9b51-952c9cee529b.png`
+  - 3번b: `hf_20260725_133224_890ebf05-167c-4e97-a2f2-5cea29ee0bbb.png`
+
+- **3번 탐색 팔레트** (밤/등불, 미확정)
+```
+#0D1020 #1A2038 #2E3A5C #55638C #8A94B0 #E4DECB #FFF6DE #8A5A1E #E0A03C #FFD98A
+```
+
+---
+
+### 2026-07-25 (4차) — 색 + 형태 동시 탐색 3방향
+
+- **목적**: 3차 비인간형 방향 유지하되, 색과 형태 언어를 함께 바꿔 대안 탐색. 3차에서 지적한 크기 불균형도 프롬프트에 반영 (`ROUGHLY THE SAME SIZE`).
+- **모델**: `z_image` / **비용**: 0.15 × 4장 = 0.6 크레딧 (429 rate limit 2회 발생, 실패분 과금 없음)
+
+**A — 이끼 폐허 / 보라 발광** (`965a6f6d`)
+- 얼개 = 몸통 없는 부유 고리(이끼 낀 돌 토러스, 중앙에 보라 코어 부유) / 온기 = 이끼 낀 장갑 공벌레
+- ✓ **지금까지 전 배치 중 픽셀 아트 완성도 최고.** 플랫 컬러 적중, 팔레트 준수 확연히 우수
+- ✓ 얼개 실루엣이 전체 통틀어 가장 독창적
+- ✗ **고리 가운데가 뚫려 있어 발판으로 사용 불가** — 코어 컨셉 §3 퍼즐 메카닉과 정면 충돌
+- ✗ 고리는 정면/측면 구분이 없어 **시선 방향을 알 수 없음**
+
+**B — 심해 도자기 / 산호 발광** (`855ac388`, `aaa0e4aa`)
+- 얼개 = 금 간 도자기 오벨리스크(킨츠기) / 온기 = 촉수로 기는 물렁이
+- ✓ **온기(문어 블롭)가 전체 라운드 통틀어 가장 귀여운 단일 캐릭터**
+- ✓ 크기 균형 양호 — "비슷한 크기" 지시가 처음으로 먹힘
+- ✗ **얼개가 기념비/화병으로 읽힘.** 2번째 컷은 받침대까지 생겨 더 악화
+
+**C — 잿빛 + 주홍 단색 강조** (`42e6b239`) ✗ **실패**
+- 의도: 얼개 = 종이등 큐브 / 온기 = 3족 스프링 호퍼
+- ✗ **온기가 인간형으로 회귀.** "NO head, NO arms, exactly THREE legs" 명시했으나 큐브 머리 + 스프링 팔 2개(손 포함) + 다리 2개 생성. 지시 완전 무시
+- ✗ 얼개도 램프 오브젝트로 읽힘
+
+---
+
+#### ★ 이번 라운드 핵심 발견 (다음 생성에 반드시 반영)
+
+1. **부유형 관찰자는 "눈"이 없으면 사물이 된다.**
+   3차 I안(천장 설비) → 4차 B안(기념비) → 4차 C안(램프)로 3연속 동일 실패.
+   반대로 캐릭터로 읽힌 유일한 케이스는 **3차 H안이며, 차이는 렌즈(눈)의 유무**.
+   → 얼개에는 시선을 지시하는 요소(렌즈/단안)가 **필수**. 추상 형태만으로는 캐릭터성이 성립하지 않음.
+
+2. **어둡고 채도 낮은 소수 색 팔레트일수록 플랫 컬러가 잘 나온다.**
+   A안이 전 배치 중 가장 픽셀 아트다웠던 이유로 추정. 향후 팔레트 설계 시 활용.
+
+3. **형태 지시가 강할수록 인간형으로 회귀할 위험이 있다.**
+   C안에서 대문자 부정형 지시(NO head / NO arms / exactly THREE legs)를 무시하고 기본값인 인간형 생성.
+   → 부정형 나열보다 **긍정형 형태 묘사**(예: "a pod resting on three coiled springs")가 안전할 것으로 추정. 미검증.
+
+4. **`ROUGHLY THE SAME SIZE` 지시는 유효.** 3차의 크기 불균형이 B안에서 해소됨.
+
+- **파일 경로**: 미저장 (CDN 원본만 존재)
+  - A: `hf_20260725_124051_965a6f6d-016c-4091-83fd-885e19a5f2c5.png`
+  - B1: `hf_20260725_124136_855ac388-468c-4e4a-bc0d-02850c199735.png`
+  - B2: `hf_20260725_124136_aaa0e4aa-105d-42cb-ac88-a49153e40857.png`
+  - C: `hf_20260725_124319_42e6b239-4ecf-41fa-9809-ccf34f3f5d32.png`
+
+- **탐색 팔레트** (모두 미확정, 참고용)
+```
+A 이끼:   #14180F #2C3A22 #5A7247 #9BB07A #D9E0C4 #3A2E44 #6B4E8C #B48AE8 #E8D9A0 #C4643C
+B 도자기: #101A22 #1E3038 #35555E #6E9099 #E8E0D0 #FFF4E0 #F2C4C0 #E8746A #B8A890 #C9A24B
+C 잿빛:   #0E0E10 #1E1E22 #3A3A42 #6A6A74 #A8A8B0 #E4E4E8 #7A1E12 #D93B22 #F27A45 #FFD9A0
+```
+
+---
+
+### 2026-07-25 (3차) — 비인간형 재설계
+
+- **목적**: 1·2차가 모두 인간형(머리-몸통-팔-다리)에 갇혀 있다는 피드백. 기획 문서 어디에도 인간형 제약이 없음을 확인하고 형태 전면 재설계.
+- **설계 근거 — 코어 컨셉 §3**: *"정지 로봇은 발판·스위치 트리거 등 퍼즐 요소로 기능"*. 스왑 후 남겨진 몸이 **밟고 올라설 발판**이 돼야 하므로, 좁고 불안정한 인간형은 이 메카닉에 부적합. 넓고 낮은 형태가 유리.
+- **모델**: `z_image` / **비용**: 0.15 × 4장 = 0.6 크레딧
+- **형태 방향**:
+  - **얼개(관찰자)** — 다리 없는 부유 센서 포드. 세로 캡슐, 큰 시안 렌즈 1개, 아래로 늘어진 탐침 다발. 정지 시 그 자리 고정 → **공중 발판**
+  - **온기(행동가)** — 6족 저상 크롤러. 머리·팔 없이 둥근 껍데기를 짧은 다리들이 떠받침. 판 이음새로 앰버 발광, 뒤로 늘어진 케이블 꼬리
+  - 부유/세로 vs 접지/가로 → 실루엣 대비 최대화
+
+- **결과**: **H안 채택 권장 (미확정 — 사용자 선택 대기)**
+
+- **검토 메모**:
+  - **H** (`2be81710`) ★: 얼개에 **작은 조작 팔 2개 + 착지 프롱 3개**, 부유 그림자 명확. 팔이 있어 스위치 조작 연출이 자연스러움. 온기는 **등이 넓고 평평한 6족 크롤러 → 정지 시 발판으로 즉시 읽힘**. §3 퍼즐 메카닉 적합도 최고.
+  - **F** (`b9053907`): 귀여움 최고(온기가 거북/딱정벌레형). 등 평평해 발판 OK. 얼개가 산만하고 **늘어진 탐침이 다리로 오독될 여지** 있음.
+  - **G** (`20717b75`): 무난하나 온기 실루엣이 식빵 덩어리에 가까워 특징 최약.
+  - **I** (`541ef46d`) ✗: **얼개가 천장 파이프에 매달린 설비로 읽힘** — 자율 이동 캐릭터가 아니라 고정 장치. 주인공으로 사용 불가. 온기도 다리가 바퀴로 보이고 눈이 없어 캐릭터성 최약.
+
+- **4장 공통 문제 — 다음 생성 시 반드시 반영**:
+  - **온기가 얼개보다 과도하게 큼 (4장 전부).** 둘 다 매개체가 갈아타는 몸이고 코-옵에서는 각 플레이어가 하나씩 전담하므로, 이 정도 질량 차는 화면 점유·히트박스·카메라 프레이밍을 모두 왜곡. 프롬프트에 "두 개체 크기 비슷하게" 명시 필요.
+  - 기술적 한계는 1·2차와 동일 (소프트 셰이딩·글로우·AA) — 여전히 도트 작업용 레퍼런스
+
+- **파일 경로**: 미저장 (CDN 원본만 존재)
+  - F: `hf_20260725_123649_b9053907-3a38-4561-95a7-366b8732445b.png`
+  - G: `hf_20260725_123649_20717b75-671f-441f-ab7d-88048f3bdf25.png`
+  - H: `hf_20260725_123649_2be81710-d4b5-4bc3-8fcf-361cfcb9616a.png` ★
+  - I: `hf_20260725_123649_541ef46d-170f-4def-90a4-1b88df42e1cd.png`
+
+- **생성 프롬프트 핵심 블록** (팔레트/스타일 지시문은 1차와 동일)
+```
+Two NON-HUMANOID robot creatures side by side [...]
+
+CRITICAL: neither robot is humanoid. No human body plan, no head-on-torso, no
+arms, no hands, no two-legged standing figure. They are machine creatures, not
+little people.
+
+LEFT (the Observer): a legless floating sensor pod, hovering above the ground. A
+tall vertical capsule shell like a hanging lantern, dominated by one huge round
+glowing cyan lens set into its front. A cluster of thin limp probe cables dangles
+beneath it. A faint hover shimmer under its base. [...] Body is wide and flat on top.
+
+RIGHT (the Doer): a squat low crawler that walks on six short stubby insect legs.
+A rounded pebble-shaped shell sitting low to the ground, warm amber light glowing
+out from the seams between its plates. NO head and NO arms, just the domed shell
+carried on its little scuttling legs, with a bundle of short frayed cables
+trailing behind like a tail. [...] Mid-scuttle, legs splayed, restless and eager.
+```
+
+---
+
+### 2026-07-25 (2차) — 주인공 2인 귀여운(치비) 방향 재생성
+
+- **목적**: 1차 결과가 너무 무겁고 사실적이라는 피드백 → 치비/마스코트 방향으로 톤 전환.
+- **방향 전환 근거**: 치비 비율(큰 머리 + 작은 몸)은 저해상도 스프라이트에서 실루엣 가독성이 가장 좋음. 1차에서 "온기 머리 과대 = 가분수 위험"으로 지적했던 항목이 이 방향에서는 **의도된 장점으로 반전**됨.
+- **모델**: `z_image` / **비용**: 0.15 × 2장 = 0.3 크레딧 (`count: 4` 요청, 2장 반환)
+- **유지**: 팔레트(1차와 동일), 얼개=냉색·차분 / 온기=난색·들썩 대비
+- **변경**: 2등신 SD 비율, 둥근 모서리, 장난감 같은 친근함
+
+- **결과**: **E안 채택 권장 (미확정 — 사용자 선택 대기)**
+
+- **검토 메모**:
+  - **D** (`71613cea`): 마스코트 페어로서 귀여움 최고. **치명적 문제 — 두 캐릭터가 색만 다르고 실루엣이 거의 동일.** 스왑 메카닉상 전투 중 즉시 구분이 필요한데 16x16에서 팔레트 스왑으로 보일 위험. 색각 이상 플레이어에게는 구분 불가.
+  - **E** (`0251ca14`): **실루엣 구분이 3중으로 확보됨** — ① 키 차이(얼개가 더 큼) ② 두상(얼개=길쭉한 각진 박스 / 온기=납작한 원형) ③ 눈(얼개=외눈 시안 / 온기=두 눈 + 더듬이 2개). 저해상도에서도 형태만으로 판별 가능. 구도가 왼쪽으로 쏠려 여백이 큼 → 크롭 필요.
+
+  **기술적 한계는 1차와 동일** — 소프트 셰이딩·글로우·AA·굵은 아웃라인. 여전히 스프라이트 아님, 도트 작업용 레퍼런스.
+
+- **미해결 이슈**:
+  - 두 안 모두 온기의 "앞으로 기운 채 들썩이는 자세"가 반영 안 됨 (둘 다 정자세)
+  - "가슴 이음새로 새어나오는 따뜻한 빛"이 두 안 모두 **배 전체를 덮는 평면 패널**로 해석됨 — 의도와 다름
+  - E안 구도 쏠림 (크롭으로 해결 가능)
+
+- **파일 경로**: 미저장 (CDN 원본만 존재)
+  - D: `hf_20260725_123220_71613cea-689e-44ff-ab9d-22184fb31d0d.png`
+  - E: `hf_20260725_123220_0251ca14-fa4f-4639-966c-d127d45507af.png`
+
+- **생성 프롬프트**: 1차 프롬프트에서 아래 블록을 교체 (나머지 팔레트/스타일 지시문 동일)
+```
+Cute chibi pixel art character reference sheet [...] Two small adorable robot
+mascot characters [...]
+
+Super-deformed chibi proportions: about 2 heads tall, oversized round head, tiny
+stubby body, short chubby arms and little rounded feet. Soft rounded corners
+everywhere, no sharp or menacing shapes. Friendly toy-like appeal.
+
+LEFT ROBOT (the Observer): a calm tidy little robot, slightly taller and neater.
+Big rounded boxy head with one huge glowing cyan eye lens taking up most of the
+face, a small bent antenna with a tiny ball on top. [...] Standing politely
+upright, curious and thoughtful expression.
+
+RIGHT ROBOT (the Doer): a chubby bouncy little robot, rounder and squatter. Big
+dome head with a wide happy amber visor slit curved like a smile, two short
+springy cable antennae flopping to one side. [...] Leaning forward on tiptoes
+mid-bounce, energetic and eager.
+
+Both are cute little scavenged robots with a soft warm glow in the chest.
+Charming, cozy, wholesome mood.
+```
+
+---
+
+### 2026-07-25 (1차) — 주인공 2인 (얼개 / 온기) 컨셉 레퍼런스
 
 - **목적**: 주인공 로봇 2체의 실루엣 대비 + 팔레트 방향 확정. 스왑 메카닉상 두 로봇이 한눈에 구분돼야 하므로 한 장에 나란히 배치해 대비를 함께 검증.
 - **생성 경로**: Higgsfield MCP (`generate_image`) — 수동 ChatGPT 실행 아님
@@ -104,3 +411,94 @@ Style: crisp pixel art, hard-edged blocky pixels, 1px dark outline around every
 silhouette, flat color fills only, no anti-aliasing, no gradients, no blur, no soft
 shading, no text, no labels, no watermark. Clean readable silhouettes.
 ```
+
+---
+
+### 2026-08-04 — 리부트 세계관 기반 맵/캐릭터 컨셉 6종
+
+- **목적**: `2026-07-30-mind-economy-worldbuilding-design.md`와 `2026-08-03-story-ignition-design.md` 기준으로 예상 맵 이미지 3장, 캐릭터 이미지 3장을 픽셀 아트 레퍼런스로 생성. 최신 설정은 A=스위치가 달린 깃든 로봇, B=스위치를 누른 생명체, 적=균형자 현상으로 해석.
+- **모델/경로**: Codex built-in `image_gen` 직접 생성 후 프로젝트 폴더로 복사.
+- **생성 프롬프트**:
+
+```text
+1. map_01_awakening_cave
+Pixel art map concept, Metroidvania area screenshot reference. The awakening cave where a living creature finds and switches on an inhabited robot object. Quiet underground cave chamber, side-view Metroidvania layout with platforms, lower path, high ledge, broken stone steps, hanging roots, old machinery half-buried in rock, and a small switch pedestal near a dormant compact robot. Include two tiny readable figures only as scale cues: one small curious organic creature and one just-awakened switch-bearing robot with a dim cyan eye. Crisp retro pixel art, 16x16 tile language, 1px dark outline, limited low-saturation palette, no text, no labels, no UI, no minimap, no blur, no watermark.
+
+2. map_02_collapse_archive
+Pixel art map concept, Metroidvania area screenshot reference. A collapsed knowledge settlement where explorers who chased the legend have begun to break down from knowing too much. Abandoned hillside archive-village with cracked library walls grown into roots, broken ladders, suspended book-stone tablets, shrine alcoves, and branching platform routes. Include a few tiny collapsed wanderer silhouettes as environmental storytelling, plus distant A/B scale silhouettes. Crisp retro pixel art, 16x16 tile language, 1px dark outline, muted ink blue, old stone, moss, parchment, pale gold, faint cyan. No text, no readable symbols, no UI, no gore, no blur, no watermark.
+
+3. map_03_balancer_route
+Pixel art map concept, Metroidvania area screenshot reference. A silent route where the Balancer manifests as a world phenomenon trying to switch A off. Deep subterranean mechanism-temple with massive broken counting wheels, vertical balance scales built into architecture, sealed pale-light channels, black stone platforms, and a central corridor that feels watched without eyes. Show tiny A/B silhouettes near lower left facing a distant abstract pale geometric presence embedded in architecture. Crisp retro pixel art, 16x9 side-scrolling room, no humanoid boss, no face, no text, no UI, no blur, no watermark.
+
+4. character_01_A_switch_robot
+Pixel art character concept reference. A, the inhabited object: a small non-humanoid robot object with a clear physical toggle switch on its top-back, compact squat body, one large round cyan lens in front, old stone-and-metal casing, tiny roller feet or low crawler base, simple side brackets but no hands. Newly awake, blank, curious, a little lost. Centered on flat dark background, large readable silhouette, no humanoid head-torso-arms-legs design, no weapon, no text, no scenery, no watermark.
+
+5. character_02_B_living_creature
+Pixel art character concept reference. B, the living creature who accidentally switches on A and begins the dangerous path of knowing too much. Small non-human organic lifeform, curious young wanderer, soft compact silhouette, leaf-like ear fins, short tail, small hands, wide attentive dark eyes, simple travel wrap and root-fiber satchel. Subtle pale-gold crackle or ring motif near the head to hint at an overfull mental vessel. Centered on flat dark background, no weapon, no text, no scenery, no watermark.
+
+6. character_03_balancer
+Pixel art character/boss concept reference. The Balancer, a silent world phenomenon that comes to switch A off, not a villain and not a person. Abstract non-humanoid boss-like manifestation: floating pale geometric core nested inside broken brass balance-scale arms and dark stone plates, with a small switch-like prong or key-shaped actuator beneath it. Inevitable, precise, impersonal. No face, no eyes, no mouth, no limbs, no robe, no skull, no text, no scenery, no watermark.
+```
+
+- **결과**: 사용자 선별 후 채택 후보로 보존. 실제 16x16 게임 스프라이트가 아니라 도트 작업·구역 방향성 검토용 고해상도 픽셀 아트 레퍼런스로 사용.
+- **사용자 반응**: "처음에 뽑아준 6장 좀 맘에드는데" 이후 마음에 들지 않는 이미지를 직접 삭제. 2026-08-04 재확인 기준 현재 5장 보존.
+- **검토 메모**:
+  - 보존된 맵 2종은 시작 동굴과 균형자 접근 구역의 기능과 분위기가 분리되어 읽힘.
+  - `map_02_collapse_archive.png`는 사용자 삭제로 비채택 처리.
+  - A는 스위치, 단안 렌즈, 저상 몸통이 명확해 최신 설정과 잘 맞음.
+  - B는 호기심 많은 생명체로 잘 읽히나, 최종 스프라이트화 시 더 작은 실루엣과 적은 디테일로 재도트 필요.
+  - 균형자는 비인간형·비악당형 현상으로 읽히며, 보스 또는 맵 장치로 확장 가능.
+- **현재 보존 파일 경로**:
+  - `docs/art/assets/generated-concepts/map_01_awakening_cave.png`
+  - `docs/art/assets/generated-concepts/map_03_balancer_route.png`
+  - `docs/art/assets/generated-concepts/character_01_A_switch_robot.png`
+  - `docs/art/assets/generated-concepts/character_02_B_living_creature.png`
+  - `docs/art/assets/generated-concepts/character_03_balancer.png`
+- **사용자 삭제 / 비채택**:
+  - `docs/art/assets/generated-concepts/map_02_collapse_archive.png`
+
+---
+
+### 2026-08-04 — 리부트 세계관 보너스 컨셉 6종
+
+- **목적**: 사용자 요청 "6개 더, 원하는 걸로"에 따라 최신 리부트 세계관의 빈 축을 확장. 다른 깃든 사물 2종, 붕괴자 2종, 초반 놀이 구역/전설의 흉터 구역 2종을 생성.
+- **모델/경로**: Codex built-in `image_gen` 직접 생성 후 프로젝트 폴더로 복사.
+- **생성 프롬프트**:
+
+```text
+1. bonus_01_rain_listening_bell
+Another inhabited object: the Rain-Listening Bell, one of the few rare objects where excess mind settled after the legend. A small non-humanoid bell-like relic character made of cracked dark bronze and pale ceramic plates, hovering slightly, with a tiny old pull-switch lever and a soft internal cyan-gold slit of awareness. Ancient, patient, lonely. Flat dark background, 1px dark outline, limited low-saturation palette, no humanoid body, no text, no scenery.
+
+2. bonus_02_ash_cradle_cart
+Another inhabited object: the Ash-Cradle Cart, a rare object carrying settled excess mind. A tiny wheeled cradle-cart made from charred wood, old brass hinges, cracked white stone, and a protected ember-like core inside. Two simple wheel pods, one fold-out switch tab, fragile and practical. Flat dark background, 1px dark outline, no humanoid body, no animal traits, no text, no scenery.
+
+3. bonus_03_collapsed_wanderer
+A collapsed wanderer: a living being whose vessel broke from knowing too much. Small non-human organic wanderer wrapped in old travel cloth, hunched but not monstrous, with fragmented pale-gold memory shards around the head and one hand clutching a blank charm. Sad, confused, dangerous only because broken. Flat dark background, no gore, no text, no weapon.
+
+4. bonus_04_pathless_collapsed_seeker
+A pathless collapsed seeker: a mid-game enemy born from overfull knowledge. Low crawling non-human seeker made of organic bark-like limbs and torn travel gear, carrying blank map scraps tied to its back. Bowed head under fractured pale-gold memory pieces, four uneven limbs close to the ground, simple readable silhouette. Flat dark background, no gore, no readable map symbols, no weapon.
+
+5. bonus_05_first_play_area
+The first play area where A and B simply play before the Balancer arrives. Side-view Metroidvania room in a soft underground overgrown ruin: low platforms, hollow pipes, a small seesaw-like stone beam, shallow safe water, hanging roots, harmless broken mechanisms, and multiple tiny routes for jumping and experimenting. Include tiny A/B silhouettes separated across a toy-like obstacle. 16x16 tile language, no UI, no text.
+
+6. bonus_06_scar_of_legend
+The Scar of the Legend: a place where excess mind first settled into objects after a forgotten mass death. Vast side-view Metroidvania chamber with ancient broken memorial machinery, silent stone basins, half-buried relic objects glowing faintly, shattered balance-scale architecture, and platforms around a deep central void. Suggest catastrophe without bodies or gore. 16x16 tile language, no UI, no text.
+```
+
+- **결과**: 사용자 선별 후 채택 후보로 보존. 실제 게임용 16x16 스프라이트/타일셋이 아니라 고해상도 픽셀 아트 레퍼런스로 사용.
+- **사용자 반응**: "사진도 좀 맘에든다" 이후 마음에 들지 않는 이미지를 직접 삭제. 2026-08-04 재확인 기준 현재 5장 보존.
+- **검토 메모**:
+  - `bonus_01`은 깃든 사물의 "사물이 인격이 된 느낌"이 가장 강함. 단, 종 형태가 고정 장식으로도 읽힐 수 있어 이동 연출이 필요.
+  - `bonus_02`는 사용자 삭제로 비채택 처리.
+  - `bonus_03`은 붕괴자의 슬픔이 잘 드러나지만 인체형에 가까워질 위험이 있음.
+  - `bonus_04`는 적 실루엣이 강함. 실제 저해상도화 시 지도 조각/끈 디테일은 줄여야 함.
+  - `bonus_05`는 초반 "목적 없이 논다" 구간에 적합. 맵 기믹 후보가 자연스럽게 보임.
+  - `bonus_06`은 후반 로어 구역 후보로 강함. 장식 밀도가 높아 실제 타일셋화 시 구역 대표 장면으로 쓰는 편이 좋음.
+- **현재 보존 파일 경로**:
+  - `docs/art/assets/generated-concepts/bonus_01_rain_listening_bell.png`
+  - `docs/art/assets/generated-concepts/bonus_03_collapsed_wanderer.png`
+  - `docs/art/assets/generated-concepts/bonus_04_pathless_collapsed_seeker.png`
+  - `docs/art/assets/generated-concepts/bonus_05_first_play_area.png`
+  - `docs/art/assets/generated-concepts/bonus_06_scar_of_legend.png`
+- **사용자 삭제 / 비채택**:
+  - `docs/art/assets/generated-concepts/bonus_02_ash_cradle_cart.png`
