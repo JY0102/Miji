@@ -132,7 +132,7 @@ Orchestrator가 아트 요청을 감지하면 Codex에게 위임한다.
 Game/
 ├── CLAUDE.md                        ← This file (orchestration rules)
 ├── .claude/
-│   ├── settings.json               ← Permissions + 자동화 훅
+│   ├── settings.json               ← 자동화 훅 + 플러그인 (권한은 user-level ~/.claude)
 │   └── agents/
 │       └── story-critic.md         ← 스토리 비평 서브에이전트
 ├── docs/
