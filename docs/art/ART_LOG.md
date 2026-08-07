@@ -502,3 +502,51 @@ The Scar of the Legend: a place where excess mind first settled into objects aft
   - `docs/art/assets/generated-concepts/bonus_06_scar_of_legend.png`
 - **사용자 삭제 / 비채택**:
   - `docs/art/assets/generated-concepts/bonus_02_ash_cradle_cart.png`
+
+---
+
+### 2026-08-07 — 세계 기술 수준 비교 3종 (통제 비교)
+
+- **목적**: 세계의 기술 수준(㉮ 소박한 기계 일상 / ㉯ 몰락 문명 유물 / ㉰ 첨단 SF)을 결정하기 위한 시각 비교.
+- **설계**: **같은 장면(여행길가 여관)·구도·톤·A/B 실루엣·픽셀 스타일을 전부 고정하고 "기계가 어떻게 읽히는가"만 변주**한 통제 비교. A/B 실루엣은 2026-08-04 컨셉과 연속성 유지(A=시안 렌즈+스위치+저상 크롤러, B=잎귀+새챌 어린 방랑자).
+- **경로**: Codex built-in `image_gen` 직접 생성 후 프로젝트 폴더로 복사. 프롬프트 전문은 `docs/art/WORLD_TECH_LEVEL_COMPARISON.md`.
+- **판단 포인트**: A(작은 기계)가 ㉮ 시시한 물건 / ㉯ 신비한 유물 / ㉰ 흔한 기술로 읽히는지. 설정상 A가 시시해야 `무의미 반전 금지`·루브릭 `고대문명 유적 🔴포화` 회피가 성립.
+- **결과**: 생성 완료. 사용자 선별 후 채택 결정 → 세계관 스펙·DECISIONS.md 반영 예정.
+- **검토 메모**:
+  - ㉮는 A가 여관 앞 생활 기계들과 섞여 "시시한 물건"으로 가장 잘 읽힘. 현재 설정의 권고안에 가장 가깝다.
+  - ㉯는 기계가 로프 친 유물/성물로 강하게 읽혀 분위기는 좋지만 `무의미 반전 금지`와 고대문명 클리셰 위험이 큼.
+  - ㉰는 A가 흔한 로봇 사회에 묻히고 도보 여행/여관 톤이 약해져 세계관 핵심과 충돌함.
+- **현재 보존 파일 경로**:
+  - `docs/art/assets/generated-concepts/tech_level_01_simple_machines.png`
+  - `docs/art/assets/generated-concepts/tech_level_02_ruin_relics.png`
+  - `docs/art/assets/generated-concepts/tech_level_03_high_tech.png`
+
+---
+
+### 2026-08-07 — 비인간 건축 서명 비교 3종 (라운드 2)
+
+- **목적**: 1라운드에서 ㉮(소박한 기계 일상)가 유력해진 뒤, "사람이 만든 집처럼 보인다"는 문제를 해결하기 위한 비인간 건축 언어 비교.
+- **설계**: 기술 수준은 ㉮로 고정하고, 변수는 건축 서명 하나만 둔다. 2-A 껍질·굴 / 2-B 균사·버섯 / 2-C 엮은 둥지.
+- **경로**: Codex built-in `image_gen` 직접 생성 후 프로젝트 폴더로 복사. 프롬프트 전문은 `docs/art/WORLD_TECH_LEVEL_COMPARISON.md` 라운드 2 절.
+- **결과**: 생성 완료. 사용자 선별 후 세계의 건축 언어로 채택 여부 결정.
+- **검토 메모**:
+  - 2-A는 사람 집 느낌을 가장 잘 벗고, 껍질·굴 문명으로 읽힌다. 할로우나이트식 낯섦과 소박함의 균형이 좋다.
+  - 2-B는 가장 몽환적이고 아름답지만, 버섯 마을 판타지로 강하게 읽혀 톤 선택이 필요하다.
+  - 2-C는 연약하고 따뜻한 생활감이 좋지만, 엮은 섬유/둥지 디테일이 많아 실제 타일셋화 때 단순화가 필요하다.
+- **현재 보존 파일 경로**:
+  - `docs/art/assets/generated-concepts/architecture_2a_shell_burrow.png`
+  - `docs/art/assets/generated-concepts/architecture_2b_fungal_grown.png`
+  - `docs/art/assets/generated-concepts/architecture_2c_woven_nest.png`
+
+---
+
+### 2026-08-07 — ✅ 세계 아트 방향 확정 (라운드 1~2 결론)
+
+위 라운드 1(기술 수준)·라운드 2(비인간 건축)의 최종 결정.
+
+- **기술 수준 = ㉮** (소박한 기계 + 느린 여행 공존). ㉯ 유물·㉰ SF 탈락
+- **건축 = 비인간·유기적** (인간 건축 배제)
+- **3종 서명 전부 채택** — 사용자 "셋 다 맘에든다" → **구역별 건축 언어**로 사용(구역-서명 배정은 지리 설계 때). `architecture_2a/2b/2c` 3장 보존
+- **Codex 픽셀 질감 = 아트 파이프라인 기준** (사용자 승인)
+- **팔레트** — 구역별로 채택 이미지에서 샘플링 예정 (`STYLE_GUIDE.md` 구역별 표 TBD)
+- **반영**: `DECISIONS.md` 2026-08-07 행, `STYLE_GUIDE.md` 세계 아트 디렉션·구역별 서명 표, `WORLD_TECH_LEVEL_COMPARISON.md` 결론 절
