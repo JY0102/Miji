@@ -32,7 +32,7 @@ Every user request MUST be routed through this role first.
 | 시장성, 차별성, 클리셰, 레퍼런스 비교, 스토리 평가 | Story Critic |
 | 복합 요청 | Split and delegate in parallel |
 
-**Story Critic은 Planning → Story의 상위 검수자다.** 스토리 MD가 작성·수정되면 훅이 자동으로 호출한다 (아래 참조).
+**Story Critic은 Planning → Story의 상위 검수자다.** Claude Code 측에서는 `.claude/agents/story-critic.md` 서브에이전트로 정의되어 있고, 스토리 MD 작성 시 훅이 자동 호출한다. 채점 기준은 `docs/planning/story/STORY_CRITIC_RUBRIC.md`, 대조 자료는 `STORY_REFERENCES.md`(메트로배니아 10작)와 `STORY_REFERENCES_NARRATIVE.md`(서사 명작 10작)이다. 시장성 / 차별성 / 클리셰 운용을 각 5점으로 채점한다.
 
 ---
 
@@ -61,32 +61,6 @@ docs/planning/level-design/AREA_[area-name].md
 docs/planning/mechanics/MECHANIC_[name].md
 docs/planning/map/MAP_[area-name].md
 ```
-
----
-
-### [STORY-CRITIC] 스토리 비평 에이전트
-Planning → Story의 **상위 검수자**. 정의 위치: `.claude/agents/story-critic.md` (서브에이전트 `story-critic`).
-
-**역할:** 작성된 스토리 문서를 선행 20작(메트로배니아 10 + 서사 명작 10)에 대고 재어 **시장성 / 차별성 / 클리셰 운용**을 각 5점으로 채점하고, 지적 3줄을 대화에 직접 출력한다.
-
-**지식 베이스 (읽기 전용, 갱신은 수동):**
-| 문서 | 내용 |
-|---|---|
-| `docs/planning/story/STORY_CRITIC_RUBRIC.md` | 채점 기준·클리셰 사전·판매고 기준선. **유일한 척도** |
-| `docs/planning/story/STORY_REFERENCES.md` | 메트로배니아 10작 서사 |
-| `docs/planning/story/STORY_REFERENCES_NARRATIVE.md` | 비-메트로배니아 서사 명작 10작 |
-
-**자동 호출 (훅):**
-`.claude/settings.json` 의 PostToolUse(Write|Edit) 훅이 아래 조건에서 발동해 이 에이전트 호출을 지시한다.
-- 대상: `docs/planning/story/**.md`, `docs/superpowers/specs/*-(worldbuilding|story|conflict|journey|character|ignition|narrative|dialogue)*.md`
-- 제외: `STORY_REFERENCES*`, `STORY_CRITIC*` (지식 베이스 자체는 평가 대상이 아니다)
-- 출력: 짧은 형식(점수 3개 + 지적 3줄). 심층 분석은 사용자가 명시 요청할 때만
-
-**제약:**
-- 읽기 전용(`Read, Grep, Glob`). 피드백을 **파일로 저장하지 않는다** — 대화에 직접 출력한다
-- 레퍼런스 문서에 대조 분석을 써넣지 않는다 (2026-07-30 PLANNING 결정)
-- 설정을 대신 쓰지 않는다. 지적과 선택지 제시까지가 역할이다
-- 확정된 설계 결정(균형자에게 입 없음, 힘으로 이기는 결말 배제 등)을 재심하지 않는다
 
 ---
 
@@ -130,17 +104,12 @@ Orchestrator가 아트 요청을 감지하면 Codex에게 위임한다.
 ## Directory Structure
 ```
 Game/
-├── CLAUDE.md                        ← This file (orchestration rules)
-├── .claude/
-│   ├── settings.json               ← Permissions + 자동화 훅
-│   └── agents/
-│       └── story-critic.md         ← 스토리 비평 서브에이전트
+├── AGENTS.md                        ← This file (orchestration rules)
+├── .Codex/
+│   └── settings.json               ← Permissions
 ├── docs/
 │   ├── planning/
 │   │   ├── story/                  ← 스토리, 캐릭터
-│   │   │   ├── STORY_CRITIC_RUBRIC.md      ← 채점 기준 (story-critic 전용)
-│   │   │   ├── STORY_REFERENCES.md         ← 메트로배니아 10작
-│   │   │   └── STORY_REFERENCES_NARRATIVE.md ← 서사 명작 10작
 │   │   ├── level-design/           ← 구역, 룸 설계
 │   │   ├── mechanics/              ← 게임 메카닉
 │   │   └── map/                    ← 맵 레이아웃

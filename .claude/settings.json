@@ -15,6 +15,11 @@
             "command": "$json=$input|ConvertFrom-Json;$f=$json.tool_input.file_path;if($f-match \"[/\\\\]art[/\\\\]\"){Add-Content -Encoding utf8 -Path (Join-Path $env:CLAUDE_PROJECT_DIR 'docs\\art\\ART_LOG.md') -Value ('['+( Get-Date -Format 'yyyy-MM-dd HH:mm')+'] '+[System.IO.Path]::GetFileName($f)+' 수정됨')}",
             "shell": "powershell",
             "async": true
+          },
+          {
+            "type": "command",
+            "command": "$j=$input|ConvertFrom-Json;$f=$j.tool_input.file_path;if($f-match '\\.md$' -and $f-notmatch 'STORY_REFERENCES|STORY_CRITIC' -and ($f-match '[/\\\\]docs[/\\\\]planning[/\\\\]story[/\\\\]' -or $f-match '[/\\\\]specs[/\\\\].*(worldbuilding|story|conflict|journey|character|ignition|narrative|dialogue)')){[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$p=$f-replace '\\\\','/';$m='[STORY-CRITIC HOOK] 스토리 문서 변경 감지: '+$p+' -- Task 도구로 subagent_type=story-critic 서브에이전트를 호출해 이 파일을 점검하고, 반환된 짧은 평가(시장성/차별성/클리셰 점수 + 지적 3줄)를 사용자에게 그대로 출력하라. 피드백을 파일로 저장하지 말 것.';@{hookSpecificOutput=@{hookEventName='PostToolUse';additionalContext=$m}}|ConvertTo-Json -Compress -Depth 5}",
+            "shell": "powershell"
           }
         ]
       }
