@@ -163,3 +163,5 @@
 | 스킬 슬롯 프레임워크 삭제 | 미사용이지만 Phase 5 스캐폴딩으로 의도된 것 | 적용 안 함 |
 | `camera_follow`를 엔진 `position_smoothing`으로 교체 | 스크립트가 Phase 10 룸 프레이밍/데드존 작업의 이음새 역할 | 적용 안 함 |
 | `dropped_currency_valid` 제거 | `dropped_currency > 0`로 파생 가능하나 세이브 포맷 변경 대비 이득이 적음 | 적용 안 함 |
+| 2026-08-10 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Packages\manifest.json | [자동 기록] |
+| 2026-08-10 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\.gitattributes | [자동 기록] |

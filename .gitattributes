@@ -1,0 +1,8 @@
+# 저장소 최상위 .gitattributes
+# [attr] 매크로 정의는 top-level 파일에서만 유효하다. Unity가 생성한
+# src/Miji/.gitattributes 의 `lfs`·`unity-json`·`unity-yaml` 사용 규칙이
+# 여기 정의된 매크로를 참조한다. (서브폴더에 정의를 두면 "not allowed" 경고 발생)
+
+[attr]lfs               filter=lfs diff=lfs merge=lfs -text
+[attr]unity-json        eol=lf linguist-language=json
+[attr]unity-yaml        merge=unityyamlmerge eol=lf linguist-language=yaml

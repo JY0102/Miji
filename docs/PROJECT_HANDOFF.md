@@ -39,7 +39,7 @@
 | 항목 | 내용 |
 |---|---|
 | 장르 | 메트로배니아 — **단, 출발점이 아니라 세계관 전달 수단** |
-| 엔진 | **Unity 6 (LTS) / C#** — 2026-08-10 Godot 4에서 이관 (커리어·툴링 이유, `DECISIONS.md`) |
+| 엔진 | **Unity 6.3 LTS / C#** — 2026-08-10 Godot 4에서 이관 (커리어·툴링 이유, `DECISIONS.md`) |
 | 아트 | 픽셀 아트 (16x16 기본, 1px 다크 아웃라인) |
 | 개발 방식 | Agent Orchestration (Orchestrator / Planning / Implementation / Art) |
 | 규모 | 솔로 개발 |
@@ -392,7 +392,7 @@ B가 없으면 진행 동력이 사라지므로, A는 **B가 무엇을 알고 �
 **현재 `src/`는 비어 있다. Unity 코드는 아직 하나도 없다.** Phase 1~9(Godot)는 전부 무효 — `IMPL_ROADMAP.md`·`IMPL_REGISTRY.md`에 폐기 표시됨.
 
 ### Unity 착수 시 표준 조합
-- Unity 6 LTS + **2D URP** + **Pixel Perfect Camera** 패키지
+- **Unity 6.3 LTS** (지원 2027-12까지 — 6.0 LTS는 2026-10 종료라 배제) + **2D URP** + **Pixel Perfect Camera** 패키지
 - 2D Tilemap / Sprite 툴셋
 - 라이선스: 솔로는 Unity Personal(무료) 티어로 충분 (연 매출/펀딩 20만 달러 미만)
 
@@ -444,7 +444,7 @@ Unity에서 처음부터 짜되, 아래 기능은 이미 한 번 설계·검증�
 3. `/marketplace` → codex 설치
 4. `.claude/settings.json` 확인 (훅 포함 커밋되어 있음 — 별도 설정 불필요)
 5. Unity Hub 설치: `winget install --id=Unity.UnityHub -e`
-6. Unity Hub에서 Unity 6 LTS 설치 (2D 모듈 포함)
+6. Unity Hub에서 **Unity 6.3 LTS** 최신 패치 설치 — 모듈: Windows Build Support (IL2CPP) (2D는 6.x 기본 포함)
 7. Unity 프로젝트는 아직 없다 — 착수 시 `src/` 아래 2D URP 템플릿으로 생성
 
 ---
