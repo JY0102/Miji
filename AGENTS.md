@@ -3,8 +3,8 @@
 ## Project Overview
 - **Genre**: Metroidvania
 - **Art Style**: Pixel Art (OpenAI DALL-E / gpt-image-1 — 프롬프트 생성 후 수동 실행)
-- **Engine**: Godot 4
-- **Language**: GDScript
+- **Engine**: Unity 6 (LTS) — 2D URP + Pixel Perfect Camera
+- **Language**: C#
 - **Planning Format**: All planning documents are MD files under `docs/`
 
 ---

@@ -1,13 +1,41 @@
-# Godot 4 generated files
-.godot/
+# Unity 6 generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
 
-# Export presets (contains credentials if exporting)
-export_presets.cfg
+# Asset meta data (only ignore meta for ignored files — keep meta for tracked assets)
+# (do NOT ignore *.meta broadly; Unity needs them versioned)
 
-# Mono/C# specific
-.mono/
-data_*/
-mono_crash.*.json
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity crash reports & build artifacts
+sysinfo.txt
+*.apk
+*.aab
+*.unitypackage
+*.app
+crashlytics-build.properties
 
 # OS generated
 .DS_Store

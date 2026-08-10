@@ -3,7 +3,7 @@
 > 새 세션이나 새 환경에서 이 프로젝트를 이어받을 때 읽는 문서입니다.
 > **"뭐 해야 함?" 이라는 질문의 답은 아래 「다음에 할 일」 절에 있습니다.**
 
-**최종 갱신:** 2026-08-04
+**최종 갱신:** 2026-08-10 (엔진 Unity 이관)
 
 ---
 
@@ -22,7 +22,7 @@
 | 2 | **전설의 나머지** | 미정 | A의 자리(= 무관한 물건)만 정해졌다. 누가 누구와 싸웠고 무슨 수단을 썼는지는 여전히 빔. 「탐하는 자」가 우세한 쪽에 놓인다는 것까지는 확정 |
 | 3 | **A의 캐릭터 문서** | 미정 | B는 `CHARACTER_B.md`로 정리됨. A는 스펙 여기저기 흩어져 있으므로 같은 형식으로 모아야 한다 |
 | 4 | **이름 전부** | 미정 | A·B·세계·「미지」 제목 존속 여부. 인물이 섰으니 이제 정할 수 있다 |
-| 5 | **기존 자산 처리** | 부분 완료 | 2026-08-05 구 캐릭터 문서 3종 삭제 완료(`CHARACTER_얼개`·`온기`·`매개체`). **남은 것 — 구 스펙 5종, `medium_manager.gd` 등 폐기 대상 코드.** 세계관 스펙 9절. **파일 삭제라 사용자 지시 없이 진행 금지** |
+| 5 | **기존 자산 처리** | 부분 완료 | 2026-08-05 구 캐릭터 문서 3종 삭제. **2026-08-10 Godot 코드(`src/miji/`) 전부 삭제 완료**(엔진 이관). **남은 것 — 구 스펙 5종**(문서). **파일 삭제라 사용자 지시 없이 진행 금지** |
 
 **결말 관련 잠긴 결정 (재심 대상 아님):** ⛔ 균형자를 **힘으로 이기는 결말은 배제**(2026-08-04) · ⛔ 균형자에게 **입이 없다**, 말이 안 통한다(2026-08-03). 8/5에 사용자가 이 둘을 뒤집는 원안을 냈고, 값(클리셰 축 4→2)을 확인한 뒤 **보류 상태**다. 번복하려면 `DECISIONS.md`에 기록하고 점화 스펙 5절·갈등 스펙을 같이 고쳐야 한다.
 
@@ -39,7 +39,7 @@
 | 항목 | 내용 |
 |---|---|
 | 장르 | 메트로배니아 — **단, 출발점이 아니라 세계관 전달 수단** |
-| 엔진 | Godot 4 / GDScript |
+| 엔진 | **Unity 6 (LTS) / C#** — 2026-08-10 Godot 4에서 이관 (커리어·툴링 이유, `DECISIONS.md`) |
 | 아트 | 픽셀 아트 (16x16 기본, 1px 다크 아웃라인) |
 | 개발 방식 | Agent Orchestration (Orchestrator / Planning / Implementation / Art) |
 | 규모 | 솔로 개발 |
@@ -387,17 +387,23 @@ B가 없으면 진행 동력이 사라지므로, A는 **B가 무엇을 알고 �
 
 ## 코드 현황
 
-`src/miji/` — Godot 4 프로젝트. Phase 1~9 구현 완료 (`docs/agents/IMPL_ROADMAP.md`).
+**2026-08-10 엔진을 Godot 4 → Unity 6로 이관했다.** 기존 Godot 프로젝트 `src/miji/`는 **사용자 지시로 전부 삭제**됨(git 이력엔 남음). 리부트(7/30)로 어차피 대부분 폐기 대상이었고, 설계 문서는 전부 엔진 무관 MD라 손실 없음.
 
-| 재사용 가능 | 폐기 대상 |
-|---|---|
-| `robot.gd` 이동/중력/점프, `camera_follow.gd` | `medium_manager.gd` (매개체·스왑) |
-| `attack_hitbox.gd` / `hurtbox.gd` 전투 | `robot.gd`의 스왑 연동부 |
-| `checkpoint.gd`, `run_state.gd`, `game_flow.gd` | 매개체 안정화 unlock 플래그 |
-| `skill.gd` 슬롯 프레임워크, `hud.gd` | 얼개/온기 전제 구조 전반 |
+**현재 `src/`는 비어 있다. Unity 코드는 아직 하나도 없다.** Phase 1~9(Godot)는 전부 무효 — `IMPL_ROADMAP.md`·`IMPL_REGISTRY.md`에 폐기 표시됨.
 
-**코드는 아직 아무것도 삭제하지 않았다.** 처리 방침은 「다음에 할 일」 5번.
-문서 쪽은 2026-08-05에 구 캐릭터 문서 3종(`CHARACTER_얼개`·`온기`·`매개체`)만 사용자 지시로 삭제됨. 구 스펙(`specs/2026-07-24-*` 4종, `2026-07-29-medium-worldbuilding-design.md`)과 위 코드는 그대로 남아 있다.
+### Unity 착수 시 표준 조합
+- Unity 6 LTS + **2D URP** + **Pixel Perfect Camera** 패키지
+- 2D Tilemap / Sprite 툴셋
+- 라이선스: 솔로는 Unity Personal(무료) 티어로 충분 (연 매출/펀딩 20만 달러 미만)
+
+### 참고 — 삭제된 Godot 코드에서 재구현할 가치가 있던 것 (설계 메모)
+Unity에서 처음부터 짜되, 아래 기능은 이미 한 번 설계·검증됐으므로 참고용으로 남긴다 (git `src/miji/` 이력):
+- 이동/중력/점프 컨트롤러, 카메라 팔로우
+- 근접 전투 히트박스/허트박스(피아 구분은 콜리전 레이어로)
+- 체크포인트/세이브, 재화 드롭·회수(홀로우나이트식)
+- ⛔ 스왑·매개체 관련 전부 = 폐기된 세계관 소산, 재구현 금지
+
+문서 쪽 구 스펙(`specs/2026-07-24-*` 4종, `2026-07-29-medium-worldbuilding-design.md`)은 여전히 남아 있다(폐기 표시만).
 
 ---
 
@@ -405,7 +411,7 @@ B가 없으면 진행 동력이 사라지므로, A는 **B가 무엇을 알고 �
 
 - **ORCHESTRATOR** — 요청 분석 → 에이전트 배분 (복합 요청은 병렬 처리)
 - **PLANNING** — `docs/planning/` 하위 MD로 기획 관리
-- **IMPLEMENTATION** — `src/` 하위 Godot 4 코드. 대형 기능은 `IMPL_REGISTRY.md`에 먼저 등록
+- **IMPLEMENTATION** — `src/` 하위 Unity 6 / C# 코드. 대형 기능은 `IMPL_REGISTRY.md`에 먼저 등록 (Unity 첫 기능부터 IMPL-005)
 - **ART** — Codex 담당. `STYLE_GUIDE.md` + `ART_LOG.md` 기반 OpenAI 프롬프트 생성, 사용자가 ChatGPT에 수동 실행. API 직접 호출 없음
 - **STORY-CRITIC** ★ — Planning → Story의 **상위 검수자**. 정의 `.claude/agents/story-critic.md`. 스토리 MD를 쓰면 훅이 자동 호출해 **시장성 / 차별성 / 클리셰 운용**을 각 5점으로 채점하고 지적 3줄을 대화에 바로 출력한다 (파일로 안 남긴다). 읽기 전용
   - 자(尺): `planning/story/STORY_CRITIC_RUBRIC.md` — 채점 기준·클리셰 사전·판매고 기준선
@@ -437,8 +443,9 @@ B가 없으면 진행 동력이 사라지므로, A는 **B가 무엇을 알고 �
 2. `/marketplace` → superpowers 설치
 3. `/marketplace` → codex 설치
 4. `.claude/settings.json` 확인 (훅 포함 커밋되어 있음 — 별도 설정 불필요)
-5. Godot 4 설치: `winget install --id=GodotEngine.GodotEngine -e`
-6. Godot에서 `src/miji/` 열기
+5. Unity Hub 설치: `winget install --id=Unity.UnityHub -e`
+6. Unity Hub에서 Unity 6 LTS 설치 (2D 모듈 포함)
+7. Unity 프로젝트는 아직 없다 — 착수 시 `src/` 아래 2D URP 템플릿으로 생성
 
 ---
 
@@ -479,7 +486,7 @@ Game/
 │       ├── 2026-07-24-core-mechanics-design.md               ← ⚠️ 폐기
 │       ├── 2026-07-24-world-map-design.md                    ← ⚠️ 폐기
 │       └── 2026-07-24-story-character-design.md              ← ⚠️ 폐기
-└── src/miji/                        ← Godot 4 프로젝트 (Phase 1~9 구현됨)
+└── src/                             ← (비어 있음) Unity 6 프로젝트 착수 예정. 구 Godot `src/miji/`는 2026-08-10 삭제
 ```
 
 ---
