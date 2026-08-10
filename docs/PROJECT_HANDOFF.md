@@ -411,6 +411,7 @@ Unity에서 처음부터 짜되, 아래 기능은 이미 한 번 설계·검증�
 
 - **ORCHESTRATOR** — 요청 분석 → 에이전트 배분 (복합 요청은 병렬 처리)
 - **PLANNING** — `docs/planning/` 하위 MD로 기획 관리
+- **MAP-DESIGNER** ★ — Planning → Map/Level 도메인. 정의 `.claude/agents/map-designer.md`. 구역을 **설계+자가검수**(아코디언·게이팅·숏컷·비밀·정합성 5축). story-critic과 달리 맵 파일을 직접 쓴다. 척도 `planning/map/MAP_DESIGN_PRINCIPLES.md`, 레퍼런스 `planning/map/MAP_REFERENCES.md`. ⚠️ **착수는 상류(깃든 사물 개수·결말) 확정 후** — 지금은 도구만 준비됨
 - **IMPLEMENTATION** — `src/` 하위 Unity 6 / C# 코드. 대형 기능은 `IMPL_REGISTRY.md`에 먼저 등록 (Unity 첫 기능부터 IMPL-005)
 - **ART** — Codex 담당. `STYLE_GUIDE.md` + `ART_LOG.md` 기반 OpenAI 프롬프트 생성, 사용자가 ChatGPT에 수동 실행. API 직접 호출 없음
 - **STORY-CRITIC** ★ — Planning → Story의 **상위 검수자**. 정의 `.claude/agents/story-critic.md`. 스토리 MD를 쓰면 훅이 자동 호출해 **시장성 / 차별성 / 클리셰 운용**을 각 5점으로 채점하고 지적 3줄을 대화에 바로 출력한다 (파일로 안 남긴다). 읽기 전용
@@ -438,6 +439,18 @@ Unity에서 처음부터 짜되, 아래 기능은 이미 한 번 설계·검증�
 - `superpowers@claude-plugins-official` — 브레인스토밍 등
 - `codex@openai-codex` — 아트 프롬프트 일관성
 
+### ULoop (Unity CLI Loop) — Unity 자동 구동 도구 ★
+AI 에이전트가 Unity를 CLI로 컴파일·테스트·로그확인·플레이모드 조작하게 해주는 도구. 2026-08-10 연동.
+
+- **소유 주체 = IMPLEMENTATION 에이전트.** Unity C# 코드를 짜고 **`uloop compile` / `uloop run-tests` / `control-play-mode` / `get-logs` / `screenshot` / `execute-dynamic-code`로 즉시 검증**하는 루프가 IMPLEMENTATION의 표준 작업 방식이다. (맵·스토리 등 기획 에이전트는 ULoop을 쓰지 않는다)
+- **세팅 사실:**
+  - Unity 패키지: `io.github.hatayama.uloopmcp@2.2.0` (OpenUPM, `src/Miji/Packages/manifest.json` + scopedRegistries)
+  - CLI: `uloop-cli` 2.2.0 글로벌 (`npm i -g uloop-cli`), Node v22+ 필요(현재 v26)
+  - 스킬 16종: `src/Miji/.claude/skills/uloop-*` (Claude Code가 자동 인식)
+- **전제:** CLI는 **Unity 에디터가 켜져 있어야** 통신된다. 안 켜져 있으면 `uloop launch`로 연다
+- **`execute-dynamic-code` (임의 C# 실행)** — ULoop 철학상 핵심 도구. full-access 권장(모든 게 git이라 실수해도 복구 가능). 단 파괴적 동작(에셋 대량 삭제 등) 전엔 사용자 확인
+- 검증 확인됨(2026-08-10): `uloop compile` → `Success: true, ErrorCount: 0` 왕복 성공
+
 ### 새 환경 체크리스트
 1. Claude Code 설치
 2. `/marketplace` → superpowers 설치
@@ -445,7 +458,8 @@ Unity에서 처음부터 짜되, 아래 기능은 이미 한 번 설계·검증�
 4. `.claude/settings.json` 확인 (훅 포함 커밋되어 있음 — 별도 설정 불필요)
 5. Unity Hub 설치: `winget install --id=Unity.UnityHub -e`
 6. Unity Hub에서 **Unity 6.3 LTS** 최신 패치 설치 — 모듈: Windows Build Support (IL2CPP) (2D는 6.x 기본 포함)
-7. Unity 프로젝트는 아직 없다 — 착수 시 `src/` 아래 2D URP 템플릿으로 생성
+7. Unity 프로젝트 열기: `src/Miji/` (Universal 2D, URP + Pixel Perfect Camera). 첫 실행 시 OpenUPM 스코프 레지스트리·서명 없는 패키지(ULoop) 경고는 승인
+8. ULoop CLI: `npm i -g uloop-cli` (Node v22+). 에디터 켠 뒤 `uloop compile`로 통신 확인
 
 ---
 
@@ -456,7 +470,9 @@ Game/
 ├── CLAUDE.md                        ← 오케스트레이션 규칙
 ├── .claude/
 │   ├── settings.json                ← 플러그인 + 자동화 훅 4개
-│   └── agents/story-critic.md       ← ★ 스토리 비평 서브에이전트
+│   └── agents/
+│       ├── story-critic.md          ← ★ 스토리 비평 서브에이전트
+│       └── map-designer.md          ← ★ 맵 설계+자가검수 서브에이전트
 ├── docs/
 │   ├── DECISIONS.md                 ← 의사결정 로그 (7/30 리부트 표시 포함)
 │   ├── PROJECT_HANDOFF.md           ← 이 파일

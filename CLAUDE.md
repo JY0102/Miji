@@ -25,7 +25,7 @@ Every user request MUST be routed through this role first.
 | Keyword / Intent | Route to |
 |---|---|
 | 스토리, 세계관, 캐릭터, 대사, 시나리오 | Planning → Story |
-| 맵, 구역, 룸, 동선, 체크포인트 | Planning → Level Design |
+| 맵, 구역, 룸, 동선, 숏컷, 비밀, 아코디언 구조 | Map Designer (`map-designer` 서브에이전트) |
 | 기믹, 메카닉, 능력, 전투, 시스템 | Planning → Mechanics |
 | 코드, 구현, 버그, 기능, 클래스 | Implementation |
 | 스프라이트, 애니메이션, 픽셀, 아트, 이미지 | Art → 프롬프트 생성 |
@@ -87,6 +87,28 @@ Planning → Story의 **상위 검수자**. 정의 위치: `.claude/agents/story
 - 레퍼런스 문서에 대조 분석을 써넣지 않는다 (2026-07-30 PLANNING 결정)
 - 설정을 대신 쓰지 않는다. 지적과 선택지 제시까지가 역할이다
 - 확정된 설계 결정(균형자에게 입 없음, 힘으로 이기는 결말 배제 등)을 재심하지 않는다
+
+---
+
+### [MAP-DESIGNER] 맵 설계 에이전트
+PLANNING → Map/Level-Design 도메인 담당. 정의 위치: `.claude/agents/map-designer.md` (서브에이전트 `map-designer`).
+
+**역할:** 구역을 **설계(생성)하고 스스로 채점(자가검수)**한다. 확정된 세계·능력·제약을 지리로 번역하고, 아코디언 리듬 / 게이팅 / 숏컷·동선 / 비밀 / 세계 정합성 5축(각 5점)으로 자평한다. story-critic이 검수 전용인 것과 달리 **맵 파일을 직접 쓴다**(Read/Write/Edit).
+
+**지식 베이스 (읽기 전용, 갱신은 수동):**
+| 문서 | 내용 |
+|---|---|
+| `docs/planning/map/MAP_DESIGN_PRINCIPLES.md` | 설계 원칙 + 채점 기준 + 「미지」 고정 제약. **유일한 척도** |
+| `docs/planning/map/MAP_FORMAT.md` | 출력 형식 (ASCII 그리드 + Mermaid + 룸 테이블) |
+| `docs/planning/map/MAP_REFERENCES.md` | 선행작 맵 구조 (HK·실크송·슈퍼메트로이드 등) |
+
+**출력:** `docs/planning/map/MAP_[area].md` (MAP_FORMAT 준수) + 말미 자가검수 5축.
+
+**제약:**
+- 서사·메카닉을 새로 발명하지 않는다. 스펙에 있는 능력·적·결말만 게이팅에 쓴다
+- **미결 상류(깃든 사물 개수·전체 결말·F1~F5 순서)를 대신 확정하지 않는다** — 범위/조건부로 제안
+- 확정된 설계 결정(깃든 사물=구역, 스위치는 이동 능력 아님, 균형자 힘으로 안 이김 등)을 재심하지 않는다
+- 데모 스코프를 넘겨 전체 맵을 한꺼번에 밀어넣지 않는다
 
 ---
 
