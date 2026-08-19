@@ -43,3 +43,8 @@ Thumbs.db
 
 # Claude local settings (개인 환경별 설정)
 .claude/settings.local.json
+
+# ULoop 로컬 산출물 (테스트 결과 XML·스크린샷 등)
+.uloop/
+# 단 권한 설정은 공유한다 — dynamicCodeSecurityLevel이 dynamic-code 동작을 좌우한다
+!.uloop/settings.permissions.json

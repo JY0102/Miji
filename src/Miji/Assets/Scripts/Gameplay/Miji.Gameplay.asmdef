@@ -1,0 +1,17 @@
+{
+    "name": "Miji.Gameplay",
+    "rootNamespace": "Miji.Gameplay",
+    "references": [
+        "Miji.Core",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -165,3 +165,85 @@
 | `dropped_currency_valid` 제거 | `dropped_currency > 0`로 파생 가능하나 세이브 포맷 변경 대비 이득이 적음 | 적용 안 함 |
 | 2026-08-10 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Packages\manifest.json | [자동 기록] |
 | 2026-08-10 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\.gitattributes | [자동 기록] |
+
+---
+
+## IMPL-005 — Core 1차 뼈대 (EventBus / InputReader / StateMachine / GameFlow)
+
+- **상태**: 🟡 진행 중
+- **시작일**: 2026-08-19
+- **엔진**: Unity 6.3 / C# (Godot 코드 전부 폐기 후 첫 구현)
+- **근거 스펙**: `specs/2026-08-19-implementation-core-architecture-design.md` (Core/Gameplay 이층 구조)
+- **범위**: Core C1(EventBus) · C2(InputReader) · C3(StateMachine) · C6(GameFlow)
+- **경로**: `src/Miji/Assets/Scripts/Core/`
+- **설계 결정**:
+  - **asmdef로 의존 방향을 컴파일러가 강제한다** — `Miji.Core`는 `Miji.Gameplay`를 참조하지 않으므로 Core에서 스토리 명사를 쓰는 실수가 빌드 에러가 된다. 문서 규칙이 아니라 빌드 규칙
+  - **EventBus는 제네릭 pub/sub** — 게임플레이 고유 신호는 Gameplay 층에 정의된다. 새 이벤트가 생겨도 Core는 안 바뀐다
+  - **InputReader + InputRouter 분리** — 입력 읽기와 「누가 조작되는가」를 나눈다. 2장 조작권 인계(여산→열하나)가 `InputRouter.Possess(actor)` 한 줄
+  - IMPL-004 보류 항목 **「입력을 intent로 추상화 (컨트롤러 분리)」를 여기서 청산** (Godot 시절 Robot이 Input 직접 폴링 → 컷신 차단·AI 조작 불가였던 부채)
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Miji.Core.asmdef | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Events\EventBus.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Input\InputIntent.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Input\InputReader.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Input\InputRouter.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\StateMachines\StateMachine.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Flow\GameFlow.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Miji.Gameplay.asmdef | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\EditMode\Miji.Core.Tests.asmdef | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\EditMode\EventBusTests.cs | [자동 기록] |
+- **결과 (2026-08-19)**: ✅ 1차 뼈대 완료. `uloop compile` Success (에러 0 / 경고 0), `uloop run-tests` **19/19 통과**
+  - `Core/Events/EventBus.cs` — 제네릭 pub/sub. 예외 격리(한 구독자의 예외가 나머지를 막지 않음), 발행 중 해제 안전(스냅샷 순회), `Clear()`
+  - `Core/Input/InputIntent.cs` — 의도 구조체(`Move`/`JumpPressed`/`JumpHeld`/`Attack`/`Interact`/`Ability`) + `IPossessable`
+  - `Core/Input/InputReader.cs` — Input System 유일 접점. 액션 **이름으로 조회**(생성 코드 비의존), `Blocked` 플래그
+  - `Core/Input/InputRouter.cs` — `Possess(body)` / `Release()`. 대상 교체 시 직전 몸에 `InputIntent.None`을 먹여 관성 차단
+  - `Core/StateMachines/StateMachine.cs` — `IState`/`StateBase`/`StateMachine<TKey>`. 전이 조건을 FSM에 넣지 않음(상태 추가 시 Core 불변)
+  - `Core/Flow/GameFlow.cs` — `GameMode`(Playing/Cutscene/Paused/Loading), 입력 차단은 **모드에서 파생**, 씬 전환, `GameModeChanged` 신호
+  - 테스트: `Assets/Tests/EditMode/` — EventBusTests 10 + StateMachineTests 9
+- **미완**: 씬 배선(InputReader에 `InputSystem_Actions` 지정 + GameFlow 오브젝트 배치)은 G1 착수 시 함께
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\ProjectSettings\TagManager.asset | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerController.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\StartupPossession.cs | [자동 기록] |
+
+### 2차 — G1 A 컨트롤러 (2026-08-19) ✅
+
+- **파일**: `Gameplay/Player/PlayerMotor.cs`, `Gameplay/Player/PlayerController.cs`, `Gameplay/StartupPossession.cs`
+- **레이어 신설** (`ProjectSettings/TagManager.asset`): 6=Ground / 7=PlayerBody / 8=EnemyBody / 9=Hitbox / 10=Hurtbox
+- **씬**: `Assets/Scenes/Greybox_Movement.unity` (dynamic-code로 생성 — 카메라·Systems·Player_A·발판 5개)
+- **조작감 수치** — 확정 「묵직·기계적, 스프링 몸이 아니다」의 번역:
+  - maxSpeed 5.5 / 지상 가감속 45·38 / **공중 가감속 26·10**(공중 제어를 일부러 둔하게)
+  - jumpHeight **1.7**(낮게 — 위로 갈 여지를 남긴다) / jumpCut 0.45
+  - gravityScale 3.6 / **fallGravityMultiplier 1.35**(낙하가 상승보다 빠르다) / maxFall 18
+  - coyote 0.09 / jumpBuffer 0.11 (관용은 주되 조작감은 무겁게)
+  - ⛔ 2단 점프 없음 — 「A는 스스로 높이를 얻지 못한다」. 두 번째 높이는 F2(B의 받침)
+- **상태**: Grounded / Airborne 둘만. Idle·Move를 나누지 않은 것은 의도(처리가 같고 속도에서 파생되는 연출 문제). 의미 있는 상태(돌진·공격·피격)는 해당 기능과 함께 추가
+- **검증 (ULoop)**:
+  - `compile` Success 0/0 · `run-tests` **19/19**
+  - 플레이모드 실측 — 정지 `y=0.51 Grounded` / 자유 이동 `vel=-5.12`(5.5로 가속 중) / 방향 전환·감속 정상 / 점프 `0.51→1.72` 상승 후 `Airborne`→착지 `Grounded`
+  - 발판 측면 충돌로 정지 확인(물리 정상), 콘솔 에러 0
+  - ★ **F2 게이트 수치 검증**: Ledge_Low(top 1.25) 도달 O / Ledge_Mid(2.45)는 Low를 밟고 도달(1.25+1.7) / **Ledge_TooHigh(3.65)는 어디서도 도달 X → F2 필요**. 「A는 높이를 못 얻는다」가 지형으로 성립
+- **다음**: C7 CombatCore(Hitbox/Hurtbox/IDamageable) → G2 근접공격·상호작용
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\PlayMode\Miji.Gameplay.PlayTests.asmdef | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\PlayMode\Miji.Gameplay.PlayTests.asmdef | [자동 기록] |
+
+### 2차-b — 조작감 관용 기법 (2026-08-19) ✅ 사용자 요청
+
+「코요테 타임 같은 유예 기법 + 홀로우나이트식 부드러운 조작감」 요청 반영. **무게를 줄이지 않고 「눌렀는데 안 됐다」만 없애는** 것이 기준.
+
+| 기법 | 값 | 무엇을 해결하나 |
+|---|---|---|
+| 코요테 타임 (기존) | 0.09s | 발이 떨어진 직후의 점프 입력을 살린다 |
+| 점프 버퍼 (기존) | 0.11s | 착지 직전에 누른 점프를 살린다 |
+| 가변 점프 높이 (기존) | cut 0.45 | 짧게 누르면 짧게 뛴다 |
+| **코너 보정** ★ 신규 | 0.22 유닛, 4단계 | 머리가 천장 모서리에 살짝 걸리면 **옆으로 밀어 통과**시킨다. HK 계열 핵심. 진행 방향 쪽을 먼저 시도 |
+| **에이펙스 조정** 신규 | 임계 2.2 / 중력 ×0.65 / 제어 ×1.45 | 정점에서만 중력을 줄이고 공중 제어를 준다 → 착지 지점 조준 가능. 체공이 짧은 것을 그 순간만 보상 |
+| **반전 스냅** 신규 | 감속 ×2.1 | 반대 방향 입력 시 더 빨리 꺾인다. 턴이 즉각 반응하되 무게는 유지 |
+| **천장 범프** 신규 | — | 정말 막혔으면 상승 속도를 끊어 천장에 달라붙지 않게 |
+
+**🐛 함께 고친 버그**: 점프 직후에도 발이 접지 판정에 걸려 있어 **코요테가 즉시 재충전 → 연타 시 이중 임펄스**가 가능했다. `jumpLockout` 0.08s로 차단(점프 직후에는 코요테를 재충전하지 않는다).
+
+**검증 — PlayMode 테스트 신설** (`Assets/Tests/PlayMode/MotorFeelTests.cs`, 8건):
+코요테 작동 / 코요테 만료 / 공중 2단 점프 불가 / 이중 임펄스 불가 / 오래된 점프 입력이 착지에 되살아나지 않음 / 코너 보정으로 모서리 통과 / 천장 범프로 상승 차단 / 반전이 단순 정지보다 빠름
+- ⚠️ **PlayMode 테스트 asmdef는 `includePlatforms: []`여야 한다** — Editor 전용으로 두면 EditMode로 실행돼 물리가 스텝되지 않고 전부 실패한다(실제로 8/8 실패 후 원인 확인)
+- 실행: `uloop run-tests --test-mode PlayMode` / `--test-mode EditMode` (기본값이 EditMode)
+
+**최종**: compile 0/0 · **PlayMode 8/8 · EditMode 19/19 = 27/27 통과**
