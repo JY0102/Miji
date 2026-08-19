@@ -179,3 +179,10 @@ Game/
 ## Decision Log
 All major design decisions that affect multiple agents are recorded in `docs/DECISIONS.md`.
 Format: `[DATE] [AGENT] Decision — Reason`
+
+---
+
+## Git / 커밋 규칙
+- **사용자가 커밋 또는 푸쉬를 요청하면, 먼저 `docs/PROJECT_HANDOFF.md`를 이번 세션 작업 내용으로 자동 갱신한 뒤 커밋·푸쉬한다.** (2026-08-19 사용자 요청) — 핸드오프가 항상 최신 상태로 커밋되도록 보장한다.
+- 솔로 프로젝트이므로 **main에 직접 커밋·푸쉬**한다 (별도 브랜치·PR 불필요).
+- 커밋 메시지는 Conventional Commits + 한국어 요약 형식 (`feat(story): …`).
