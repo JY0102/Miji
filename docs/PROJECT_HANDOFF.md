@@ -27,7 +27,7 @@
 - **다음**: C7 CombatCore(Hitbox/Hurtbox/IDamageable) → G2 근접공격·상호작용
 
 **8/20 — A가 얼굴을 얻었다.** 그레이박스 사각형이던 Player_A를 **PixelLab MCP로 생성한 32x32 픽셀 스프라이트 + 애니메이션 4종**(Idle/Run/Jump/Fall)으로 교체했다. 기준 컨셉은 `character_01_A_switch_robot`(스위치·시안 렌즈·이끼 몸통·롤러 전부 32px 생존). `PlayerAnimator.cs`(뷰 전용) 신설, 콜라이더를 그림 몸통에 정합(스위치는 충돌 제외). 상세는 `ART_LOG.md` 2026-08-20 + `IMPL_REGISTRY.md` 3차.
-- ⚠️ **스프라이트 32x32는 스타일 가이드 기본 16x16에서 이탈** — 32px 아니면 3요소가 뭉개짐. 가이드 크기 항목 재검토 필요(타일과의 픽셀 밀도 혼용 판단은 타일셋 때)
+- ✅ **스프라이트 32x32 이탈 건은 2026-08-20 해소** — AK-xolotl: Together를 밀도 레퍼런스로 채택하며 **캐릭터 기본 32x32 / 타일 16x16 / PPU 32**로 스타일 가이드 공식 개정(밀도만 참고, 톤·IP 복제 금지). `DECISIONS.md`·`ART_LOG.md` 5차
 - ⚠️ **PixelLab 트라이얼 잔여 3생성** — 저비용 파이프라인(pixen 1장 + animate_image 파생, 회당 1생성)은 검증됨. Attack/Hurt 애니는 G2 때 필요
 - **C7 CombatCore는 여전히 중단 상태** — Damage/Health/Hurtbox 3파일 작성됨(미커밋이었다가 이번 커밋에 포함), **Hitbox 미작성·테스트 없음·레지스트리 정식 등록 전.** 여기부터 이어가면 된다
 

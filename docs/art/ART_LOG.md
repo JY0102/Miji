@@ -615,3 +615,27 @@ The Scar of the Legend: a place where excess mind first settled into objects aft
 - **검토 메모**: A와 나란히 두면 같은 팔레트 가족으로 읽힘 ✓ / 상단 하이라이트·턱 밑 음영으로 부피감 ✓ / 인게임 확인 완료
 - **파일 경로**: `B_idle_0.png` 제자리 교체 (원본은 스크래치패드 `B_base_32.png`)
 - **결과**: 승인 대기 (미커밋)
+
+---
+
+### 2026-08-20 (5차) — 픽셀 밀도 상향: AK-xolotl: Together 수준을 밀도 레퍼런스로 채택
+
+- **목적**: 사용자 요청 "AK-xolotl: Together 해당 게임정도로 픽셀 농도?를 높이고 싶음" 반영. 기존 16x16 캐릭터 기본값을 폐기하고, A/B 실전 에셋에서 이미 검증된 32x32 캐릭터 밀도를 공식 기준으로 승격.
+- **레퍼런스 해석**: AK-xolotl은 밝은 탑다운 액션/슈터 톤이 아니라, 화면 안 오브젝트·캐릭터·지형의 조밀한 픽셀 정보량만 참고한다. Miji는 사이드뷰 메트로배니아, 쓸쓸함, lived-in, 소박한 민속 기계 톤을 유지.
+- **생성 프롬프트**:
+
+```text
+Pixel art sprite sheet, 32x32 pixels per frame, [N] frames.
+Subject: [Miji character/object description]
+Animation: [idle/run/jump/fall/attack/etc.]
+Style: dense indie pixel art, 1px dark outline, limited low-saturation palette, crisp hard-edged pixels.
+Pixel density: comparable detail density to AK-xolotl: Together screenshots, used only as a density reference; do not copy its characters, UI, weapons, gore, top-down composition, or bright comedic tone.
+Miji art direction: melancholic side-view metroidvania, lived-in folk machinery, organic non-human architecture, old slate stone, moss olive, weathered brass, faint cyan awareness light.
+Sprite rules: readable silhouette first, 2-3 identity details maximum, no tiny repeated decorations, no humanoid body plan unless explicitly requested.
+Rendering rules: no anti-aliasing, no soft gradients, no bloom, no blur, no text, transparent background PNG.
+```
+
+- **가이드 반영**: `STYLE_GUIDE.md` 기본 스프라이트 크기 = 32x32 캐릭터 / 16x16 타일, PPU 32, 보스 64~96, 밀도 체크리스트 추가.
+- **검토 메모**: A/B의 32px 실측과 정합 ✓ / 16px 타일 모듈과 PPU 32로 mixel 위험 낮음 ✓ / AK-xolotl의 IP·톤 복제 방지 문구 포함 ✓
+- **파일 경로**: 문서 변경만 해당 (`docs/art/style-guide/STYLE_GUIDE.md`, `docs/art/ART_LOG.md`, `docs/DECISIONS.md`)
+- **결과**: 기준 확정. 이후 플레이 레이어 에셋은 이 밀도 기준으로 생성/후처리.

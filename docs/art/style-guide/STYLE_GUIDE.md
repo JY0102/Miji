@@ -10,12 +10,27 @@
 | 항목 | 값 |
 |------|----|
 | 스타일 | 픽셀 아트 (Pixel Art) |
-| 기본 스프라이트 크기 | 16x16 px (캐릭터), 16x16 px (타일) |
-| 보스 스프라이트 크기 | 32x32 ~ 64x64 px |
-| 스케일 배율 | x3 또는 x4 (렌더링 시) |
+| 기본 스프라이트 크기 | 32x32 px (플레이어/주요 NPC/일반 적), 16x16 px (타일/소형 소품) |
+| 보스 스프라이트 크기 | 64x64 ~ 96x96 px |
+| 픽셀 밀도 | AK-xolotl: Together 수준의 높은 인디 픽셀 밀도. 단, 레퍼런스는 밀도만 참고하고 톤/구도/IP는 복제하지 않는다 |
+| 스케일/PPU | PPU 32 기준. 32px 캐릭터 = 1유닛, 16px 타일 = 0.5유닛 |
 | 팔레트 | 미정 (첫 구역 확정 시 설정 예정) |
 | 아웃라인 | 1px 다크 아웃라인 |
 | 디더링 | 제한적 사용 (그라디언트 표현 시만) |
+
+---
+
+## 픽셀 밀도 기준 (2026-08-20 확정)
+
+기존 16x16 캐릭터 기준은 A/B의 필수 정보량(스위치, 단안 렌즈, 롤러, 잎귀, 랩, 눈)이 뭉개져 폐기한다. 이후 플레이 레이어 캐릭터는 32x32를 기본 셀로 삼는다.
+
+- **캐릭터**: 32x32 안에 주 실루엣 1개 + 정체성 디테일 2~3개만 남긴다. 작은 반복 장식은 금지.
+- **타일**: 16x16 모듈을 유지하되, 화면 밀도는 상단 캡, 크랙, 이끼, 소품, 파편, 배경 장식 레이어로 올린다.
+- **배경/구역 컨셉**: 큰 덩어리 구조를 먼저 잡고, 빈 공간에는 작고 읽히는 생활 흔적을 배치한다. 노이즈로 채우지 않는다.
+- **팔레트**: 기존 A/B 후처리처럼 저채도 램프를 사용한다. 색 수를 늘려 밀도를 올리지 말고, 명암 단과 엣지 릴라이트로 올린다.
+- **금지**: 안티앨리어싱, 소프트 글로우, 과채도 만화색, 총기/고어/탑다운 슈터 문법, AK-xolotl 캐릭터나 UI의 직접 복제.
+
+목표는 "귀엽고 조밀한 인디 픽셀 화면"의 해상감이지, AK-xolotl의 밝고 폭력적인 탑다운 톤이 아니다. Miji의 기준은 여전히 쓸쓸함, 적막, lived-in, 소박한 민속 기계다.
 
 ---
 
@@ -55,7 +70,8 @@ UI:      #??????
 Pixel art sprite sheet, [WIDTH]x[HEIGHT] pixels per frame, [N] frames.
 Subject: [캐릭터/오브젝트 설명]
 Animation: [애니메이션 유형]
-Style: retro game pixel art, 1px dark outline, limited palette
+Style: dense indie pixel art, 1px dark outline, limited palette
+Pixel density: comparable detail density to AK-xolotl: Together screenshots, used only as a density reference; do not copy its characters, UI, weapons, gore, top-down composition, or bright comedic tone
 Palette: [팔레트 제약 — 색상 수, 주요 색상]
 Mood/Theme: [분위기 — 예: dark gothic dungeon, melancholic]
 No anti-aliasing, no gradients (except limited dithering).
@@ -72,6 +88,7 @@ Codex로부터 받은 스프라이트를 검토할 때 확인합니다:
 - [ ] 팔레트 범위를 벗어난 색이 없는가?
 - [ ] 안티앨리어싱이 없는가?
 - [ ] 스프라이트 크기가 사양과 일치하는가?
+- [ ] 32x32 캐릭터에서 정체성 디테일 2~3개가 살아 있고, 작은 반복 장식으로 뭉개지지 않는가?
 - [ ] 게임의 분위기(Mood)와 시각적으로 맞는가?
 - [ ] 애니메이션 프레임 수가 최소 기준 이상인가?
 
