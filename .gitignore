@@ -48,3 +48,6 @@ Thumbs.db
 .uloop/
 # 단 권한 설정은 공유한다 — dynamicCodeSecurityLevel이 dynamic-code 동작을 좌우한다
 !.uloop/settings.permissions.json
+
+# External tools (재현은 tools/setup-sprite-gen.ps1)
+tools/sprite-gen/

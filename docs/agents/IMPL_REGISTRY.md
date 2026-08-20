@@ -265,3 +265,23 @@
 - **다음**: C7 CombatCore 마무리(Hitbox 미작성) → G2 근접공격 때 Attack/Hurt 애니메이션 추가(PixelLab 잔여 3생성 고려)
 
 **3차 추가 (2026-08-20) — 콜라이더를 그림에 맞춤 (사용자 지적):** 콜라이더가 1x1(캔버스 전체)이라 그림보다 사방 3px 커서 A가 땅에서 3px 떠 보였다. 전 프레임 불투명 픽셀 실측 후 **size (0.8125, 0.65625) / offset (0, -0.078125)** 로 조정 — 바닥·좌우는 그림 몸통에 정합(좌우 대칭이라 flipX 안전), **상단 스위치(폭 2~6px)는 충돌 제외**(시각 전용, 더듬이 관례). 점프 도달은 발 기준이라 F2 게이트 검증 불변. 실측 y=0.4212 접지(계산 0.4216 일치), PlayMode 8/8 유지.
+
+### 4차 — 동굴 지형 타일 적용 (2026-08-20) ✅ (미커밋)
+
+그레이박스 지형 5종을 타일 렌더로 전환. 타일 제작 경위(PixelLab 실패→수제작)는 `ART_LOG.md` 2026-08-20 2차 항목이 원본.
+
+- **에셋**: `Assets/Art/Tiles/Tile_CaveTop.png`·`Tile_CaveFill.png` — 16x16 수제 도트(A 팔레트 샘플링), PPU 32·Point·**Repeat·FullRect**(Tiled draw mode 필수 설정)
+- **씬 전환 방식**: 지형이 「1x1 스프라이트 × 스케일」이던 것을 「스케일 1 + SpriteRenderer.size(Tiled)」로 이관, **BoxCollider2D.size에 월드 크기를 넘겨 물리 불변**. sortingOrder 지형 -10/표면 -9(플레이어 0 앞)
+- **분기 규칙**: 높이≤0.55=발판(이끼 상단 타일) / 세로>가로=벽(채움 — 이끼줄 반복 방지) / 그 외=지반(채움+상단 표면 스트립 자식 오브젝트)
+- **적용 결과**: Ground_Main 30x1(채움+표면) / Ledge_Low·Mid·TooHigh 3x0.5(상단) / Wall_Right 1x6(채움) + 카메라 배경 #0E1017
+- **검증**: 플레이 실측 — 타일 무이음·A 주행/착지 정상, PlayMode 8/8 유지
+- **다음**: C7 CombatCore 마무리(Hitbox) → G2. 타일 확장(경사·모서리 전용 타일, Tilemap 이관)은 지리 설계 확정 후
+| 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Companion\CompanionFollower.cs | [자동 기록] |
+
+### 5차 — B(무리비) 테스트용 추종 (2026-08-20) ✅ (미커밋)
+
+- **코드**: `Gameplay/Companion/CompanionFollower.cs` 신설 — A 뒤 1.1유닛을 SmoothDamp(0.22s)로 추적, 8유닛 초과 시 연출 없이 즉시 스냅, 이동 중에만 사인 들썩임, 시선은 이동 방향(정지 시 A 쪽)
+- **확정 설계 준수(이원 무브셋 3절 뼈대)**: 입력 없음·콜라이더 없음(**B 무적 — Health/Hurtbox 안 붙임**)·「멀어서 못 했다」 상황 원천 차단(스냅). F2/F5 협력 스냅 로직은 G6에서
+- **씬**: `Companion_B` (SpriteRenderer sortingOrder -1 = A 바로 뒤 + CompanionFollower, target=Player_A Motor 배선)
+- **검증**: compile 0/0 · 플레이 실측 — 우향 주행 시 좌측 후방 추종, 방향 전환 시 반대편 재정렬·시선 반전 확인
+- **다음**: C7 CombatCore 마무리(Hitbox) → G2
