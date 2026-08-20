@@ -7,7 +7,7 @@
 - `specs/2026-08-03-story-ignition-design.md` (점화)
 - `specs/2026-08-04-journey-design.md` (여행)
 - `specs/2026-08-04-conflict-design.md` (갈등·결별)
-- `docs/art/assets/generated-concepts/character_02_B_living_creature.png` (컨셉)
+- `docs/art/assets/generated-concepts/characters/B/character_02_B_living_creature.png` (컨셉)
 
 > ⚠️ 이 문서는 리부트(2026-07-30) 이후에 작성되었다.
 > 폐기된 `CHARACTER_얼개.md` · `CHARACTER_온기.md` · `CHARACTER_매개체.md`와 무관하다.

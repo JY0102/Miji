@@ -449,13 +449,13 @@ Pixel art character/boss concept reference. The Balancer, a silent world phenome
   - B는 호기심 많은 생명체로 잘 읽히나, 최종 스프라이트화 시 더 작은 실루엣과 적은 디테일로 재도트 필요.
   - 균형자는 비인간형·비악당형 현상으로 읽히며, 보스 또는 맵 장치로 확장 가능.
 - **현재 보존 파일 경로**:
-  - `docs/art/assets/generated-concepts/map_01_awakening_cave.png`
-  - `docs/art/assets/generated-concepts/map_03_balancer_route.png`
-  - `docs/art/assets/generated-concepts/character_01_A_switch_robot.png`
-  - `docs/art/assets/generated-concepts/character_02_B_living_creature.png`
-  - `docs/art/assets/generated-concepts/character_03_balancer.png`
+  - `docs/art/assets/generated-concepts/maps/awakening-cave/map_01_awakening_cave.png`
+  - `docs/art/assets/generated-concepts/maps/balancer-route/map_03_balancer_route.png`
+  - `docs/art/assets/generated-concepts/characters/A/character_01_A_switch_robot.png`
+  - `docs/art/assets/generated-concepts/characters/B/character_02_B_living_creature.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/character_03_balancer.png`
 - **사용자 삭제 / 비채택**:
-  - `docs/art/assets/generated-concepts/map_02_collapse_archive.png`
+  - `map_02_collapse_archive.png` — 사용자 삭제, 파일 미보존
 
 ---
 
@@ -495,13 +495,13 @@ The Scar of the Legend: a place where excess mind first settled into objects aft
   - `bonus_05`는 초반 "목적 없이 논다" 구간에 적합. 맵 기믹 후보가 자연스럽게 보임.
   - `bonus_06`은 후반 로어 구역 후보로 강함. 장식 밀도가 높아 실제 타일셋화 시 구역 대표 장면으로 쓰는 편이 좋음.
 - **현재 보존 파일 경로**:
-  - `docs/art/assets/generated-concepts/bonus_01_rain_listening_bell.png`
-  - `docs/art/assets/generated-concepts/bonus_03_collapsed_wanderer.png`
-  - `docs/art/assets/generated-concepts/bonus_04_pathless_collapsed_seeker.png`
-  - `docs/art/assets/generated-concepts/bonus_05_first_play_area.png`
-  - `docs/art/assets/generated-concepts/bonus_06_scar_of_legend.png`
+  - `docs/art/assets/generated-concepts/characters/inhabited-objects/bonus_01_rain_listening_bell.png`
+  - `docs/art/assets/generated-concepts/characters/collapsed/bonus_03_collapsed_wanderer.png`
+  - `docs/art/assets/generated-concepts/characters/collapsed/bonus_04_pathless_collapsed_seeker.png`
+  - `docs/art/assets/generated-concepts/maps/first-play-area/bonus_05_first_play_area.png`
+  - `docs/art/assets/generated-concepts/maps/scar-of-legend/bonus_06_scar_of_legend.png`
 - **사용자 삭제 / 비채택**:
-  - `docs/art/assets/generated-concepts/bonus_02_ash_cradle_cart.png`
+  - `bonus_02_ash_cradle_cart.png` — 사용자 삭제, 파일 미보존
 
 ---
 
@@ -517,9 +517,9 @@ The Scar of the Legend: a place where excess mind first settled into objects aft
   - ㉯는 기계가 로프 친 유물/성물로 강하게 읽혀 분위기는 좋지만 `무의미 반전 금지`와 고대문명 클리셰 위험이 큼.
   - ㉰는 A가 흔한 로봇 사회에 묻히고 도보 여행/여관 톤이 약해져 세계관 핵심과 충돌함.
 - **현재 보존 파일 경로**:
-  - `docs/art/assets/generated-concepts/tech_level_01_simple_machines.png`
-  - `docs/art/assets/generated-concepts/tech_level_02_ruin_relics.png`
-  - `docs/art/assets/generated-concepts/tech_level_03_high_tech.png`
+  - `docs/art/assets/generated-concepts/world/tech-level/tech_level_01_simple_machines.png`
+  - `docs/art/assets/generated-concepts/world/tech-level/tech_level_02_ruin_relics.png`
+  - `docs/art/assets/generated-concepts/world/tech-level/tech_level_03_high_tech.png`
 
 ---
 
@@ -534,9 +534,9 @@ The Scar of the Legend: a place where excess mind first settled into objects aft
   - 2-B는 가장 몽환적이고 아름답지만, 버섯 마을 판타지로 강하게 읽혀 톤 선택이 필요하다.
   - 2-C는 연약하고 따뜻한 생활감이 좋지만, 엮은 섬유/둥지 디테일이 많아 실제 타일셋화 때 단순화가 필요하다.
 - **현재 보존 파일 경로**:
-  - `docs/art/assets/generated-concepts/architecture_2a_shell_burrow.png`
-  - `docs/art/assets/generated-concepts/architecture_2b_fungal_grown.png`
-  - `docs/art/assets/generated-concepts/architecture_2c_woven_nest.png`
+  - `docs/art/assets/generated-concepts/world/architecture-signatures/architecture_2a_shell_burrow.png`
+  - `docs/art/assets/generated-concepts/world/architecture-signatures/architecture_2b_fungal_grown.png`
+  - `docs/art/assets/generated-concepts/world/architecture-signatures/architecture_2c_woven_nest.png`
 
 ---
 
@@ -639,3 +639,227 @@ Rendering rules: no anti-aliasing, no soft gradients, no bloom, no blur, no text
 - **검토 메모**: A/B의 32px 실측과 정합 ✓ / 16px 타일 모듈과 PPU 32로 mixel 위험 낮음 ✓ / AK-xolotl의 IP·톤 복제 방지 문구 포함 ✓
 - **파일 경로**: 문서 변경만 해당 (`docs/art/style-guide/STYLE_GUIDE.md`, `docs/art/ART_LOG.md`, `docs/DECISIONS.md`)
 - **결과**: 기준 확정. 이후 플레이 레이어 에셋은 이 밀도 기준으로 생성/후처리.
+
+---
+
+### 2026-08-20 (6차) — A/B/균형자 캐릭터 라인업 아트워크
+
+- **목적**: 사용자 요청 "A,B,균형자 캐릭터 아트워크 좀 그려주셈 도트 풍으로" 반영. 기존 채택 컨셉 3장(`character_01_A_switch_robot.png`, `character_02_B_living_creature.png`, `character_03_balancer.png`)을 기준 이미지로 사용해 한 화면의 캐스트 라인업을 생성.
+- **경로**: Codex built-in `image_gen` 직접 생성 후 프로젝트 폴더로 복사.
+- **생성 프롬프트**:
+
+```text
+Use case: stylized-concept
+Asset type: Miji game character lineup concept artwork, pixel-art style reference
+Primary request: Create one polished pixel-art-style character artwork showing the three main characters A, B, and the Balancer together as a side-view metroidvania cast lineup.
+Input images: Image 1 is A reference; Image 2 is B reference; Image 3 is Balancer reference. Preserve their core identities and visual continuity, but redraw them into one coherent artwork.
+Scene/backdrop: very dark simple cave-stage backdrop with a small slate stone platform under the characters, subtle moss, no readable text, no UI.
+Subjects:
+- A: small squat non-humanoid switch robot, weathered slate stone and old metal casing, clear physical toggle switch on top, one large cyan lens, compact roller/crawler base, humble everyday folk machine, not a sacred relic.
+- B: small non-human organic wanderer, soft leaf-like ear fins, large dark attentive eyes, muted moss-olive skin, rusty brown travel wrap and root-fiber satchel, curious but worried. Early-game B: no golden forehead cracks.
+- The Balancer: much larger, looming but not evil; impersonal accounting presence made from a heavy vessel body, stolen observation lens/helmet feeling, broken brass balance-scale arms, dark stone plates, pale geometric core, small switch/key-like actuator beneath. No face, no mouth, no human limbs, no robe, no skull.
+Style/medium: dense indie pixel art concept illustration, crisp hard-edged pixels, 1px dark outlines, limited low-saturation palette, high pixel density comparable to AK-xolotl: Together only as a density reference; do not copy its characters, UI, weapons, gore, top-down composition, or bright comedic tone.
+Composition/framing: horizontal lineup, A and B small in the foreground left/center, Balancer towering behind/right as a large silhouette; side-view metroidvania readability, character sizes clearly different. Keep negative space around silhouettes. No labels.
+Lighting/mood: melancholic, quiet, lived-in, faint cyan awareness light from A, muted pale gold and cyan from the Balancer, soft but pixelated rim lighting.
+Color palette: old slate blue-gray, moss olive, weathered brass, dark charcoal, muted rust cloth, faint cyan, pale gold. Avoid saturated greens and bright cartoon colors.
+Materials/textures: weathered stone plates, worn brass joints, moss stains, root-fiber cloth, cracked ceramic/stone, hand-made folk machinery.
+Constraints: no anti-aliasing, no soft blur, no bloom, no smooth vector look, no text, no watermark, no weapons, no blood, no gore, no modern sci-fi chrome, no human architecture, no humanoid A or Balancer. The result should feel like production concept art for Miji rather than a game screenshot.
+```
+
+- **검토 메모**:
+  - A: 상단 스위치 / 단안 시안 렌즈 / 저상 롤러 실루엣 유지 ✓
+  - B: 잎귀 / 여행 랩 / 작은 방랑자 인상 유지 ✓. 단, 이마 쪽에 금빛 균열처럼 보이는 장식이 남아 **초기 B 설정과는 약간 충돌** — 최종 채택 시 수정 후보.
+  - 균형자: 기존 `character_03_balancer`의 저울 구조와 pale geometric core가 강하게 유지됨 ✓. 다만 여전히 "장치" 성격이 강하므로, 이후 3장 적대 캐릭터화 시 관측기/기동부/큰 그릇 실루엣을 더 추가 탐색할 것.
+  - 전체: 픽셀 밀도 상향 기준과 어두운 lived-in 톤이 잘 맞음 ✓ / 텍스트·UI·무기·고어 없음 ✓
+- **파일 경로**: `main_cast_lineup_pixel_art.png` — 파일 미보존
+- **결과**: 생성 완료. 캐스트 대표 컨셉 후보로 보존.
+
+---
+
+### 2026-08-20 (7차) — A/B 단독 아트워크 + 균형자 5방향 탐색
+
+- **목적**: 사용자 요청 "각각 따로 해주고, 균형자는 내가 레퍼런스로 잡은 캐릭터를 기반으로 예시로 5개 각기 다르게" 반영. A/B는 단독 캐릭터 아트워크로 분리하고, 균형자는 2026-08-19 비주얼 레퍼런스(구조=무거운 봉인 그릇/관측기, 질감=불쾌한 유물·개조된 몸)를 직접 복제 없이 5방향으로 변주.
+- **경로**: Codex built-in `image_gen` 직접 생성 후 프로젝트 폴더로 복사.
+- **공통 생성 지시**:
+
+```text
+Dense indie pixel art concept illustration for Miji, crisp hard-edged pixels, 1px dark outline, limited low-saturation palette, dark charcoal background, side-view metroidvania production art. Preserve Miji's melancholic, lived-in, folk-machine tone. No text, no UI, no watermark, no gore, no modern sci-fi chrome, no smooth vector look, no anti-aliasing, no blur, no bloom.
+```
+
+- **개별 생성 지시 / 결과**:
+
+| 파일 | 방향 | 검토 메모 |
+|---|---|---|
+| `character_A_standalone_pixel_art.png` | A 단독. 상단 토글 스위치, 단안 시안 렌즈, 저상 롤러, 낡은 석재-금속 생활 기계 | 기존 A 정체성 유지 ✓ / 시시한 물건 느낌 유지 ✓ / 실제 스프라이트 기준으로 단순화 가능 |
+| `character_B_standalone_pixel_art.png` | B 단독. 잎귀, 큰 눈, 러스트 여행 랩, 뿌리섬유 가방. 초기 B라 금빛 균열 금지 | 초기 B에 더 적합 ✓ / 이전 라인업보다 이마 균열 문제 적음 ✓ |
+| `balancer_variant_01_pressure_vessel.png` | 무거운 압력 그릇형. 둥근 봉인 몸통 + 관측 포트 + 사후 부착 기동부 | 추격 보스 실루엣 최강. 단 전투 로봇처럼 읽힐 위험 있음 |
+| `balancer_variant_02_reliquary_vessel.png` | 수직 성물/받이형. 긴 봉인 용기 + 작은 관측 렌즈 + 접힌 계량 팔 | 기존 추상 균형자와 연결성 최고. 장치/성물 느낌이 강해 캐릭터성 보강 필요 |
+| `balancer_variant_03_crawler_collector.png` | 저상 회수기형. 납작한 석판 껍질 + 기어가는 브레이스 다리 + 하부 관측 렌즈 | 5개 중 실루엣 차별 최강. 못 이기는 추격 위협으로 유력 |
+| `balancer_variant_04_observation_helmet.png` | 관측 헬멧형. 큰 렌즈/포트가 얼굴을 대체하고, 몸은 봉인 그릇 | "A를 보지 않는 관측기" 시각화 최고. 레퍼런스 구조감과 가장 잘 맞음 |
+| `balancer_variant_05_asym_usurper.png` | 비대칭 찬탈자형. 빌린 부품, 한쪽 집게/한쪽 저울, 오프셋 렌즈 | "남이 준 몸을 전용"한 느낌 최고. 최종 보스/대립 인격 후보로 강함 |
+
+- **파일 경로**:
+  - `docs/art/assets/generated-concepts/characters/A/character_A_standalone_pixel_art.png`
+  - `docs/art/assets/generated-concepts/characters/B/character_B_standalone_pixel_art.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_01_pressure_vessel.png`
+  - `balancer_variant_02_reliquary_vessel.png` — 비채택, 파일 미보존
+  - `balancer_variant_03_crawler_collector.png` — 비채택, 파일 미보존
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_04_observation_helmet.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_05_asym_usurper.png`
+- **사용자 선별**: ② 수직 받이형 / ③ 저상 회수기형은 "너무 구림"으로 탈락. ① 압력 그릇형 / ⑤ 비대칭 찬탈자형이 "그나마 좀 맘에듦"으로 유력 후보. ④ 관측 헬멧형은 Codex 자체평과 달리 사용자 유력 후보에 들지 않음.
+- **결과**: 생성 완료. 다음 라운드는 ①의 육중한 덩어리감·압력 그릇 실루엣 + ⑤의 비대칭 찬탈자성·빌린 부품 느낌을 섞는 방향이 우선.
+
+---
+
+### 2026-08-20 (8차) — 균형자 1+5 혼합 5방향: 색감·웨더링 강화
+
+- **목적**: 사용자 요청 "1번과 5번 기준으로 5개 더, 색감 다양하게, 웨더링, Titanfall 로봇 레퍼런스 추가" 반영. 7차 유력 후보인 ① 압력 그릇형과 ⑤ 비대칭 찬탈자형을 합성하되, 팔레트와 표면 손상을 5방향으로 분리.
+- **레퍼런스 운용**: Titanfall 로봇은 직접 복제하지 않고 **산업용 거대 메카의 중량감, 관절 가독성, 피스톤/유압 브레이스, 실용 기계 질감**만 참고. 무기, 콕핏, 데칼, 특정 실루엣은 배제.
+- **공통 생성 지시**:
+
+```text
+Combine the massive round pressure-vessel body from balancer_variant_01 with the asymmetrical borrowed parts, off-center observation lens, actuator clamp, and usurper feeling from balancer_variant_05. Incorporate only broad, non-identifiable Titanfall-style qualities: utilitarian industrial mech weight, readable mechanical joints, exposed pistons, hydraulic braces, believable heavy machine articulation. Do not copy any specific Titanfall robot, cockpit, weapon, markings, silhouette, or decals. Dense indie pixel art, 1px dark outline, low-saturation palette, no face, no mouth, no weapon, no text, no gore, no modern sci-fi chrome.
+```
+
+- **개별 생성 지시 / 결과**:
+
+| 파일 | 색감/방향 | 웨더링 | 검토 메모 |
+|---|---|---|---|
+| `balancer_variant_06_verdigris_pressure_usurper.png` | 녹청 황동 + 암청 슬레이트 + 시안 렌즈 | 녹청, 이끼 낀 관절, 긁힌 렌즈링, 금 간 세라믹 | 1+5 혼합 정확도 좋음. 낡은 압력 그릇감 강함 |
+| `balancer_variant_07_red_rust_iron.png` | 적갈 녹철 + 검은 철 + 둔한 황동 | 붉은 녹, 그을음, 벗겨진 도장, 오일 얼룩 | 색감 차별 큼. 산업 메카 관절감이 가장 강함 |
+| `balancer_variant_08_cold_blue_ceramic.png` | 냉청 세라믹 + 남청 슬레이트 + 은회 금속 | 청색 유약 칩, 거미줄 균열, 차가운 마모 | 차가운 회계 기계 느낌 좋음. Miji 톤보다는 조금 차갑다 |
+| `balancer_variant_09_moss_brass_folk_machine.png` | 이끼 올리브 + 황동 + 따뜻한 백자 | 이끼, 흙먼지, 닳은 손잡이, 오래된 오일 | 세계관의 소박한 민속 기계 톤과 가장 잘 붙음 |
+| `balancer_variant_10_blackstone_violet_ceramic.png` | 흑석 + 백자 + 낮은 자홍 균열 | 흑석 깨짐, 자홍 얼룩 균열, 어두운 황동 마모 | 이질감·찬탈자성 강함. 자홍이 과해지면 톤 이탈 주의 |
+
+- **파일 경로**:
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_06_verdigris_pressure_usurper.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_07_red_rust_iron.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_08_cold_blue_ceramic.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_09_moss_brass_folk_machine.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_10_blackstone_violet_ceramic.png`
+- **사용자 선별**: ⑥ 녹청 압력 그릇 / ⑧ 냉청 세라믹 / ⑨ 이끼 황동 민속 기계가 마음에 듦. ⑦ 적갈 녹철 / ⑩ 흑석·자홍 세라믹은 폐기.
+- **결과**: 생성 완료. 다음 라운드는 ⑥/⑧/⑨의 색감·웨더링을 유지하고, 실루엣만 다양화한다. ⑦/⑩은 파일 보존하되 비채택 처리.
+
+---
+
+### 2026-08-20 (9차) — 균형자 6/8/9 색감 기반 실루엣 탐색 5종
+
+- **목적**: 사용자 요청 "6,8,9 맘에들고 나머지 두 안은 폐기. 해당 색감 바탕으로 여러가지 모양, 레퍼런스는 유지" 반영. ⑥/⑧/⑨의 색감·웨더링은 유지하고, 균형자의 몸통/관절/계량 장치 실루엣을 5방향으로 재탐색.
+- **레퍼런스 운용**: 기존 균형자 축(봉인 그릇, 관측 렌즈, 비대칭 빌린 부품, 저울/계량 장치) + Titanfall식 산업 메카 질감(피스톤, 유압 브레이스, 중량감) 유지. 직접 복제 요소(무기, 콕핏, 데칼, 특정 로봇 실루엣)는 금지.
+- **개별 생성 지시 / 결과**:
+
+| 파일 | 실루엣 방향 | 검토 메모 |
+|---|---|---|
+| `balancer_variant_11_hunched_carrier_frame.png` | 구부정 운반 프레임. 둥근 받이를 등짐처럼 매단 구조 | 6의 색감과 산업 프레임이 잘 붙음. 추격 시 느리고 부담스러운 인상 |
+| `balancer_variant_12_tripod_measuring_vessel.png` | 삼각대 계량기. 받이를 세 다리 위에 올린 측량 장치형 | 8 색감과 가장 잘 맞음. 다리 실루엣이 신선하나 장치성 강함 |
+| `balancer_variant_13_shield_backed_vessel.png` | 방패등 압력 그릇. 커다란 등판/금고형 실루엣 | 압박감 좋음. 9의 이끼·황동 톤이 세계관과 잘 맞음 |
+| `balancer_variant_14_recovery_crane_vessel.png` | 한팔 회수 크레인. 긴 집게/체인/계량추 중심 | 형태 변화 최강. 단 크레인 팔이 너무 장비처럼 읽히면 캐릭터성 보강 필요 |
+| `balancer_variant_15_walking_amphora_vessel.png` | 보행 항아리 받이. 세로 용기 + 산업 브레이스 | "받이" 설정 시각화 좋음. 2차 탈락안과 달리 보행성·관절감 보강됨 |
+
+- **파일 경로**:
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_11_hunched_carrier_frame.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_12_tripod_measuring_vessel.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_13_shield_backed_vessel.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_14_recovery_crane_vessel.png`
+  - `docs/art/assets/generated-concepts/characters/balancer/variants/rejected/balancer_variant_15_walking_amphora_vessel.png`
+- **사용자 피드백**: "일단 다 별로." 원인: ⑴ `균형자`라는 이름을 너무 문자 그대로 저울·균형추·계량 장치로 시각화해 이름 설명처럼 보임 ⑵ 집게/클램프가 반복적으로 부적절한 실루엣으로 읽힘.
+- **폐기/금지 규칙**:
+  - 균형자 디자인에서 **저울 접시, 균형추, 매달린 계량추, 긴 체인 장식, 삼각대 계량기, scale/balance literal motif** 금지.
+  - "균형자"는 시각 모티프가 아니라 역할명이다. 비주얼은 **장부/회수/받이/관측기/남이 붙인 몸**으로 풀 것.
+  - 집게는 벌어진 양갈래 클로 금지. 필요하면 **둔탁한 패드형 조작 팔, 넓은 압착판, 짧은 유압 브레이스, 손목 없는 공구 암**으로 대체.
+  - 다음 프롬프트에는 `no scales, no hanging weights, no dangling chains, no pincer claws, no crab claws, no split clamp silhouette, no phallic silhouette`를 명시.
+- **결과**: 9차 5종은 비채택. 이후 라운드는 ⑥/⑧/⑨의 색감·웨더링만 유지하고, 저울/추/집게 모티프를 제거한 산업용 봉인 그릇·관측기·유압 보행체 방향으로 재탐색.
+
+---
+
+### 2026-08-20 (6차) — ★ Tier 2 가동: A·B 프로 재생성 + 첫 배경 「엮은 둥지 × 유물 색감」
+
+- **구독**: Tier 2 「Pixel Artisan」 활성 (월 5,000생성). 이번 라운드 소모 125생성, 잔여 4,875.
+- **A 재생성** (`create_image_pro` 32px, 후보 64장 → 1번 채택): 기존 A를 레퍼런스로 identity 고정. 후보 다수가 스위치 누락(16~63)·렌즈 누락(5~15) — **레퍼런스를 걸어도 정체성 요소는 후보 선별로 지켜야 함**. 애니메이션 4벌 재파생(idle/run/jump), jump는 렌즈에 글리프가 생겨 1회 재롤(「plain glowing oval, no patterns inside the lens」 명시로 해결)
+- **B 재생성** (후보 64장 → 16번 채택): 정자세·새챌·랩·글린트·잎꼬리 전부 가시. 이마 무균열 유지
+- **배경** (`create_image_pro` 688x384, 레퍼런스 2장 라벨링): `architecture_2c_woven_nest`에서 **구조**(둥지 포드·매듭 로프·가지 기둥), `tech_level_02_ruin_relics`에서 **색감만**(이끼 녹·슬레이트·랜턴 온광·안개 — ㉯은 기술수준으로는 탈락이지만 팔레트 차용은 설정 무충돌). 2안 생성 → **v1 채택**(v2는 원본의 보라 황혼이 남아 색감 지시 미달). 원경의 시안 빛이 시각 언어(시안=인식)와 호응
+- **Unity 적용**: `Assets/Art/Backgrounds/BG_WovenNest.png` (PPU 32, 1.5배 스케일, sortingOrder -100) + `ParallaxLayer.cs` 신설(카메라 추적 대비, 현재 카메라 고정이라 대기). A 프레임 17장 제자리 교체 → 클립 자동 반영. 비채택 v2는 `docs/art/assets/generated-concepts/maps/woven-nest/bg_woven_nest_alt_dusk.png` 보존
+- **검증**: 플레이 실측 — 새 A·B 주행/점프/추종, 배경 톤 정합 확인. 테스트 무영향(물리 불변)
+- **결과**: 승인 대기 (미커밋)
+
+---
+
+### 2026-08-20 (7차) — 사용자 피드백 반영: B 3/4 뷰 전환 + A 렌즈 상시 밝음
+
+- **피드백**: ① B가 순측면이라 평면적 → A처럼 대각(3/4)으로 입체감 ② A 아이들의 렌즈 명멸 제거, 상시 밝게.
+- **B 3/4 재생성** (pro 32px, 후보 64장 → 9번 채택): 6차 B(16번)를 identity 레퍼런스로 걸고 뷰만 3/4로 지시. 먼쪽 잎귀·어깨가 뒤로 보이고 양눈 가시 — 큰 눈이 캐논 「wide attentive dark eyes」에 더 근접. 소품 든 후보 다수(우산·책·무기·새) — **pro는 32px에서도 프롬프트에 없는 소품을 자주 붙인다. 정자세 지정 필수**
+- **A 아이들 재생성** (animate_image 1생성): 「렌즈 상시 최대 밝기, 명멸 금지」 명시. 5프레임 중 2번만 어둡게 나와 **0·1·3·4 채택**으로 해결(재롤 불필요). 명멸 컨셉은 폐기 — 렌즈 밝기 변화는 이제 서사 이벤트(꺼짐)에만 예약
+- **소모**: 21생성 (누적 146 / 5,000, 잔여 4,854)
+- **파일**: `B_idle_0.png`·`A_idle_0~3.png` 제자리 교체. 인게임 확인 완료
+- **결과**: 승인 대기 (미커밋)
+
+---
+
+### 2026-08-20 (8차) — B 명암 보강 + Idle/Walk 애니메이션 (사용자 피드백)
+
+- **피드백**: ① B 애니메이션 부재(정지 스프라이트 + 코드 들썩임뿐) ② 명암이 얕아 장면에서 따로 논다.
+- **순서가 핵심**: 명암을 베이스에서 먼저 확정(릴라이트) → 그 베이스로 애니메이션 파생 → 전 프레임이 명암을 상속.
+- **명암 보강** (`relight_b34.ps1`, 생성 0회): 올리브 램프 양자화 + 엣지 릴라이트 + **몸 하단 38% 내부 한 단 어둡게**(부피 음영, 신규 기법) + 글린트·아웃라인 보호. A의 명암 단과 정합
+- **애니메이션** (animate_image 각 1생성): Idle 4f(숨쉬기+깜빡임 — 얼굴이 사라진 프레임 1개 제외하고 0·1·3·4 채택) / Walk 8f(스텝·귀 바운스·새챌 흔들림, 1~8 채택)
+- **Unity**: `B_Idle/B_Walk.anim` + `B_Animator.controller`(Speed 0.25 경계) 신설, Companion_B에 Animator 연결. `CompanionFollower` 확장 — Animator가 있으면 Speed 파라미터를 구동하고 **코드 들썩임은 자동 비활성**(이중 바운스 방지, 없으면 기존 동작 유지)
+- **소모**: 2생성 (누적 148 / 5,000). 컴파일 0에러, 플레이 실측 — 추종 중 Walk 재생·정지 시 Idle 복귀 확인
+- **결과**: 승인 대기 (미커밋)
+
+---
+
+### 2026-08-20 (9차) — B 품질 재생성: 후처리 폐기, 생성 단계 해결 (사용자 피드백)
+
+- **피드백**: ① 빛 처리가 붉음 ② A·B 퀄리티 격차 ③ 얼굴이 넓은 단색 면 ④ 걸을 때 눈 감음.
+- **원인 자인**: 전부 8차 후처리(릴라이트 양자화)의 부작용 — 데운 러스트 램프가 빛을 붉히고, 양자화가 얼굴을 단색으로 뭉갬. **교훈: Tier 2 예산에서는 후처리로 때우지 말고 생성 단계에서 품질을 뽑는다.** 릴라이트 파이프라인은 「톤 보정」용으로 강등(품질 보강용 아님)
+- **재생성** (pro 32px 후보 64장 → **29번 채택**): identity 레퍼런스 = 기존 B34, **style_image = A 스프라이트(shading·detail만 복사, 팔레트 제외)** + 「차가운 조명, 붉은 하이라이트 금지, 얼굴 다톤(볼·눈썹 음영)」 명시. 29번은 정수리 상단광 밴드가 A의 판때기 명암 문법과 일치
+- **애니메이션 재파생** (각 1생성): Idle 4f / Walk 8f — 「모든 프레임 눈 뜸·글린트 유지」 강제. 전 프레임 결손 없음, 선별 그대로 사용(idle 0~3 / walk 1~8)
+- **소모**: 22생성 (누적 170 / 5,000)
+- **결과**: 인게임 확인 완료, 승인 대기 (미커밋)
+
+---
+
+### 2026-08-20 (10차) — 균형자 09 리파인 테스트: sprite-gen 시도 + image_gen fallback
+
+- **목적**: 사용자 요청 "맘에들었던 사진중 하나를 sprite-gen으로 다듬어 전/후 차이 보기" 반영. 사용자 선호안 ⑥/⑧/⑨ 중 미지 톤과 가장 잘 붙는 ⑨ 이끼 황동 민속 기계를 기준 이미지로 선택.
+- **sprite-gen 시도**:
+  - 기준 이미지: `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_09_moss_brass_folk_machine.png`
+  - 실행 경로: `tools/sprite-gen/.venv/Scripts/python.exe -m sprite_gen.cli gen --provider codex ...`
+  - 결과: 현재 `codex` CLI가 `Not logged in` 상태라 provider 세션이 정상 완료되지 못함. `grok` CLI도 로컬에서 발견되지 않음.
+  - 판정: 이번 결과물은 엄밀한 sprite-gen 산출물이 아니라, 동일 레퍼런스와 동일 리파인 지시를 Codex built-in `image_gen`으로 실행한 fallback 샘플이다.
+- **리파인 지시 핵심**:
+  - 유지: 이끼 올리브, 웨더링 황동, 암청 슬레이트, 세라믹 압력 그릇, 오프센터 시안 관측 렌즈, 낡은 민속 기계 톤.
+  - 제거: 저울 접시, 균형추, 매달린 체인, 계량봉, 삼각 계량 장식, 양갈래 집게/클로, 부적절한 실루엣.
+  - 대체: 둔탁한 패드형 조작 팔, 짧은 유압 브레이스, 봉인 그릇, 관측기, 유압 보행체, 긁힘/녹청/금 간 세라믹/오일 얼룩.
+- **검토 메모**:
+  - 장점: 원본의 "이름 직역" 요소였던 체인·추·저울 구조가 거의 사라지고, 더 단순한 봉인 그릇 + 유압 다리 실루엣으로 정리됨. 집게 실루엣도 제거되어 부적절한 오독 위험이 크게 줄었다.
+  - 단점: 원본보다 비대칭 찬탈자성은 약해지고, 덩어리가 너무 정돈되어 개체성/불쾌감이 줄었다. 다음 라운드는 이 구조를 유지하되 관측 렌즈 위치와 붙인 부품의 어색함을 다시 올리는 쪽이 좋다.
+- **파일 경로**:
+  - 전: `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_09_moss_brass_folk_machine.png`
+  - 후: `docs/art/assets/generated-concepts/characters/balancer/variants/selected/balancer_variant_09_refined_imagegen_fallback.png`
+- **결과**: 비교용 fallback 샘플 생성 완료. sprite-gen 정식 재실행 조건 = `codex login` 완료 또는 사용 가능한 `grok` provider 설치/로그인.
+
+---
+
+### 2026-08-20 (10차) — 픽셀 수술 2건 + B 수면 애니 + A·B 정면 뷰(3D 턴) + 변형 4종 보존
+
+- **수정 ①** A 아이들 롤러 찌그러짐: 프레임 1~3에서 롤러가 뭉개짐 → **롤러 밴드(y26~31)를 프레임 0으로 고정**(섀시 바닥 윤곽 y25는 프레임별 유지). 생성 0회
+- **수정 ②** B 아이들 글린트 벌어짐: 2번 프레임에서 양눈 글린트가 세로 2px → 아래쪽 중복 픽셀 2개((26,11)·(19,12))만 눈 암색으로 복원. ⚠️ 처음에 눈 박스를 통째로 고정했다가 **머리가 프레임마다 1px씩 움직여 유령 눈 발생 → 롤백.** 교훈: 움직이는 부위에 프레임 고정 금지, 결함 픽셀만 수술
+- **B 수면 애니** (1생성): 사용자 지정 `B34_13`(누운 포즈) 베이스 → 6프레임 호흡·귀 트임. `B_Sleep.anim`(4fps) + 컨트롤러 Sleep 상태(IsAsleep). `CompanionFollower`가 **7초 정지 시 잠들고 움직이면 즉시 깸**
+- **3D 턴** (pro 2회 = 40생성): 좌우 반전 대신 **측면→정면→반전측면** 3박자. A 정면 = AF_16(이끼 새시), B 정면 = BF_9(새싹 튜프트). 애니메이터 상태 증설 없이 **LateUpdate에서 0.09초 정면 스프라이트 덮어쓰기**(Animator가 먼저 쓰고 우리가 덮음). PlayerAnimator·CompanionFollower 공통 패턴
+- **변형 보존**: `docs/art/assets/b-variants/` — B34_13(눕기)·27(지도)·30(잎우산)·42(눈감고 웃음, 재회 신 후보)
+- **보류**: 점프 애니메이션 개선은 사용자 지시대로 마지막에 제작 후 컨펌
+- **소모**: 41생성 (누적 211 / 5,000). PlayMode 8/8 유지
+- ⚠️ **운영 노트**: 플레이 모드 중 uloop dynamic-code가 간헐적으로 행 — 씬 필드 조작은 에디트 모드에서 하고 플레이는 입력·스크린샷만
+
+---
+
+### 2026-08-20 (11차) — 턴 3프레임화 + 정면 아트 정합 수정 (사용자 피드백)
+
+- **피드백**: ① 턴이 1프레임이니 180도를 3프레임으로 ② 정면 샷이 기존 캐릭터 아트와 다름.
+- **정면 이탈 원인**: 10차 정면 생성은 identity 레퍼런스만 걸고 **팔레트를 스타일 복사하지 않았다** → A는 몸통이 밝은 청회색·렌즈 과대·이끼 소실, B는 튜프트가 커져 4귀로 읽힘. 이번엔 `style_image_url`에 **측면 스프라이트를 걸고 팔레트까지 복사**
+- **생성** (pro 4회 = 80생성): A 정면/45°, B 정면/45°. ⚠️ **A 정면 세트(AF2)는 실패** — 팔레트 복사 + 「대칭」 제약이 겹쳐 몸통이 검게 뭉개지고 부속 소실. **대신 45° 세트(AQ) 안에 거의 정면인 후보가 있어 그걸로 대체**(AQ_44). 재생성 없이 해결
+- **채택**: A 45°=AQ_12 / A 정면=AQ_44 / B 45°=BQ2_63 / B 정면=BF2_14
+- ★ **실루엣 치수 정합을 선별 기준에 추가**: 처음 고른 B 45°(BQ2_24)는 21x26으로 측면(24x29)보다 3px 작아 **회전 중 크기가 출렁였다.** 전 후보 bbox를 실측해 폭·발높이가 맞는 것으로 교체(BQ2_63 22x29), 45°는 발 위치가 1px 높아 **아래로 1px 시프트**. 최종 A 26/26/26 · B 24/22/24, 발 위치 전부 31
+- **코드**: `Gameplay/View/TurnView.cs` 신설 — 회전 시간을 3등분해 **45°(출발) → 정면 → 45°(도착, flip)**. A·B 공용 정적 헬퍼이며 Animator 상태를 늘리지 않는다(LateUpdate 덮어쓰기). turnDuration 0.14s
+- **소모**: 80생성 (누적 291 / 5,000). 컴파일 0에러, **EditMode 19/19 + PlayMode 8/8**
+- **보류**: 점프 애니메이션(사용자 지시 — 마지막에 제작 후 컨펌)

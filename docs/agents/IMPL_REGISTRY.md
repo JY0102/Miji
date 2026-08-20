@@ -285,3 +285,8 @@
 - **씬**: `Companion_B` (SpriteRenderer sortingOrder -1 = A 바로 뒤 + CompanionFollower, target=Player_A Motor 배선)
 - **검증**: compile 0/0 · 플레이 실측 — 우향 주행 시 좌측 후방 추종, 방향 전환 시 반대편 재정렬·시선 반전 확인
 - **다음**: C7 CombatCore 마무리(Hitbox) → G2
+| 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\World\ParallaxLayer.cs | [자동 기록] |
+| 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Companion\CompanionFollower.cs | [자동 기록] |
+| 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Companion\CompanionFollower.cs | [자동 기록] |
+| 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\View\TurnView.cs | [자동 기록] |
+| 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |

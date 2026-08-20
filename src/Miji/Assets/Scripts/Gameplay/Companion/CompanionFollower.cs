@@ -28,11 +28,30 @@ namespace Miji.Gameplay.Companion
         [Tooltip("이보다 멀어지면 연출 없이 즉시 복귀한다.")]
         [SerializeField] float snapDistance = 8f;
 
-        [Header("걸음 들썩임 — 생물이라는 최소한의 표시")]
+        [Header("걸음 들썩임 — 애니메이터가 없을 때만 쓰는 대체 표현")]
         [SerializeField] float bobAmplitude = 0.05f;
         [SerializeField] float bobFrequency = 9f;
 
+        [Tooltip("있으면 Speed 파라미터를 구동하고 코드 들썩임은 끈다(걸음 바운스는 클립 몫).")]
+        [SerializeField] Animator animator;
+
+        [Header("방향 전환 — 180도를 3프레임으로 돈다")]
+        [SerializeField] Sprite turnQuarterSprite;
+        [SerializeField] Sprite turnFrontSprite;
+        [SerializeField] float turnDuration = 0.14f;
+
+        [Header("긴 대기 — 잠들기")]
+        [Tooltip("이 시간 동안 거의 안 움직이면 잠든다. 움직이면 즉시 깬다.")]
+        [SerializeField] float sleepDelay = 7f;
+
+        static readonly int SpeedParam = Animator.StringToHash("Speed");
+        static readonly int AsleepParam = Animator.StringToHash("IsAsleep");
+
         SpriteRenderer sprite;
+        float stillTimer;
+        int lastFace = 1;
+        float turnTimer;
+        int turnFrom = 1;
         Vector3 basePosition;   // 들썩임을 뺀 실제 추적 위치
         Vector3 velocity;
         float bobPhase;
@@ -61,17 +80,48 @@ namespace Miji.Gameplay.Companion
                 basePosition = Vector3.SmoothDamp(basePosition, anchor, ref velocity, smoothTime);
             }
 
-            // 움직일 때만 들썩인다. 서 있으면 조용히 선다.
-            var moving = Mathf.Clamp01(new Vector2(velocity.x, velocity.y).magnitude / 2f);
-            bobPhase += Time.deltaTime * bobFrequency * Mathf.Max(moving, 0.001f);
-            var bob = Mathf.Abs(Mathf.Sin(bobPhase)) * bobAmplitude * moving;
+            var speed = new Vector2(velocity.x, velocity.y).magnitude;
 
-            transform.position = basePosition + new Vector3(0f, bob, 0f);
+            if (animator != null)
+            {
+                animator.SetFloat(SpeedParam, speed);
+                transform.position = basePosition;
+
+                // 오래 가만히 있으면 잠든다. 움직이면 즉시 깬다.
+                stillTimer = speed < 0.15f ? stillTimer + Time.deltaTime : 0f;
+                animator.SetBool(AsleepParam, stillTimer >= sleepDelay);
+            }
+            else
+            {
+                // 애니메이터가 없으면 코드 들썩임으로 생물 표시를 대신한다.
+                var moving = Mathf.Clamp01(speed / 2f);
+                bobPhase += Time.deltaTime * bobFrequency * Mathf.Max(moving, 0.001f);
+                var bob = Mathf.Abs(Mathf.Sin(bobPhase)) * bobAmplitude * moving;
+                transform.position = basePosition + new Vector3(0f, bob, 0f);
+            }
 
             // 가는 방향을 본다. 멈춰 있으면 A 쪽을 본다.
             var face = Mathf.Abs(velocity.x) > 0.05f
                 ? velocity.x
                 : target.transform.position.x - basePosition.x;
+
+            var faceSign = face < 0f ? -1 : 1;
+            if (faceSign != lastFace)
+            {
+                turnFrom = lastFace;
+                lastFace = faceSign;
+                if (turnFrontSprite != null) turnTimer = turnDuration;
+            }
+
+            // Animator가 이미 스프라이트를 쓴 뒤라 여기서 덮으면 이긴다.
+            if (turnTimer > 0f)
+            {
+                turnTimer -= Time.deltaTime;
+                if (Miji.Gameplay.View.TurnView.Apply(sprite, turnTimer, turnDuration, turnFrom, faceSign,
+                                                      turnQuarterSprite, turnFrontSprite))
+                    return;
+            }
+
             if (!Mathf.Approximately(face, 0f)) sprite.flipX = face < 0f;
         }
     }
