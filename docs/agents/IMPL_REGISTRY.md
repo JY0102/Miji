@@ -247,3 +247,21 @@
 - 실행: `uloop run-tests --test-mode PlayMode` / `--test-mode EditMode` (기본값이 EditMode)
 
 **최종**: compile 0/0 · **PlayMode 8/8 · EditMode 19/19 = 27/27 통과**
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\Damage.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\Health.cs | [자동 기록] |
+| 2026-08-19 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\Hurtbox.cs | [자동 기록] |
+| 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
+
+### 3차 — A 스프라이트·애니메이션 적용 (2026-08-20) ✅
+
+그레이박스 사각형 → 실제 픽셀 스프라이트. 생성 경위·프레임 선별·스타일 검토는 `docs/art/ART_LOG.md` 2026-08-20 항목이 원본.
+
+- **에셋**: `Assets/Art/Player/` — 프레임 PNG 17장(idle 4 / run 8 / jump 3 / fall 2, 32x32·PPU 32·Point·무압축) + 클립 4종 + `A_Animator.controller`
+- **코드**: `Gameplay/Player/PlayerAnimator.cs` 신설 — **뷰 전용.** Motor 상태(HorizontalSpeed/IsGrounded/Velocity.y) → Animator 파라미터, Facing → flipX. 물리·조작에 관여하지 않음(컴포넌트를 꺼도 게임 동작 동일)
+- **애니메이터 구조**: Idle↔Run(Speed 0.1), Idle·Run→Jump(비접지+상승)·Fall(비접지+하강), Jump→Fall(하강 전환), Fall→Idle/Run(착지). 전환 duration 0(픽셀 아트 — 블렌딩 없음), Exit Time 없음
+- **씬**: `Greybox_Movement.unity` Player_A에 Animator+PlayerAnimator 추가. 스프라이트 32px=PPU 32 → 월드 1유닛, 기존 1x1 콜라이더와 일치(콜라이더 무변경 — 물리 불변)
+- **검증**: compile 0/0 · **EditMode 19/19 + PlayMode 8/8 유지** · 플레이 실측 — Idle 렌즈 명멸 / D 홀드 주행 / timeScale 0.15로 공중 낙하 프레임 캡처 확인
+- **주의**: Idle 마지막 생성 프레임(렌즈 꺼짐)은 **의도적으로 제외** — A의 「꺼짐」은 서사 사건이라 아이들 루프에 쓰면 안 된다
+- **다음**: C7 CombatCore 마무리(Hitbox 미작성) → G2 근접공격 때 Attack/Hurt 애니메이션 추가(PixelLab 잔여 3생성 고려)
+
+**3차 추가 (2026-08-20) — 콜라이더를 그림에 맞춤 (사용자 지적):** 콜라이더가 1x1(캔버스 전체)이라 그림보다 사방 3px 커서 A가 땅에서 3px 떠 보였다. 전 프레임 불투명 픽셀 실측 후 **size (0.8125, 0.65625) / offset (0, -0.078125)** 로 조정 — 바닥·좌우는 그림 몸통에 정합(좌우 대칭이라 flipX 안전), **상단 스위치(폭 2~6px)는 충돌 제외**(시각 전용, 더듬이 관례). 점프 도달은 발 기준이라 F2 게이트 검증 불변. 실측 y=0.4212 접지(계산 0.4216 일치), PlayMode 8/8 유지.

@@ -364,6 +364,8 @@ GameObject:
   - component: {fileID: 214958568}
   - component: {fileID: 214958567}
   - component: {fileID: 214958566}
+  - component: {fileID: 214958573}
+  - component: {fileID: 214958572}
   m_Layer: 7
   m_Name: Player_A
   m_TagString: Untagged
@@ -401,17 +403,23 @@ MonoBehaviour:
   groundDeceleration: 38
   airAcceleration: 26
   airDeceleration: 10
+  turnAroundMultiplier: 2.1
   jumpHeight: 1.7
   jumpCutMultiplier: 0.45
+  jumpLockout: 0.08
   gravityScale: 3.6
   fallGravityMultiplier: 1.35
   maxFallSpeed: 18
+  apexThreshold: 2.2
+  apexGravityMultiplier: 0.65
+  apexControlBonus: 1.45
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
   groundCheckThickness: 0.08
   coyoteTime: 0.09
   jumpBufferTime: 0.11
+  cornerCorrection: 0.22
 --- !u!61 &214958568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -446,7 +454,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.078125}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -456,7 +464,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8125, y: 0.65625}
   m_EdgeRadius: 0
 --- !u!50 &214958569
 Rigidbody2D:
@@ -534,8 +542,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 854385612}
-  m_Color: {r: 0.85, g: 0.83, b: 0.78, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4036397da7db33046ade879fc418f0d0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -559,6 +567,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &214958572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214958565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a29d16c80345b47866eb8f46b93e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.Player.PlayerAnimator
+  motor: {fileID: 0}
+--- !u!95 &214958573
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214958565}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0178b394c857a114abcd93d1dc293b31, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!28 &376565869
 Texture2D:
   m_ObjectHideFlags: 0

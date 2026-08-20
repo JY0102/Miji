@@ -550,3 +550,29 @@ The Scar of the Legend: a place where excess mind first settled into objects aft
 - **Codex 픽셀 질감 = 아트 파이프라인 기준** (사용자 승인)
 - **팔레트** — 구역별로 채택 이미지에서 샘플링 예정 (`STYLE_GUIDE.md` 구역별 표 TBD)
 - **반영**: `DECISIONS.md` 2026-08-07 행, `STYLE_GUIDE.md` 세계 아트 디렉션·구역별 서명 표, `WORLD_TECH_LEVEL_COMPARISON.md` 결론 절
+
+---
+
+### 2026-08-20 — ★ A(플레이어) 인게임 스프라이트 + 애니메이션 4종 (첫 실전 에셋)
+
+- **목적**: 그레이박스 1x1 사각형이던 Player_A를 실제 픽셀 스프라이트로 교체. 컨셉 → 게임 에셋 전환의 첫 사례.
+- **경로**: **PixelLab MCP** (Codex/DALL-E 수동 실행 아님 — 생성부터 Unity 적용까지 자동 파이프라인). 트라이얼 계정, 총 4생성 사용(잔여 3).
+- **기준 컨셉**: `character_01_A_switch_robot.png` (2026-08-04 채택) — 상단 토글 스위치 / 단안 시안 렌즈 / 이끼 낀 석재-금속 몸통 / 하단 롤러가 32px에서 전부 생존.
+- **생성 설계 (저비용 파이프라인)**:
+  1. `create_image_pixen` 32x32 측면(동향) 기본 스프라이트 1장 — 1생성
+  2. `animate_image`로 기본 프레임에서 Idle(4f)·Run(8f)·Jump/Fall(6f) 파생 — 각 1생성
+- **프레임 선별**:
+  - Idle = 생성 0~3 (렌즈 명멸 + 1px 들썩임). **4번 탈락 — 렌즈가 꺼진 실루엣.** A의 「꺼짐」은 서사 사건이므로 아이들에 쓰면 안 됨
+  - Run = 생성 1~8 (전진 기울기 + 롤러 회전 + 스위치 흔들림)
+  - Jump = 점프 생성분 1~3 (웅크림→발사), Fall = 4·6 (기수 하강)
+- **검토 메모** (스타일 가이드 체크리스트):
+  - 1px 다크 아웃라인 ✓ / AA 없음 ✓ / 저채도 팔레트·쓸쓸한 톤 ✓ / 프레임 수 기준(권장치) ✓
+  - ⚠️ **크기 32x32 — 가이드 기본 16x16에서 이탈.** 스위치+렌즈+롤러 3요소가 16px에서 뭉개져 32px 채택(PPU 32 → 월드 1유닛으로 크기 동일). **가이드의 「기본 스프라이트 크기」 항목은 재검토 필요** — 타일 16px과의 혼용 시 mixel 문제는 타일셋 제작 때 판단
+  - 팔레트는 여전히 미확정 — 이 스프라이트에서 샘플링해 확정하는 것도 가능
+- **Unity 적용** (2026-08-20, 테스트 27/27 유지):
+  - `Assets/Art/Player/` — 개별 프레임 PNG 17장 (A_idle_0~3 / A_run_0~7 / A_jump_0~2 / A_fall_0~1), PPU 32·Point·무압축
+  - 클립 4종(`A_Idle/Run/Jump/Fall.anim`) + `A_Animator.controller` (Speed/IsGrounded/VerticalVelocity, 전환 duration 0)
+  - `PlayerAnimator.cs` 신설 (Gameplay/Player) — Motor 상태 → 파라미터, Facing → flipX. 뷰 전용(꺼도 게임 동작)
+  - `Greybox_Movement.unity` Player_A에 Animator + PlayerAnimator 연결, 기본 스프라이트 A_idle_0
+- **파일 경로**: `src/Miji/Assets/Art/Player/*.png` (원본 프레임·검수 스트립은 세션 스크래치패드 — 리포 보존본은 Assets가 원본)
+- **결과**: 승인 대기 — 플레이 모드에서 Idle/Run/공중 프레임 전환 확인 완료. 재생성 원하면 잔여 3생성 내에서 부분 교체 가능
