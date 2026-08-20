@@ -290,3 +290,5 @@
 | 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Companion\CompanionFollower.cs | [자동 기록] |
 | 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\View\TurnView.cs | [자동 기록] |
 | 2026-08-20 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
+| 2026-08-20 | IMPLEMENTATION | C:\Users\User\Game\src\miji\Assets\Tests\EditMode\Gameplay\Miji.Gameplay.Tests.asmdef | [자동 기록] |
+| 2026-08-20 | IMPLEMENTATION | C:\Users\User\Game\src\miji\Assets\Tests\EditMode\Gameplay\TurnViewTests.cs | [자동 기록] |

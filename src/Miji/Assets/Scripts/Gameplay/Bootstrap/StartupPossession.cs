@@ -1,7 +1,7 @@
 using Miji.Core.Input;
 using UnityEngine;
 
-namespace Miji.Gameplay
+namespace Miji.Gameplay.Bootstrap
 {
     /// <summary>
     /// 시작 시 조작권을 넘긴다.

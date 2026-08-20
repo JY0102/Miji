@@ -3,7 +3,7 @@
 > 새 세션이나 새 환경에서 이 프로젝트를 이어받을 때 읽는 문서입니다.
 > **"뭐 해야 함?" 이라는 질문의 답은 아래 「다음에 할 일」 절에 있습니다.**
 
-**최종 갱신:** 2026-08-20 (★ **PixelLab Tier 2 가동** — A·B 프로 재생성 + 첫 배경 + B 애니 3종 + 3프레임 턴 + 균형자 컨셉 변형 15종 선별)
+**최종 갱신:** 2026-08-20 (★ **구조 감사 + 폴더 규칙 확정** — asmdef 구멍 3개 차단, 아트를 정체성 기준으로 재편, `PROJECT_STRUCTURE.md` 신설, 테스트 27→33)
 
 ---
 
@@ -42,6 +42,17 @@
 - ★ **선별 기준에 실루엣 치수 추가** — 회전 프레임은 폭·발높이가 어긋나면 크기가 출렁인다. bbox 실측으로 맞추고 1px 시프트로 정렬(A 26 고정 / B 24·22·24, 발 위치 전부 31)
 - **보류**: 점프 애니메이션 개선(사용자 지시 — 마지막에 제작 후 컨펌), PixelLab **캐릭터 회전 기능(v3 8방향)** 시험 중 — 성공하면 수동 조합을 대체
 - **사용자 작업(별도)**: 균형자 컨셉 **변형 15종 생성 + selected/rejected 분류**, `generated-concepts/`를 characters·maps·world 서브폴더로 재편(+README). `DECISIONS.md`에 **균형자 비주얼 가드레일**(이름 직역 금지 — 저울·추·집게 폐기, 역할 기반 시각화) 기록
+
+**8/20(구조) — 구조 감사 + 폴더 규칙 확정. 규칙 문서 `docs/agents/PROJECT_STRUCTURE.md` 신설.** asmdef 위반은 0건이었으나(단방향·네임스페이스·PlayMode 플랫폼 전부 정상) **구멍 3개**를 막았다. 테스트 **27 → 33** (EditMode 25 + PlayMode 8).
+- ★ **`autoReferenced: true`가 단방향 규칙의 우회로였다** — `Assets/` 아무 데나 .cs를 떨구면 Assembly-CSharp에 들어가 Core·Gameplay를 **양쪽 다** 참조할 수 있었다. 「컴파일러가 강제한다」가 asmdef 밖에서는 거짓이었던 것. Core·Gameplay 둘 다 `false`로 바꿔 **모든 스크립트가 asmdef 아래에 있도록 강제**
+- **`Miji.Gameplay.Tests`(EditMode) 신설** — 기존 EditMode가 Core 전용이라 `TurnView` 같은 **Gameplay의 순수 계산**을 잴 자리가 없어 PlayMode로 밀리고 있었다. `TurnViewTests` 6개 작성(3구간 분할·flipX·45° 폴백)
+- **`StartupPossession.cs` → `Gameplay/Bootstrap/`** (유일하게 서브폴더가 없던 스크립트). 네임스페이스와 씬의 `m_EditorClassIdentifier`까지 동반 갱신
+- ★ **아트는 역할이 아니라 정체성으로 가른다** — `Art/Player/`(A·B 혼재) → `Art/Characters/{A,B}/{Sprites,Animations}`. **2장에서 조작권이 인계되므로** A는 1·3장에서만 플레이어다. 역할로 가르면 확정 설계가 폴더를 깨뜨린다. **스크립트는 반대로 역할로** 가른다(`Player/`·`Companion/`) — 층이 다르니 기준이 달라도 된다. 배경·타일은 `Art/Environment/`로
+- ★ **`src/miji`(디스크) vs `src/Miji`(git 인덱스) 대소문자 불일치 해소** — 사용자가 디스크를 대문자로 개명. 방치했으면 이날 만든 미추적 `.meta`들이 **소문자 경로로 커밋되어 리포 트리가 두 갈래로 쪼개질** 뻔했다. ⚠️ **역사 문서의 `src/miji/` 표기는 손대지 말 것** — 삭제된 Godot 프로젝트의 실제 경로다
+- **`SampleScene.unity` 삭제**(사용자 지시). 빌드 세팅을 `Scenes/Greybox/Greybox_Movement.unity`로 교체 — 그냥 비우면 씬 없는 빌드가 나온다. 데모 씬이 생기면 재교체
+- ⚠️ **개명·대규모 자산 이동 뒤 첫 `uloop launch`는 타임아웃이 난다** — `Library/` 전체 재빌드가 180초를 넘긴다. 고장이 아니므로 Unity 프로세스가 살아 있으면 잠시 뒤 명령을 다시 쏘면 된다. ULoop CLI는 전역 설치가 빠져 있어도 **`npx --yes uloop-cli@2.2.0`** 으로 부르면 된다
+- ⚠️ **Unity 기동 시 ULoop이 `.claude/skills/` 33개를 CRLF로 다시 쓴다**(내용 동일). 매번 diff에 뜨므로 신경 쓰이면 `.gitattributes`로 개행 고정이 근본 해결
+- **미해결로 남긴 것**: `Assets/` 루트의 URP 설정 3종은 옮기면 ProjectSettings 경로 참조가 깨질 수 있어 **이득 대비 위험이 커서 두기로 결정**
 
 **8/19(후반) — 구현 착수 결정.** 이원 무브셋 5절(데모=코어4+F1+F2) 승인으로 8/8 미결 청산, **Core/Gameplay 이층 아키텍처** 확정(`specs/2026-08-19-implementation-core-architecture-design.md` — Core 8모듈은 스토리 명사를 모르고, 결별 잠금·2장 조작권 인계·B 자율 개입이 Core 요구사항). 구현 순서: 뼈대(C1~C3·C6) → A 조작감 → 룸·진행·세이브 → B 협력 → 데모 조립. **다음 세션은 여기서 시작 — C1(EventBus)부터, IMPL-005 등록 후 착수.**
 
@@ -693,7 +704,7 @@ B와 함께면 한 번에 뛰어오르던 곳을 혼자면 붙어서 느리게 �
 
 **2026-08-10 엔진을 Godot 4 → Unity 6로 이관했다.** 기존 Godot 프로젝트 `src/miji/`는 **사용자 지시로 전부 삭제**됨(git 이력엔 남음). 리부트(7/30)로 어차피 대부분 폐기 대상이었고, 설계 문서는 전부 엔진 무관 MD라 손실 없음.
 
-**현재 `src/miji/`에 Unity 6.3 프로젝트가 생성돼 있다**(2D URP + Pixel Perfect, ULoop 연동, 빈 SampleScene). **게임 C# 코드는 아직 하나도 없다.** 구 Phase 1~9는 전부 무효 — `IMPL_ROADMAP.md`·`IMPL_REGISTRY.md`에 폐기 표시됨.
+**현재 `src/Miji/`에 Unity 6.3 프로젝트가 있다**(2D URP + Pixel Perfect, ULoop 연동). ⚠️ **이 절은 2026-08-10 시점 기록이다** — 게임 C# 코드는 2026-08-19(IMPL-005)부터 실제로 작성됐고 현재 20파일·테스트 33개다. 구조 규칙은 `docs/agents/PROJECT_STRUCTURE.md`, 진행 상황은 위 「다음에 할 일」과 `IMPL_REGISTRY.md`를 볼 것. 구 Phase 1~9는 전부 무효 — `IMPL_ROADMAP.md`·`IMPL_REGISTRY.md`에 폐기 표시됨.
 
 ### Unity 착수 시 표준 조합
 - **Unity 6.3 LTS** (지원 2027-12까지 — 6.0 LTS는 2026-10 종료라 배제) + **2D URP** + **Pixel Perfect Camera** 패키지
@@ -807,7 +818,7 @@ Game/
 │       ├── 2026-07-24-core-mechanics-design.md               ← ⚠️ 폐기
 │       ├── 2026-07-24-world-map-design.md                    ← ⚠️ 폐기
 │       └── 2026-07-24-story-character-design.md              ← ⚠️ 폐기
-└── src/miji/                        ← Unity 6.3 프로젝트 (Assets / Packages / ProjectSettings). 게임 C# 코드는 아직 없음
+└── src/Miji/                        ← Unity 6.3 프로젝트 (구조 규칙은 docs/agents/PROJECT_STRUCTURE.md)
 ```
 
 ---

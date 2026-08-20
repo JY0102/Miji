@@ -119,6 +119,7 @@ Handles all code. Agents can be dynamically spawned per feature.
 - Write and maintain all source code under `src/`
 - Each major feature gets its own sub-agent context (scoped prompt)
 - Maintains `docs/agents/IMPL_REGISTRY.md` — a registry of all active implementation agents and their assigned features
+- **Follows `docs/agents/PROJECT_STRUCTURE.md`** — 어셈블리(asmdef)·폴더·명명 규칙. 새 스크립트/자산의 위치는 여기서 정한다. 의존 방향 `Gameplay → Core`는 컴파일러가 강제하며, 모든 스크립트는 asmdef 아래에 있어야 한다(`autoReferenced: false`)
 - Code must reference planning docs; never invent mechanics not in `docs/planning/`
 
 **Agent Spawn Trigger:**

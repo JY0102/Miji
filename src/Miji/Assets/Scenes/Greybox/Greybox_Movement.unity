@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2db7462dde6469a41b380b1a299b0894, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.StartupPossession
+  m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.Bootstrap.StartupPossession
   router: {fileID: 45549909}
   body: {fileID: 214958566}
 --- !u!114 &45549908
