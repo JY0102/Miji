@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "b-cute-companion",
+    "description": "A cuter version of the existing Unity B companion: a tiny olive moss-green living creature, rounded soft body, small leaf-like head tufts, stubby legs, short tail, wide gentle dark eyes, timid first-journey companion energy. Preserve the current B identity, 3/4 view, muted earthy palette, and readable 1px dark outline. Cute proportion correction: make the face/head mass slightly smaller and less mascot-like than the previous cute candidate, while making the eyes larger relative to the face by about 1-2 logical pixels. Keep the body compact and creature-like. Do not add scarf, bag, clothing, props, human accessories, eyebrows, mouth detail, or new markings."
+  },
+  "cell": {
+    "shape": "square",
+    "size": 256,
+    "safe_margin": 24
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [255, 0, 255]
+  },
+  "fit": {
+    "resample": "kcentroid",
+    "align_x": "alpha-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 32,
+    "palette_size": 24,
+    "detail_bias": true,
+    "outline": 0.62,
+    "pitch_hint": 8
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 5,
+      "loop": true,
+      "action": "subtle breathing, tiny blink, shy attentive bounce; keep feet mostly planted and do not change identity; keep head/face mass small while the larger eyes carry the cute read"
+    },
+    "walk": {
+      "frames": 8,
+      "fps": 12,
+      "loop": true,
+      "action": "tiny soft companion walk with short steps, slight body bob, tail and leaf tufts following the motion; no running or exaggerated comedy; keep head/face mass small while the larger eyes carry the cute read"
+    }
+  }
+}

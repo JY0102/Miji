@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": ".woven-nest-tilemap-curation.sg-staging",
+    "description": "imported PNG set from C:\\Users\\User\\Game\\docs\\art\\assets\\tilemaps\\woven-nest\\sprite-gen-import\\backwall"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 16,
+    "height": 16,
+    "size": 16,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ]
+  },
+  "states": {
+    "backwall": {
+      "frames": 5,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "overlays": {
+      "frames": 6,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "props": {
+      "frames": 3,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "structure": {
+      "frames": 9,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    },
+    "terrain": {
+      "frames": 8,
+      "fps": 2,
+      "loop": false,
+      "action": "imported still set"
+    }
+  }
+}

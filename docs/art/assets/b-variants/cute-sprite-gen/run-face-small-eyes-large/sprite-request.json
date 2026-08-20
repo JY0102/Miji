@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "b-cute-face-small-eyes-large",
+    "description": "Refined cute version of the existing Unity B companion: preserve current B identity, 3/4 view, muted olive moss-green body, leaf tufts, tail, stubby legs, and dark outline. Make the face/head mass slightly smaller and less mascot-like than the previous cute candidate, while making the eyes larger relative to that smaller face by about 1-2 logical pixels. The eyes should be the main cute feature at 32x32. Keep the body compact and creature-like. Do not add scarf, bag, clothing, props, human accessories, eyebrows, mouth detail, or new markings.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 256,
+    "height": 256,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24,
+    "size": 256,
+    "safe_margin": 24
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "auto",
+    "score": 226.71,
+    "min_subject_distance": 226.71,
+    "background": {
+      "mode": "transparent",
+      "opaque_border_fraction": 0.016,
+      "subject_pixels": 179
+    },
+    "candidates": [
+      {
+        "name": "magenta",
+        "hex": "#FF00FF",
+        "score": 226.71,
+        "min_subject_distance": 226.71,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "green",
+        "hex": "#00FF00",
+        "score": 183.73,
+        "min_subject_distance": 183.73,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "cyan",
+        "hex": "#00FFFF",
+        "score": 226.71,
+        "min_subject_distance": 226.71,
+        "clears_erase_radius": true
+      },
+      {
+        "name": "blue",
+        "hex": "#004DFF",
+        "score": 209.94,
+        "min_subject_distance": 209.34,
+        "clears_erase_radius": true
+      }
+    ],
+    "selection_reason": "highest 1st-percentile subject distance among the 4 candidate(s) clearing the 96 erase radius"
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 5,
+      "loop": true,
+      "action": "subtle breathing, tiny blink, shy attentive bounce; keep feet mostly planted and do not change identity; keep head/face mass small while the larger eyes carry the cute read"
+    },
+    "walk": {
+      "frames": 8,
+      "fps": 12,
+      "loop": true,
+      "action": "tiny soft companion walk with short steps, slight body bob, tail and leaf tufts following the motion; no running or exaggerated comedy; keep head/face mass small while the larger eyes carry the cute read"
+    }
+  },
+  "style": "True 32x32 indie pixel art after extraction, 1px dark outline, muted olive moss and warm earth palette, compact creature proportions. Smaller quiet face/head silhouette, larger clearer round dark eyes, original B creature silhouette. No mascot gloss, no anime, no painterly rendering, no gradients, no bright toy colors, no clothing, no bag, no scarf.",
+  "motion_phase_guides": false,
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "kcentroid",
+    "align_x": "alpha-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 32,
+    "palette_size": 24,
+    "detail_bias": true,
+    "outline": 0.62,
+    "pitch_hint": 8
+  }
+}

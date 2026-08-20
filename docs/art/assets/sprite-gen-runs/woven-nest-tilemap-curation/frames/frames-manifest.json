@@ -1,0 +1,128 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "run_dir": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\.woven-nest-tilemap-curation.sg-staging",
+  "cell": {
+    "shape": "square",
+    "width": 16,
+    "height": 16,
+    "size": 16,
+    "safe_margin": 0
+  },
+  "rows": [
+    {
+      "state": "backwall",
+      "frames": 5,
+      "method": "imported-pngs",
+      "files": [
+        "frames/backwall/frame-0.png",
+        "frames/backwall/frame-1.png",
+        "frames/backwall/frame-2.png",
+        "frames/backwall/frame-3.png",
+        "frames/backwall/frame-4.png"
+      ],
+      "labels": [
+        "01-Tile_WovenNest_BackWall_A",
+        "02-Tile_WovenNest_BackWall_B",
+        "03-Tile_WovenNest_BackWall_C",
+        "04-Tile_WovenNest_NestWall_A",
+        "05-Tile_WovenNest_NestWall_B"
+      ],
+      "ok": true
+    },
+    {
+      "state": "overlays",
+      "frames": 6,
+      "method": "imported-pngs",
+      "files": [
+        "frames/overlays/frame-0.png",
+        "frames/overlays/frame-1.png",
+        "frames/overlays/frame-2.png",
+        "frames/overlays/frame-3.png",
+        "frames/overlays/frame-4.png",
+        "frames/overlays/frame-5.png"
+      ],
+      "labels": [
+        "01-Tile_WovenNest_UndersideRoots_A",
+        "02-Tile_WovenNest_UndersideRoots_B",
+        "03-Tile_WovenNest_UndersideRoots_C",
+        "04-Tile_WovenNest_VineOverlay_A",
+        "05-Tile_WovenNest_VineOverlay_B",
+        "06-Tile_WovenNest_VineOverlay_C"
+      ],
+      "ok": true
+    },
+    {
+      "state": "props",
+      "frames": 3,
+      "method": "imported-pngs",
+      "files": [
+        "frames/props/frame-0.png",
+        "frames/props/frame-1.png",
+        "frames/props/frame-2.png"
+      ],
+      "labels": [
+        "01-Tile_WovenNest_HangingLanternOverlay",
+        "02-Tile_WovenNest_CyanLanternOverlay",
+        "03-Tile_WovenNest_MachineStub"
+      ],
+      "ok": true
+    },
+    {
+      "state": "structure",
+      "frames": 9,
+      "method": "imported-pngs",
+      "files": [
+        "frames/structure/frame-0.png",
+        "frames/structure/frame-1.png",
+        "frames/structure/frame-2.png",
+        "frames/structure/frame-3.png",
+        "frames/structure/frame-4.png",
+        "frames/structure/frame-5.png",
+        "frames/structure/frame-6.png",
+        "frames/structure/frame-7.png",
+        "frames/structure/frame-8.png"
+      ],
+      "labels": [
+        "01-Tile_WovenNest_PillarRoot",
+        "02-Tile_WovenNest_PillarRoot_B",
+        "03-Tile_WovenNest_RootBridge_A",
+        "04-Tile_WovenNest_RootBridge_B",
+        "05-Tile_WovenNest_RootBridge_Left",
+        "06-Tile_WovenNest_RootBridge_Right",
+        "07-Tile_WovenNest_RootArch_Left",
+        "08-Tile_WovenNest_RootArch_Mid",
+        "09-Tile_WovenNest_RootArch_Right"
+      ],
+      "ok": true
+    },
+    {
+      "state": "terrain",
+      "frames": 8,
+      "method": "imported-pngs",
+      "files": [
+        "frames/terrain/frame-0.png",
+        "frames/terrain/frame-1.png",
+        "frames/terrain/frame-2.png",
+        "frames/terrain/frame-3.png",
+        "frames/terrain/frame-4.png",
+        "frames/terrain/frame-5.png",
+        "frames/terrain/frame-6.png",
+        "frames/terrain/frame-7.png"
+      ],
+      "labels": [
+        "01-Tile_WovenNest_GroundTop_A",
+        "02-Tile_WovenNest_GroundTop_B",
+        "03-Tile_WovenNest_GroundTop_C",
+        "04-Tile_WovenNest_GroundFill_A",
+        "05-Tile_WovenNest_GroundFill_B",
+        "06-Tile_WovenNest_GroundFill_C",
+        "07-Tile_WovenNest_EdgeLeft",
+        "08-Tile_WovenNest_EdgeRight"
+      ],
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

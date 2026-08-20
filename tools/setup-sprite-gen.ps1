@@ -11,6 +11,8 @@
 
 $ErrorActionPreference = 'Stop'
 $dir = "$PSScriptRoot\sprite-gen"
+$bundledPython = "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$pythonExe = if (Test-Path $bundledPython) { $bundledPython } else { "python" }
 
 if (-not (Test-Path $dir)) {
     git clone https://github.com/aldegad/sprite-gen.git $dir
@@ -18,7 +20,7 @@ if (-not (Test-Path $dir)) {
 
 Set-Location $dir
 if (-not (Test-Path ".venv")) {
-    python -m venv .venv
+    & $pythonExe -m venv .venv
 }
 & .\.venv\Scripts\python.exe -m pip install -q -e .
 

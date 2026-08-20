@@ -1,0 +1,508 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "errors": [],
+  "atlas": "sprite-sheet-alpha.png",
+  "manifest": "manifest.json",
+  "cell": {
+    "shape": "square",
+    "width": 16,
+    "height": 16,
+    "size": 16,
+    "safe_margin": 0
+  },
+  "states": [
+    "backwall",
+    "overlays",
+    "props",
+    "structure",
+    "terrain"
+  ],
+  "cells": [
+    {
+      "state": "backwall",
+      "frame": 0,
+      "nontransparent_pixels": 256,
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "backwall",
+      "frame": 1,
+      "nontransparent_pixels": 256,
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "backwall",
+      "frame": 2,
+      "nontransparent_pixels": 256,
+      "x": 32,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "backwall",
+      "frame": 3,
+      "nontransparent_pixels": 256,
+      "x": 48,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "backwall",
+      "frame": 4,
+      "nontransparent_pixels": 256,
+      "x": 64,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "overlays",
+      "frame": 0,
+      "nontransparent_pixels": 64,
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "overlays",
+      "frame": 1,
+      "nontransparent_pixels": 67,
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "overlays",
+      "frame": 2,
+      "nontransparent_pixels": 54,
+      "x": 32,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "overlays",
+      "frame": 3,
+      "nontransparent_pixels": 43,
+      "x": 48,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "overlays",
+      "frame": 4,
+      "nontransparent_pixels": 47,
+      "x": 64,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "overlays",
+      "frame": 5,
+      "nontransparent_pixels": 47,
+      "x": 80,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "props",
+      "frame": 0,
+      "nontransparent_pixels": 49,
+      "x": 0,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "props",
+      "frame": 1,
+      "nontransparent_pixels": 49,
+      "x": 16,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "props",
+      "frame": 2,
+      "nontransparent_pixels": 62,
+      "x": 32,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 0,
+      "nontransparent_pixels": 80,
+      "x": 0,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 1,
+      "nontransparent_pixels": 80,
+      "x": 16,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 2,
+      "nontransparent_pixels": 69,
+      "x": 32,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 3,
+      "nontransparent_pixels": 69,
+      "x": 48,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 4,
+      "nontransparent_pixels": 63,
+      "x": 64,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 5,
+      "nontransparent_pixels": 64,
+      "x": 80,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 6,
+      "nontransparent_pixels": 32,
+      "x": 96,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 7,
+      "nontransparent_pixels": 58,
+      "x": 112,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "structure",
+      "frame": 8,
+      "nontransparent_pixels": 32,
+      "x": 128,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 0,
+      "nontransparent_pixels": 256,
+      "x": 0,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 1,
+      "nontransparent_pixels": 256,
+      "x": 16,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 2,
+      "nontransparent_pixels": 256,
+      "x": 32,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 3,
+      "nontransparent_pixels": 256,
+      "x": 48,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 4,
+      "nontransparent_pixels": 256,
+      "x": 64,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 5,
+      "nontransparent_pixels": 256,
+      "x": 80,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 6,
+      "nontransparent_pixels": 256,
+      "x": 96,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "state": "terrain",
+      "frame": 7,
+      "nontransparent_pixels": 256,
+      "x": 112,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    }
+  ],
+  "frame_layout": {
+    "sheetWidth": 144,
+    "sheetHeight": 80,
+    "cellWidth": 16,
+    "cellHeight": 16,
+    "rows": {
+      "backwall": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 16,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 48,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "overlays": [
+        {
+          "x": 0,
+          "y": 16,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 16,
+          "y": 16,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 32,
+          "y": 16,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 48,
+          "y": 16,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 16,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 80,
+          "y": 16,
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "props": [
+        {
+          "x": 0,
+          "y": 32,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 16,
+          "y": 32,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 32,
+          "y": 32,
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "structure": [
+        {
+          "x": 0,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 16,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 32,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 48,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 80,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 96,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 112,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 128,
+          "y": 48,
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "terrain": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 16,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 48,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 80,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 112,
+          "y": 64,
+          "w": 16,
+          "h": 16
+        }
+      ]
+    }
+  }
+}

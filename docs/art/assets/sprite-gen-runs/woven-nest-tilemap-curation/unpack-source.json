@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-unpack-source",
+  "layout_source": "imported-pngs",
+  "cell": {
+    "width": 16,
+    "height": 16
+  },
+  "source_dir": "C:\\Users\\User\\Game\\docs\\art\\assets\\tilemaps\\woven-nest\\sprite-gen-import\\backwall",
+  "files": [
+    "01-Tile_WovenNest_BackWall_A.png",
+    "02-Tile_WovenNest_BackWall_B.png",
+    "03-Tile_WovenNest_BackWall_C.png",
+    "04-Tile_WovenNest_NestWall_A.png",
+    "05-Tile_WovenNest_NestWall_B.png",
+    "01-Tile_WovenNest_UndersideRoots_A.png",
+    "02-Tile_WovenNest_UndersideRoots_B.png",
+    "03-Tile_WovenNest_UndersideRoots_C.png",
+    "04-Tile_WovenNest_VineOverlay_A.png",
+    "05-Tile_WovenNest_VineOverlay_B.png",
+    "06-Tile_WovenNest_VineOverlay_C.png",
+    "01-Tile_WovenNest_HangingLanternOverlay.png",
+    "02-Tile_WovenNest_CyanLanternOverlay.png",
+    "03-Tile_WovenNest_MachineStub.png",
+    "01-Tile_WovenNest_PillarRoot.png",
+    "02-Tile_WovenNest_PillarRoot_B.png",
+    "03-Tile_WovenNest_RootBridge_A.png",
+    "04-Tile_WovenNest_RootBridge_B.png",
+    "05-Tile_WovenNest_RootBridge_Left.png",
+    "06-Tile_WovenNest_RootBridge_Right.png",
+    "07-Tile_WovenNest_RootArch_Left.png",
+    "08-Tile_WovenNest_RootArch_Mid.png",
+    "09-Tile_WovenNest_RootArch_Right.png",
+    "01-Tile_WovenNest_GroundTop_A.png",
+    "02-Tile_WovenNest_GroundTop_B.png",
+    "03-Tile_WovenNest_GroundTop_C.png",
+    "04-Tile_WovenNest_GroundFill_A.png",
+    "05-Tile_WovenNest_GroundFill_B.png",
+    "06-Tile_WovenNest_GroundFill_C.png",
+    "07-Tile_WovenNest_EdgeLeft.png",
+    "08-Tile_WovenNest_EdgeRight.png"
+  ],
+  "labels": [
+    "01-Tile_WovenNest_BackWall_A",
+    "02-Tile_WovenNest_BackWall_B",
+    "03-Tile_WovenNest_BackWall_C",
+    "04-Tile_WovenNest_NestWall_A",
+    "05-Tile_WovenNest_NestWall_B",
+    "01-Tile_WovenNest_UndersideRoots_A",
+    "02-Tile_WovenNest_UndersideRoots_B",
+    "03-Tile_WovenNest_UndersideRoots_C",
+    "04-Tile_WovenNest_VineOverlay_A",
+    "05-Tile_WovenNest_VineOverlay_B",
+    "06-Tile_WovenNest_VineOverlay_C",
+    "01-Tile_WovenNest_HangingLanternOverlay",
+    "02-Tile_WovenNest_CyanLanternOverlay",
+    "03-Tile_WovenNest_MachineStub",
+    "01-Tile_WovenNest_PillarRoot",
+    "02-Tile_WovenNest_PillarRoot_B",
+    "03-Tile_WovenNest_RootBridge_A",
+    "04-Tile_WovenNest_RootBridge_B",
+    "05-Tile_WovenNest_RootBridge_Left",
+    "06-Tile_WovenNest_RootBridge_Right",
+    "07-Tile_WovenNest_RootArch_Left",
+    "08-Tile_WovenNest_RootArch_Mid",
+    "09-Tile_WovenNest_RootArch_Right",
+    "01-Tile_WovenNest_GroundTop_A",
+    "02-Tile_WovenNest_GroundTop_B",
+    "03-Tile_WovenNest_GroundTop_C",
+    "04-Tile_WovenNest_GroundFill_A",
+    "05-Tile_WovenNest_GroundFill_B",
+    "06-Tile_WovenNest_GroundFill_C",
+    "07-Tile_WovenNest_EdgeLeft",
+    "08-Tile_WovenNest_EdgeRight"
+  ],
+  "groups": [
+    "backwall",
+    "overlays",
+    "props",
+    "structure",
+    "terrain"
+  ],
+  "base_source": "base-source.png",
+  "imported_refs": {
+    "backwall": [
+      "anchor-woven-nest-reference.png",
+      "guide-woven-nest-mockup.png"
+    ],
+    "overlays": [
+      "anchor-woven-nest-reference.png",
+      "guide-woven-nest-mockup.png"
+    ],
+    "props": [
+      "anchor-woven-nest-reference.png",
+      "guide-woven-nest-mockup.png"
+    ],
+    "structure": [
+      "anchor-woven-nest-reference.png",
+      "guide-woven-nest-mockup.png"
+    ],
+    "terrain": [
+      "anchor-woven-nest-reference.png",
+      "guide-woven-nest-mockup.png"
+    ]
+  }
+}

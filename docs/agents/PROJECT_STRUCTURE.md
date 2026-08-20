@@ -24,7 +24,7 @@
 | `Miji.Core.Tests` | `Assets/Tests/EditMode/Core/` | Miji.Core | Editor |
 | `Miji.Gameplay.Tests` | `Assets/Tests/EditMode/Gameplay/` | Miji.Core, Miji.Gameplay | Editor |
 | `Miji.Gameplay.PlayTests` | `Assets/Tests/PlayMode/` | Miji.Core, Miji.Gameplay | **전체 (`includePlatforms: []`)** |
-| `Miji.Editor` | `Assets/Scripts/Editor/` | 필요 시 | Editor | ⬜ **예약** — 에디터 툴이 처음 생길 때 만든다 |
+| `Miji.Editor` | `Assets/Scripts/Editor/` | 없음 | Editor | ✅ **생성됨**(2026-08-21) — 첫 입주자는 `WovenNestSampleRoomBuilder` |
 
 ### 어겨서는 안 되는 것
 
@@ -69,7 +69,7 @@ Assets/
 │   │   └── Progression/ Save/ Rooms/     ⬜ 예약 (C4·C5·C8)
 │   ├── Gameplay/     (Miji.Gameplay)
 │   │   └── Bootstrap/ Player/ Companion/ View/ World/
-│   └── Editor/                    ⬜ 예약 (Miji.Editor)
+│   └── Editor/                    (Miji.Editor) 타일맵·씬 빌더 등 에디터 툴
 ├── Settings/                      URP·렌더러 — Unity 기본 위치, 옮기지 않는다
 └── Tests/
     ├── EditMode/ Core/ Gameplay/

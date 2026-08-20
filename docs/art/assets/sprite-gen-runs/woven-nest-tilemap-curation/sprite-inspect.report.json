@@ -1,0 +1,201 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "kind": "sprite-gen-inspect-report",
+  "run_dir": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-tilemap-curation",
+  "states": [
+    "backwall",
+    "overlays",
+    "props",
+    "structure",
+    "terrain"
+  ],
+  "thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "rows": [
+    {
+      "state": "backwall",
+      "source": "frames",
+      "expected_frames": 5,
+      "found_frames": 5,
+      "natural_pose_count": 5,
+      "frame_files": [
+        "frames/backwall/frame-0.png",
+        "frames/backwall/frame-1.png",
+        "frames/backwall/frame-2.png",
+        "frames/backwall/frame-3.png",
+        "frames/backwall/frame-4.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.8203125,
+          "mean": 0.896484375
+        },
+        "dhash_similarity": {
+          "min": 0.390625,
+          "mean": 0.49375
+        },
+        "motion_presence": 0.02764521580116422,
+        "centroid_sigma": {
+          "x": 0.0,
+          "y": 0.0
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "backwall: dHash silhouette similarity is low (0.391 < 0.550)"
+      ]
+    },
+    {
+      "state": "overlays",
+      "source": "frames",
+      "expected_frames": 6,
+      "found_frames": 6,
+      "natural_pose_count": 6,
+      "frame_files": [
+        "frames/overlays/frame-0.png",
+        "frames/overlays/frame-1.png",
+        "frames/overlays/frame-2.png",
+        "frames/overlays/frame-3.png",
+        "frames/overlays/frame-4.png",
+        "frames/overlays/frame-5.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9302325581395349,
+          "mean": 0.9587647373483162
+        },
+        "dhash_similarity": {
+          "min": 0.328125,
+          "mean": 0.5239583333333333
+        },
+        "motion_presence": 0.09794242110906863,
+        "centroid_sigma": {
+          "x": 0.4027118380184464,
+          "y": 1.9492974560689416
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "overlays: dHash silhouette similarity is low (0.328 < 0.550)"
+      ]
+    },
+    {
+      "state": "props",
+      "source": "frames",
+      "expected_frames": 3,
+      "found_frames": 3,
+      "natural_pose_count": 3,
+      "frame_files": [
+        "frames/props/frame-0.png",
+        "frames/props/frame-1.png",
+        "frames/props/frame-2.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.6734693877551021,
+          "mean": 0.6842220759271451
+        },
+        "dhash_similarity": {
+          "min": 0.78125,
+          "mean": 0.8541666666666666
+        },
+        "motion_presence": 0.04172339345894608,
+        "centroid_sigma": {
+          "x": 0.22840930039644486,
+          "y": 0.12863540083468286
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "structure",
+      "source": "frames",
+      "expected_frames": 9,
+      "found_frames": 9,
+      "natural_pose_count": 9,
+      "frame_files": [
+        "frames/structure/frame-0.png",
+        "frames/structure/frame-1.png",
+        "frames/structure/frame-2.png",
+        "frames/structure/frame-3.png",
+        "frames/structure/frame-4.png",
+        "frames/structure/frame-5.png",
+        "frames/structure/frame-6.png",
+        "frames/structure/frame-7.png",
+        "frames/structure/frame-8.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.7,
+          "mean": 0.7931808649246805
+        },
+        "dhash_similarity": {
+          "min": 0.40625,
+          "mean": 0.6137152777777778
+        },
+        "motion_presence": 0.1073153626685049,
+        "centroid_sigma": {
+          "x": 0.8369815482763775,
+          "y": 0.827965775975301
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "structure: dHash silhouette similarity is low (0.406 < 0.550)"
+      ]
+    },
+    {
+      "state": "terrain",
+      "source": "frames",
+      "expected_frames": 8,
+      "found_frames": 8,
+      "natural_pose_count": 8,
+      "frame_files": [
+        "frames/terrain/frame-0.png",
+        "frames/terrain/frame-1.png",
+        "frames/terrain/frame-2.png",
+        "frames/terrain/frame-3.png",
+        "frames/terrain/frame-4.png",
+        "frames/terrain/frame-5.png",
+        "frames/terrain/frame-6.png",
+        "frames/terrain/frame-7.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.84375,
+          "mean": 0.9202008928571429
+        },
+        "dhash_similarity": {
+          "min": 0.46875,
+          "mean": 0.60546875
+        },
+        "motion_presence": 0.03257034259016107,
+        "centroid_sigma": {
+          "x": 0.0,
+          "y": 0.0
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "terrain: dHash silhouette similarity is low (0.469 < 0.550)"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "backwall: dHash silhouette similarity is low (0.391 < 0.550)",
+    "overlays: dHash silhouette similarity is low (0.328 < 0.550)",
+    "structure: dHash silhouette similarity is low (0.406 < 0.550)",
+    "terrain: dHash silhouette similarity is low (0.469 < 0.550)"
+  ]
+}

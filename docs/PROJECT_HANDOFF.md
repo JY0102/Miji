@@ -3,7 +3,7 @@
 > 새 세션이나 새 환경에서 이 프로젝트를 이어받을 때 읽는 문서입니다.
 > **"뭐 해야 함?" 이라는 질문의 답은 아래 「다음에 할 일」 절에 있습니다.**
 
-**최종 갱신:** 2026-08-20 (★ **구조 감사 + 폴더 규칙 확정** — asmdef 구멍 3개 차단, 아트를 정체성 기준으로 재편, `PROJECT_STRUCTURE.md` 신설, 테스트 27→33)
+**최종 갱신:** 2026-08-21 (★ **Codex 타일셋 인게임 배치** — WovenNest 예시 룸 + `Miji.Editor` 첫 입주, **B 컨셉 `poses/` 한 폴더로 통합**(B01~B15) + 눈 규격 확정)
 
 ---
 
@@ -53,6 +53,24 @@
 - ⚠️ **개명·대규모 자산 이동 뒤 첫 `uloop launch`는 타임아웃이 난다** — `Library/` 전체 재빌드가 180초를 넘긴다. 고장이 아니므로 Unity 프로세스가 살아 있으면 잠시 뒤 명령을 다시 쏘면 된다. ULoop CLI는 전역 설치가 빠져 있어도 **`npx --yes uloop-cli@2.2.0`** 으로 부르면 된다
 - ⚠️ **Unity 기동 시 ULoop이 `.claude/skills/` 33개를 CRLF로 다시 쓴다**(내용 동일). 매번 diff에 뜨므로 신경 쓰이면 `.gitattributes`로 개행 고정이 근본 해결
 - **미해결로 남긴 것**: `Assets/` 루트의 URP 설정 3종은 옮기면 ProjectSettings 경로 참조가 깨질 수 있어 **이득 대비 위험이 커서 두기로 결정**
+
+**8/21 — Codex 타일셋이 게임 안에 깔렸고, B 컨셉이 한 폴더로 정리됐다.** 두 갈래 작업이다.
+
+**① WovenNest 타일셋 인게임 배치.** Codex가 만든 16px 타일 31종을 실제 Unity Tilemap으로 깔았다. `Assets/Scenes/Greybox/Greybox_WovenNest.unity` (Greybox_Movement 복제 → 그레이박스 블록 제거, A·B·카메라·배경 유지). 4레이어(BackWall −60 / Terrain −10 / Platforms −9 / Deco −5), 셀 0.5u, Terrain·Platforms에 `TilemapCollider2D + CompositeCollider2D`(레이어 Ground=6). **바닥 윗면 y=0으로 맞춰 그레이박스와 지면 높이가 같다.** 다리 높이 1.0 / 2.0(도달) / 4.0(단일 점프 불가, F2 게이트 시연). EditMode 25/25 통과.
+- ★ **에디터 어셈블리 `Miji.Editor` 첫 입주** — `Assets/Scripts/Editor/WovenNestSampleRoomBuilder.cs`. 메뉴 `Miji/Tilemap/Woven Nest 예시 룸 빌드`. **도면은 아스키 txt**(`Art/Environment/Tiles/WovenNest/SampleRoom/SampleRoom_{Terrain,Deco}.txt`, 44x26) — txt만 고쳐 메뉴를 다시 누르면 방이 새로 그려진다.
+- ⚠️ **`EditorSceneManager.OpenScene` 은 미사용 에셋을 언로드한다.** 씬을 열기 **전에** 읽어둔 Tile 에셋은 네이티브 객체가 파괴돼 `SetTile` 이 조용히 무시된다(C# 참조는 살아 있어 null 체크로도 안 잡힌다). **에셋 로드는 반드시 OpenScene 뒤에.** 이거 찾는 데 오래 걸렸다.
+- **타일셋 소감(다음 아트 작업 입력)**: 뒷벽과 지반 명도가 같아 바닥이 안 단단해 보인다 / 뒷벽 변주가 벽지처럼 반복된다 / 랜턴은 Light2D 없이는 안 보인다 / RootArch는 지면에 놓으면 민둥 언덕으로 읽힌다. 잘 읽히는 건 뿌리다리와 GroundTop 잔풀.
+- ⚠️ **Companion_B의 스프라이트가 비어 있다** — 8/20 정리에서 `Art/Characters/B/Sprites/*.png` 를 지운 결과다. 원본 `Greybox_Movement.unity` 도 마찬가지. 새 B 스프라이트를 물려야 한다.
+
+**② B 컨셉 정리 — `docs/art/assets/b-current/poses/` 에 `B01`~`B15` 15종.** 흩어져 있던 `split`·`split-ears-unified`·`pose-sheet-64` 를 전부 한 폴더로 통합하고 사용자 선별을 거쳤다. 합본 아트워크 `B_artwork_all.png`.
+- **확정 4종**: B01 Idle · B02 앉기 · B03 앉기+슬픔 · B04 물음표. 나머지 11종은 보류. **`fall` 에 배정된 그림이 없다.**
+- ★ **눈 규격을 확정·문서화했다**(`b-current/README.md` 3절) — **검은 구체 + 크림 하이라이트 + 갈색 크레센트, 눈 하나 9x10px.** 기준은 `B02_sit`. 크기까지 규격이다. B01은 눈이 7x7 탁한 갈색 덩어리였고, **기준 파일의 눈 블록을 좌표만 맞춰 통째로 이식**해 고쳤다(손으로 키우는 것보다 안전 — 크기·색·구조가 자동 일치).
+- **higgsfield로 포즈 시트 생성**(무료 플랜, 2회 4크레딧, **잔여 1.35 = 추가 생성 불가**). PixelLab MCP가 이 세션엔 없었다. 생성 결과 9종 중 4종이 온모델 이탈, 2종은 프레임 밖으로 잘려 폐기.
+- ★ **`STYLE_GUIDE.md` 「생성 프롬프트 금지 사항」 신설** — **평면적으로 보이는 각도를 요청하지 않는다(3/4 앵글 기본)** 가 핵심. 그 외: 흰자위 금지를 써도 모델은 「놀람」을 흰자위로 그리므로 **표정 극단값은 수작업 수정**, 소품 금지해도 받침대를 발명함, 칸 여백 지시는 안 지켜짐.
+- **후처리 도구 `tools/sheet-to-sprites.ps1` 신설** — 생성 시트를 **최빈색(mode) 샘플링**으로 64x64 낱장으로 내린다. 평균 다운스케일과 달리 평면 색과 1px 아웃라인이 안 뭉개진다.
+- ⚠️ **한글 주석이 든 `.ps1` 은 UTF-8 **BOM**으로 저장해야 한다.** BOM이 없으면 PowerShell 5.1이 CP949로 읽어 주석이 깨지고 **깨진 주석이 다음 코드 줄을 삼킨다.** 문법 오류가 안 나고 조용히 오작동한다.
+- ⚠️ **64x64는 스타일 가이드상 보스 크기다.** 이 컨셉들을 그대로 인게임에 넣으면 PPU 32에서 B가 2유닛(A의 두 배)이 된다. **인게임용 32x32 재작업이 별도로 필요하다.**
+- **남은 불균질**: B01만 구 split 판본이라 귀가 갈라져 있고, B10~B15는 생성본이라 손그림 9종과 화풍이 다르다.
 
 **8/19(후반) — 구현 착수 결정.** 이원 무브셋 5절(데모=코어4+F1+F2) 승인으로 8/8 미결 청산, **Core/Gameplay 이층 아키텍처** 확정(`specs/2026-08-19-implementation-core-architecture-design.md` — Core 8모듈은 스토리 명사를 모르고, 결별 잠금·2장 조작권 인계·B 자율 개입이 Core 요구사항). 구현 순서: 뼈대(C1~C3·C6) → A 조작감 → 룸·진행·세이브 → B 협력 → 데모 조립. **다음 세션은 여기서 시작 — C1(EventBus)부터, IMPL-005 등록 후 착수.**
 

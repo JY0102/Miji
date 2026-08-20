@@ -1,0 +1,13 @@
+{
+  "name": "Woven Nest tilemap candidates",
+  "tile_size_px": 16,
+  "ppu": 32,
+  "source_reference": "BG_WovenNest.png",
+  "groups": [
+    "backwall",
+    "overlays",
+    "props",
+    "structure",
+    "terrain"
+  ]
+}
