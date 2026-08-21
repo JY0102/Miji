@@ -1,0 +1,32 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "Shared style contract for every Woven Nest layer:\nCreate 2D side-view pixel art for a melancholic metroidvania room, canvas 688x384 pixels.\nUse the attached Woven Nest background only as a mood, palette, and material reference. Do not copy its exact composition, silhouettes, or object placement.\nVisual DNA: dark teal forest depth, woven roots and reed-like nest structures, lived-in non-human folk architecture, damp moss, hanging cords, tiny amber and cyan lantern accents, old simple machines rather than modern sci-fi.\nPixel art requirements: crisp pixel clusters, limited muted palette, no anti-aliasing, no painterly blur, no smooth gradients except sparse dithering, no bloom, no soft glow halos, no UI, no text, no watermark, no characters.\nGameplay readability: leave the central play lane less busy than the top, sides, and lower foreground. Do not draw solid collision platforms as final gameplay truth; this is visual background dressing.\nAvoid direct Hollow Knight imagery or any recognizable reference-game shapes; borrow only the general idea of separated depth layers for parallax.\n\n\n\nCreate one transparent parallax layer on a perfectly flat solid #FF00FF chroma-key background.\n\nLayer: props_lanterns.\nCanvas: exactly 688x384 pixels.\nContent: isolated set dressing props for the Woven Nest: hanging amber lanterns, one or two cyan folk-machine lamps, small pipe-like hand pumps, tied jars, and tiny suspended mechanisms.\nDepth role: decorative prop layer placed around architecture and behind/near the playable path.\nComposition: sparse objects with generous empty space; do not create a full scene or wall. Keep props separated so they can be manually moved if needed.\nStyle: tiny readable pixel objects, muted amber and cyan accents, old handmade machine look, no futuristic devices.\nChroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.\nNo characters, no UI, no text, no watermark.",
+  "out": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\props_lanterns.png",
+  "raw": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\props_lanterns.png.raw.png",
+  "raw_bytes": 1370692,
+  "elapsed_seconds": 47.156,
+  "model": null,
+  "session_id": "01a021bb-8f90-7281-af1a-2cc4a612f098",
+  "refs": [
+    "C:\\Users\\User\\Game\\src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\BG_WovenNest.png"
+  ],
+  "transparent": true,
+  "chroma": {
+    "out": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\props_lanterns.png",
+    "mode": "RGBA",
+    "size": "1679x937",
+    "key": "magenta",
+    "keyed_pixels": 1349264,
+    "fringe_pixels": 0,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 85.76,
+    "stale_transparent_rgb_pixels": 0,
+    "white_check": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\reports\\props_lanterns.whitecheck.png"
+  },
+  "extra": {
+    "inline_results": 1,
+    "rollout_cleaned": true
+  },
+  "provider_resolved_from": "explicit"
+}

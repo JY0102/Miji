@@ -211,3 +211,34 @@ Pending explicit confirmation because these include concept/generation records, 
   - 이식 방식이 손으로 그리는 것보다 안전하다: 크기·색·하이라이트·크레센트가 자동으로 기준과 동일해진다. 실루엣 밖으로는 칠하지 않도록 알파 검사를 걸었다.
 - **합본 아트워크**: `b-current/B_artwork_all.png` — 15포즈를 x6로 배치하고 파일명·용도·확정/보류를 함께 찍었다.
 - **남은 불균질 2건**(README에 명시): ① `B01` 만 구 split 판본이라 **귀가 갈라져 있다**(나머지는 잎귀 통일본), ② `B10`~`B15` 는 생성본이라 손그림 9종과 화풍이 미세하게 다르다. 인게임 반입 전에 통일 필요.
+
+---
+
+### 2026-08-21 — Woven Nest background layer pass 01 (sprite-gen)
+
+- **Purpose**: Replace the weak 16x16 tilemap-only read with depth layering: collision/tilemap stays minimal, while background and dressing are split into parallax-ready visual PNG layers.
+- **Source reference**: `src/Miji/Assets/Art/Environment/Backgrounds/BG_WovenNest.png`.
+- **Method**: `sprite-gen gen --provider codex` with the current Woven Nest image as style/mood reference. Transparent layers were generated on magenta chroma, keyed by sprite-gen, normalized to 688x384, then locally cleaned to remove magenta/purple key remnants.
+- **Run folder**: `docs/art/assets/sprite-gen-runs/woven-nest-layer-pass-01/`.
+- **Unity outputs**: `src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/`
+  - `BG_WovenNest_01_FarFog.png` — opaque far fog / distant forest.
+  - `BG_WovenNest_02_FarCanopy.png` — transparent far canopy.
+  - `BG_WovenNest_03_MidRoots.png` — transparent mid root columns.
+  - `BG_WovenNest_04_BackArchitecture.png` — transparent nest architecture.
+  - `BG_WovenNest_05_HangingVines.png` — transparent top/foreground hanging vines.
+  - `BG_WovenNest_06_PropsLanterns.png` — transparent lantern and folk-machine props.
+  - `BG_WovenNest_07_GroundDressings.png` — transparent lower foreground roots and moss.
+- **Preview outputs**:
+  - `docs/art/assets/sprite-gen-runs/woven-nest-layer-pass-01/preview/WovenNest_LayerPass01_CompositePreview.png`
+  - `docs/art/assets/sprite-gen-runs/woven-nest-layer-pass-01/preview/WovenNest_LayerPass01_LayerContactSheet.png`
+- **Verification**: All Unity PNGs are 688x384. Transparent layers are RGBA with alpha coverage preserved; magenta-like opaque pixel check returned 0 after cleanup. Unity `.meta` files were generated from the existing `BG_WovenNest.png.meta` import contract: PPU 32, Point filter, no mipmaps.
+- **Known issue / next direction**: The first pass is much richer but too busy as a full composite. Next pass should make `back_architecture` less central/noisy, split props into smaller moveable clusters, and keep the central play lane darker and calmer. Ground collision should still come from simple tilemaps or invisible physics, not from these visual layers.
+
+**인게임 배치 결과 (2026-08-21, IMPLEMENTATION)** — `IMPL_REGISTRY.md` 6차가 원본. 아트 쪽으로 돌아오는 지적만 여기 적는다.
+
+- ★ **배경이 지금까지 한 번도 화면에 나온 적이 없었다** — 뒷벽 타일맵(불투명, order −60)이 방 내부를 다 덮고 있었다. 즉 `BG_WovenNest.png` 의 품질 평가는 **아직 아무도 실제로 못 한 상태**였다. 이제 뒷벽을 끄고 스택을 깔았다
+- ★ **props 레이어는 「레이어」가 아니라 「소품 시트」다** — 등불이 캔버스에 낱개로 균등 배열돼 있어 그대로 얹으면 화면 가로로 등불이 줄줄이 걸린다. 게다가 **등불 하나가 A(32px = 1u)의 2~3배** 크기라 배경이 아니라 전경 오브젝트로 읽힌다. **기본 off 로 두었다**
+  - pass 02 요구: ① 소품을 작은 덩어리(2~3개씩)로 쪼개 개별 PNG로, ② 크기를 A 기준으로 명시(등불 ≤ 0.6u), ③ 균등 간격 금지
+- ★ **캔버스 12u 중 4u가 지형에 가려진다** — 방의 열린 공간은 월드 y 0~8(8u)인데 캔버스는 12u다. 아래 1.7u(뿌리 띠)와 위 2.3u(캐노피 상단)가 지형 뒤로 들어가 버린다. **pass 02는 8u 개구부를 기준으로 프레이밍**하거나, 룸 높이를 키우는 쪽을 먼저 정해야 한다
+- **틴트가 필요했다** — 원본 명도 그대로는 배경 대비가 지형과 같아서 발판이 안 보인다. 인게임에서 원경 0.50 → 근경 0.85 로 눌렀다. **생성 단계에서 원경을 더 어둡게/저채도로 뽑으면 이 보정이 필요 없다**
+- **배율 1 고정** — 688x384 / PPU 32 가 카메라 화면(21.33 x 12u)과 1:1로 맞는다. 다음 배경도 **688x384 를 유지**하면 그대로 얹힌다

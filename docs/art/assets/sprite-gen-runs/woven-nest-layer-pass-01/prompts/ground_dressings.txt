@@ -1,0 +1,11 @@
+Create one transparent foreground dressing layer on a perfectly flat solid #FF00FF chroma-key background.
+
+Layer: ground_dressings.
+Canvas: exactly 688x384 pixels.
+Content: lower-edge roots, underside dangling tendrils, moss clumps, broken reed mats, small plants, and dark foreground silhouettes that sit in front of or below the collision tilemap.
+Depth role: near foreground dressing in front of the ground, not collision.
+Composition: mostly along the bottom 80 pixels and lower side edges. Leave gaps so gameplay silhouettes remain readable.
+Style: crisp dark pixel art with muted olive and tan highlights.
+Chroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.
+No characters, no UI, no text, no watermark.
+

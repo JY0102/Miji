@@ -1,0 +1,11 @@
+Create one transparent parallax layer on a perfectly flat solid #FF00FF chroma-key background.
+
+Layer: hanging_vines.
+Canvas: exactly 688x384 pixels.
+Content: foreground/top hanging vines, cords, dangling seed pods, beads, knots, small root tassels, and a few thin suspended hooks. This layer should mainly occupy the top edge and upper sides.
+Depth role: near foreground dressing that can scroll faster than the background.
+Composition: clustered at the top with irregular gaps; do not cover the whole screen; avoid dense vertical lines over the central play path.
+Style: crisp pixel clusters, dark silhouettes with tan edge highlights.
+Chroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.
+No characters, no UI, no text, no watermark.
+

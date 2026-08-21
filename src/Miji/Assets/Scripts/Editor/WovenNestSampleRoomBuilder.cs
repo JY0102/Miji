@@ -72,6 +72,8 @@ namespace Miji.EditorTools
             var grid = room.AddComponent<Grid>();
             grid.cellSize = new Vector3(0.5f, 0.5f, 0f); // 16px 타일 / PPU 32
 
+            // ★ 뒷벽은 만들되, 패럴랙스 스택을 쓰는 방에서는 WovenNestParallaxBuilder 가 이 렌더러를 끈다.
+            //   방을 다시 빌드하면 새 뒷벽이 켜진 채로 생기므로 「패럴랙스 배경 구성」도 다시 돌려야 한다.
             var backWall = CreateLayer(room, "Tilemap_BackWall", -60, false);
             var terrainMap = CreateLayer(room, "Tilemap_Terrain", -10, true);
             var platformMap = CreateLayer(room, "Tilemap_Platforms", -9, true);
@@ -256,7 +258,7 @@ namespace Miji.EditorTools
                 {
                     case "Player_A": root.transform.position = new Vector3(-9.5f, 1f, 0f); break;
                     case "Companion_B": root.transform.position = new Vector3(-10.3f, 1f, 0f); break;
-                    case "Background_WovenNest": root.transform.position = new Vector3(0f, 2.5f, 0f); break;
+                    case "Background_WovenNest": root.transform.position = WovenNestParallaxBuilder.BackgroundAnchor; break;
                     case "Main Camera": root.transform.position = new Vector3(0f, 2f, -10f); break;
                 }
             }

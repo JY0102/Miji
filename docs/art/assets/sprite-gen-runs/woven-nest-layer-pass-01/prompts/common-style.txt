@@ -1,0 +1,8 @@
+Shared style contract for every Woven Nest layer:
+Create 2D side-view pixel art for a melancholic metroidvania room, canvas 688x384 pixels.
+Use the attached Woven Nest background only as a mood, palette, and material reference. Do not copy its exact composition, silhouettes, or object placement.
+Visual DNA: dark teal forest depth, woven roots and reed-like nest structures, lived-in non-human folk architecture, damp moss, hanging cords, tiny amber and cyan lantern accents, old simple machines rather than modern sci-fi.
+Pixel art requirements: crisp pixel clusters, limited muted palette, no anti-aliasing, no painterly blur, no smooth gradients except sparse dithering, no bloom, no soft glow halos, no UI, no text, no watermark, no characters.
+Gameplay readability: leave the central play lane less busy than the top, sides, and lower foreground. Do not draw solid collision platforms as final gameplay truth; this is visual background dressing.
+Avoid direct Hollow Knight imagery or any recognizable reference-game shapes; borrow only the general idea of separated depth layers for parallax.
+

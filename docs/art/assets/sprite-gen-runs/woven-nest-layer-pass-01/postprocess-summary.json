@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "kind": "miji-background-layer-postprocess-summary",
+  "target_size": [
+    688,
+    384
+  ],
+  "resample": "nearest",
+  "composite_preview": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\preview\\WovenNest_LayerPass01_CompositePreview.png",
+  "layers": [
+    {
+      "id": "far_fog",
+      "source": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\far_fog.png",
+      "unity_output": "src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\WovenNest\\Layers\\BG_WovenNest_01_FarFog.png",
+      "source_size": [
+        1680,
+        936
+      ],
+      "normalized_size": [
+        688,
+        384
+      ],
+      "transparent": false,
+      "mode_before": "RGB",
+      "mode_after": "RGB"
+    },
+    {
+      "id": "far_canopy",
+      "source": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\far_canopy.png",
+      "unity_output": "src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\WovenNest\\Layers\\BG_WovenNest_02_FarCanopy.png",
+      "source_size": [
+        1679,
+        937
+      ],
+      "normalized_size": [
+        688,
+        384
+      ],
+      "transparent": true,
+      "mode_before": "RGBA",
+      "mode_after": "RGBA"
+    },
+    {
+      "id": "mid_roots",
+      "source": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\mid_roots.png",
+      "unity_output": "src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\WovenNest\\Layers\\BG_WovenNest_03_MidRoots.png",
+      "source_size": [
+        1679,
+        937
+      ],
+      "normalized_size": [
+        688,
+        384
+      ],
+      "transparent": true,
+      "mode_before": "RGBA",
+      "mode_after": "RGBA"
+    },
+    {
+      "id": "back_architecture",
+      "source": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\back_architecture.png",
+      "unity_output": "src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\WovenNest\\Layers\\BG_WovenNest_04_BackArchitecture.png",
+      "source_size": [
+        1678,
+        937
+      ],
+      "normalized_size": [
+        688,
+        384
+      ],
+      "transparent": true,
+      "mode_before": "RGBA",
+      "mode_after": "RGBA"
+    },
+    {
+      "id": "hanging_vines",
+      "source": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\hanging_vines.png",
+      "unity_output": "src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\WovenNest\\Layers\\BG_WovenNest_05_HangingVines.png",
+      "source_size": [
+        1679,
+        937
+      ],
+      "normalized_size": [
+        688,
+        384
+      ],
+      "transparent": true,
+      "mode_before": "RGBA",
+      "mode_after": "RGBA"
+    },
+    {
+      "id": "props_lanterns",
+      "source": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\props_lanterns.png",
+      "unity_output": "src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\WovenNest\\Layers\\BG_WovenNest_06_PropsLanterns.png",
+      "source_size": [
+        1679,
+        937
+      ],
+      "normalized_size": [
+        688,
+        384
+      ],
+      "transparent": true,
+      "mode_before": "RGBA",
+      "mode_after": "RGBA"
+    },
+    {
+      "id": "ground_dressings",
+      "source": "docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\ground_dressings.png",
+      "unity_output": "src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\WovenNest\\Layers\\BG_WovenNest_07_GroundDressings.png",
+      "source_size": [
+        1679,
+        937
+      ],
+      "normalized_size": [
+        688,
+        384
+      ],
+      "transparent": true,
+      "mode_before": "RGBA",
+      "mode_after": "RGBA"
+    }
+  ]
+}

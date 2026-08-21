@@ -24,7 +24,7 @@
 | `Miji.Core.Tests` | `Assets/Tests/EditMode/Core/` | Miji.Core | Editor |
 | `Miji.Gameplay.Tests` | `Assets/Tests/EditMode/Gameplay/` | Miji.Core, Miji.Gameplay | Editor |
 | `Miji.Gameplay.PlayTests` | `Assets/Tests/PlayMode/` | Miji.Core, Miji.Gameplay | **전체 (`includePlatforms: []`)** |
-| `Miji.Editor` | `Assets/Scripts/Editor/` | 없음 | Editor | ✅ **생성됨**(2026-08-21) — 첫 입주자는 `WovenNestSampleRoomBuilder` |
+| `Miji.Editor` | `Assets/Scripts/Editor/` | **Miji.Core, Miji.Gameplay** | Editor | ✅ **생성됨**(2026-08-21) — `WovenNestSampleRoomBuilder`, `WovenNestParallaxBuilder`. Gameplay 참조는 씬 빌더가 런타임 컴포넌트(`ParallaxLayer` 등)를 붙이기 위한 것 — 방향은 Editor → Gameplay → Core 로 단방향 유지 |
 
 ### 어겨서는 안 되는 것
 

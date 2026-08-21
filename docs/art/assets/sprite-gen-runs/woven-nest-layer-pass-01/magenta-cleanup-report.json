@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "kind": "miji-magenta-cleanup-report",
+  "layers": [
+    {
+      "id": "far_canopy",
+      "changed_pixels": 8272
+    },
+    {
+      "id": "mid_roots",
+      "changed_pixels": 4760
+    },
+    {
+      "id": "back_architecture",
+      "changed_pixels": 3512
+    },
+    {
+      "id": "hanging_vines",
+      "changed_pixels": 4894
+    },
+    {
+      "id": "props_lanterns",
+      "changed_pixels": 2268
+    },
+    {
+      "id": "ground_dressings",
+      "changed_pixels": 4376
+    }
+  ]
+}

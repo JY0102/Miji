@@ -1,0 +1,10 @@
+Create one opaque full-canvas background layer.
+
+Layer: far_fog.
+Canvas: exactly 688x384 pixels, full rectangle filled.
+Content: distant teal mist, blurred-by-distance tree/root silhouettes, faint cavern depth, pale cyan haze openings, very low contrast.
+Depth role: deepest background behind everything else.
+Composition: keep the center readable and quiet; denser silhouette mass near the upper corners and far sides; no foreground objects.
+Palette: near-black teal, dark blue-green, desaturated cyan fog, muted moss shadows.
+No transparency, no magenta background, no characters, no UI, no text.
+

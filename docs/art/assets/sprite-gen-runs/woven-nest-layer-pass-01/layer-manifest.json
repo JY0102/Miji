@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "kind": "miji-background-layer-pass",
+  "area": "woven-nest",
+  "source_reference": "src/Miji/Assets/Art/Environment/Backgrounds/BG_WovenNest.png",
+  "canvas": {
+    "width": 688,
+    "height": 384,
+    "ppu": 32
+  },
+  "generation": {
+    "tool": "sprite-gen gen",
+    "provider": "codex",
+    "chroma_key": {
+      "name": "magenta",
+      "hex": "#FF00FF"
+    }
+  },
+  "layers": [
+    {
+      "id": "far_fog",
+      "output": "generated/far_fog.png",
+      "unity_output": "src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/BG_WovenNest_01_FarFog.png",
+      "transparent": false,
+      "sorting_hint": -90,
+      "parallax_follow_factor": 0.96
+    },
+    {
+      "id": "far_canopy",
+      "output": "generated/far_canopy.png",
+      "unity_output": "src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/BG_WovenNest_02_FarCanopy.png",
+      "transparent": true,
+      "sorting_hint": -80,
+      "parallax_follow_factor": 0.92
+    },
+    {
+      "id": "mid_roots",
+      "output": "generated/mid_roots.png",
+      "unity_output": "src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/BG_WovenNest_03_MidRoots.png",
+      "transparent": true,
+      "sorting_hint": -70,
+      "parallax_follow_factor": 0.86
+    },
+    {
+      "id": "back_architecture",
+      "output": "generated/back_architecture.png",
+      "unity_output": "src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/BG_WovenNest_04_BackArchitecture.png",
+      "transparent": true,
+      "sorting_hint": -62,
+      "parallax_follow_factor": 0.80
+    },
+    {
+      "id": "hanging_vines",
+      "output": "generated/hanging_vines.png",
+      "unity_output": "src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/BG_WovenNest_05_HangingVines.png",
+      "transparent": true,
+      "sorting_hint": -45,
+      "parallax_follow_factor": 0.72
+    },
+    {
+      "id": "props_lanterns",
+      "output": "generated/props_lanterns.png",
+      "unity_output": "src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/BG_WovenNest_06_PropsLanterns.png",
+      "transparent": true,
+      "sorting_hint": -35,
+      "parallax_follow_factor": 0.65
+    },
+    {
+      "id": "ground_dressings",
+      "output": "generated/ground_dressings.png",
+      "unity_output": "src/Miji/Assets/Art/Environment/Backgrounds/WovenNest/Layers/BG_WovenNest_07_GroundDressings.png",
+      "transparent": true,
+      "sorting_hint": -15,
+      "parallax_follow_factor": 0.55
+    }
+  ]
+}
+

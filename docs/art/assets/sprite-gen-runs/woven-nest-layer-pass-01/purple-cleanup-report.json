@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "kind": "miji-purple-cleanup-report",
+  "layers": [
+    {
+      "id": "far_canopy",
+      "changed_pixels": 11193
+    },
+    {
+      "id": "mid_roots",
+      "changed_pixels": 3577
+    },
+    {
+      "id": "back_architecture",
+      "changed_pixels": 2598
+    },
+    {
+      "id": "hanging_vines",
+      "changed_pixels": 3821
+    },
+    {
+      "id": "props_lanterns",
+      "changed_pixels": 1233
+    },
+    {
+      "id": "ground_dressings",
+      "changed_pixels": 3379
+    }
+  ]
+}

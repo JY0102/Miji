@@ -1,0 +1,11 @@
+Create one transparent parallax layer on a perfectly flat solid #FF00FF chroma-key background.
+
+Layer: back_architecture.
+Canvas: exactly 688x384 pixels.
+Content: non-human woven nest houses and hut-like root architecture embedded into the background: curved reed caps, dark interior openings, tied cords, small amber pinlights, and old folk-machine fixtures.
+Depth role: readable background landmarks behind the gameplay layer, like large set dressing rather than collision.
+Composition: two or three separated architecture masses, not a single flat wall. Use asymmetry and negative space so the scene does not become wallpaper.
+Style: dense indie pixel art, quiet gothic mood, limited muted palette, no modern sci-fi parts.
+Chroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.
+No characters, no UI, no text, no watermark.
+

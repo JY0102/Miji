@@ -1,0 +1,11 @@
+Create one transparent parallax layer on a perfectly flat solid #FF00FF chroma-key background.
+
+Layer: props_lanterns.
+Canvas: exactly 688x384 pixels.
+Content: isolated set dressing props for the Woven Nest: hanging amber lanterns, one or two cyan folk-machine lamps, small pipe-like hand pumps, tied jars, and tiny suspended mechanisms.
+Depth role: decorative prop layer placed around architecture and behind/near the playable path.
+Composition: sparse objects with generous empty space; do not create a full scene or wall. Keep props separated so they can be manually moved if needed.
+Style: tiny readable pixel objects, muted amber and cyan accents, old handmade machine look, no futuristic devices.
+Chroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.
+No characters, no UI, no text, no watermark.
+

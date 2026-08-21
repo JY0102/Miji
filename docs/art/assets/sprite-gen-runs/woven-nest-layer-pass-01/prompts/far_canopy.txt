@@ -1,0 +1,10 @@
+Create one transparent parallax layer on a perfectly flat solid #FF00FF chroma-key background.
+
+Layer: far_canopy.
+Canvas: exactly 688x384 pixels.
+Content: distant overhead canopy of tangled roots, reed strands, hanging thread silhouettes, and soft back branches. Keep it mostly upper-third and side-framing; leave the main play corridor open.
+Depth role: far parallax layer in front of fog but behind major architecture.
+Style: dark muted pixel art silhouettes with sparse root highlights; no bright lanterns in this layer.
+Chroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.
+No characters, no UI, no text, no watermark.
+

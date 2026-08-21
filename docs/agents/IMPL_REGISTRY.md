@@ -301,3 +301,18 @@
 | 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Editor\WovenNestSampleRoomBuilder.cs | [자동 기록] |
 | 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Editor\WovenNestSampleRoomBuilder.cs | [자동 기록] |
 | 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Editor\WovenNestSampleRoomBuilder.cs | [자동 기록] |
+
+### 6차 — WovenNest 배경 패럴랙스 스택 세팅 (2026-08-21) ✅ (미커밋)
+
+Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생성 경위는 `ART_LOG.md` 2026-08-21 항목이 원본.
+
+- **코드**: `Assets/Scripts/Editor/WovenNestParallaxBuilder.cs` 신설 (`Miji.Editor`) — 메뉴 **`Miji/Background/Woven Nest 패럴랙스 배경 구성`**. 레이어 표(정렬순서·추종계수·틴트·on/off)를 코드에 두고 씬을 매번 새로 만든다. 몇 번을 돌려도 같은 결과가 된다
+- **asmdef**: `Miji.Editor` 참조 `[]` → `["Miji.Core", "Miji.Gameplay"]` — `ParallaxLayer`를 붙이려면 필요하다. 방향은 Editor → Gameplay → Core 로 여전히 단방향
+- ★ **뒷벽 타일맵이 배경을 통째로 가리고 있었다** — `Tilemap_BackWall`(order −60, 불투명)이 방 내부를 다 덮고 있어서 `BG_WovenNest.png` 는 **한 번도 화면에 나온 적이 없었다**(스크린샷으로 확인). 빌더가 이 렌더러를 끈다. 오브젝트는 남겨둬서 되돌리려면 렌더러만 켜면 된다. 뿌리다리 틈으로 「새어 보이는 것」이 이제는 배경이라 막을 이유가 없다
+- ★ **배율은 1을 벗어나지 않는다** — 이전 한 장짜리 배경은 1.5였다. 688x384 / PPU 32 = 21.5 x 12u 이고 카메라(ortho 6, 16:9)가 21.33 x 12u 라 **배율 1에서 캔버스 = 화면**이다. 1.5로 늘리면 배경 픽셀이 타일(16px)보다 굵어져 한 화면에 픽셀 밀도가 두 종류가 된다
+- **깊이 틴트 추가**(매니페스트에 없던 것) — 원경 0.50 → 근경 0.85 명도, 아주 살짝 푸르게. 틴트 없이 켜면 배경 대비가 지형과 같아서 **발판(노란 선)이 안 보인다**. 스크린샷 비교로 확정
+- ⚠️ **L06_PropsLanterns 는 기본 off** — pass 01의 props 레이어는 사실상 「소품 시트」다. 등불이 낱개로 균등 배열돼 있고 크기가 A(1u)의 2~3배라 켜면 플레이 레인 한복판에 거대한 등불이 줄줄이 걸린다. pass 02에서 작은 덩어리로 쪼갤 때까지 꺼둔다
+- **L07_GroundDressings 는 오프셋 0 유지** — 캔버스 아래쪽 뿌리 띠가 월드 y<0(바닥 타일 뒤)에 떨어져 거의 안 보이지만, 이 레이어만 위로 올리면 걷는 레인을 가로로 덮는다(+3.3 시험 후 되돌림)
+- **검증**: compile 0/0 · **EditMode 25/25 + PlayMode 8/8 = 33/33 유지** · 플레이 실측 — 카메라 +2u 이동 시 레이어 x 이동량 1.92/1.84/1.72/1.60/1.44/1.10 = 추종계수와 정확히 일치
+- ⚠️ **카메라 추종 스크립트가 아직 없다** — Main Camera는 Transform+Camera뿐이라 실제 플레이에서는 카메라가 고정이고, 따라서 **패럴랙스가 눈에 보이지 않는다.** 스택 자체는 정상 동작(위 실측)이며, 카메라 추종은 별건
+- **다음**: C7 CombatCore 마무리(Hitbox 미작성) → G2

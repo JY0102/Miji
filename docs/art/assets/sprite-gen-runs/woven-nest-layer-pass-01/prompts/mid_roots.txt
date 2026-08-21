@@ -1,0 +1,11 @@
+Create one transparent parallax layer on a perfectly flat solid #FF00FF chroma-key background.
+
+Layer: mid_roots.
+Canvas: exactly 688x384 pixels.
+Content: large mid-distance root trunks and woven supports, heavy organic columns, side framing roots, and a few broad curved root ribbons. These should create depth without becoming gameplay platforms.
+Depth role: middle background structure, darker and more readable than far_canopy, behind the playable tilemap.
+Composition: place large forms on left and right thirds; keep a visual breathing gap around the player path in the lower center.
+Style: crisp dense pixel art, 1px dark contour where needed, muted tan root highlights against teal shadows.
+Chroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.
+No characters, no UI, no text, no watermark.
+

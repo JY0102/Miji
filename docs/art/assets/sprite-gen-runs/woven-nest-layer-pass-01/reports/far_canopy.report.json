@@ -1,0 +1,32 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "Shared style contract for every Woven Nest layer:\nCreate 2D side-view pixel art for a melancholic metroidvania room, canvas 688x384 pixels.\nUse the attached Woven Nest background only as a mood, palette, and material reference. Do not copy its exact composition, silhouettes, or object placement.\nVisual DNA: dark teal forest depth, woven roots and reed-like nest structures, lived-in non-human folk architecture, damp moss, hanging cords, tiny amber and cyan lantern accents, old simple machines rather than modern sci-fi.\nPixel art requirements: crisp pixel clusters, limited muted palette, no anti-aliasing, no painterly blur, no smooth gradients except sparse dithering, no bloom, no soft glow halos, no UI, no text, no watermark, no characters.\nGameplay readability: leave the central play lane less busy than the top, sides, and lower foreground. Do not draw solid collision platforms as final gameplay truth; this is visual background dressing.\nAvoid direct Hollow Knight imagery or any recognizable reference-game shapes; borrow only the general idea of separated depth layers for parallax.\n\n\n\nCreate one transparent parallax layer on a perfectly flat solid #FF00FF chroma-key background.\n\nLayer: far_canopy.\nCanvas: exactly 688x384 pixels.\nContent: distant overhead canopy of tangled roots, reed strands, hanging thread silhouettes, and soft back branches. Keep it mostly upper-third and side-framing; leave the main play corridor open.\nDepth role: far parallax layer in front of fog but behind major architecture.\nStyle: dark muted pixel art silhouettes with sparse root highlights; no bright lanterns in this layer.\nChroma constraints: background must be uniform #FF00FF with no shadows, gradients, texture, or floor plane. Do not use #FF00FF in the artwork.\nNo characters, no UI, no text, no watermark.",
+  "out": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\far_canopy.png",
+  "raw": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\far_canopy.png.raw.png",
+  "raw_bytes": 1532759,
+  "elapsed_seconds": 136.89,
+  "model": null,
+  "session_id": "01a021b5-1588-7963-b7fa-d3f752e9d0a2",
+  "refs": [
+    "C:\\Users\\User\\Game\\src\\Miji\\Assets\\Art\\Environment\\Backgrounds\\BG_WovenNest.png"
+  ],
+  "transparent": true,
+  "chroma": {
+    "out": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\generated\\far_canopy.png",
+    "mode": "RGBA",
+    "size": "1679x937",
+    "key": "magenta",
+    "keyed_pixels": 1133608,
+    "fringe_pixels": 0,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 72.06,
+    "stale_transparent_rgb_pixels": 0,
+    "white_check": "C:\\Users\\User\\Game\\docs\\art\\assets\\sprite-gen-runs\\woven-nest-layer-pass-01\\reports\\far_canopy.whitecheck.png"
+  },
+  "extra": {
+    "inline_results": 1,
+    "rollout_cleaned": true
+  },
+  "provider_resolved_from": "explicit"
+}

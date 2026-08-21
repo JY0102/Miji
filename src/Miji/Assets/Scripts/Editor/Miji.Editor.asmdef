@@ -1,7 +1,10 @@
 {
     "name": "Miji.Editor",
     "rootNamespace": "Miji.EditorTools",
-    "references": [],
+    "references": [
+        "Miji.Core",
+        "Miji.Gameplay"
+    ],
     "includePlatforms": [
         "Editor"
     ],
