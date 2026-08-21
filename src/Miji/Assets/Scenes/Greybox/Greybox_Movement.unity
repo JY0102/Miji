@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c86fd08ee5889645bd0aeacf986372d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.Player.PlayerMotor
-  maxSpeed: 6.2
+  maxSpeed: 5.5
   groundAcceleration: 60
   groundDeceleration: 38
   airAcceleration: 40
@@ -408,7 +408,7 @@ MonoBehaviour:
   jumpCutMultiplier: 0.45
   jumpLockout: 0.08
   gravityScale: 3.6
-  fallGravityMultiplier: 1.2
+  fallGravityMultiplier: 1.35
   maxFallSpeed: 18
   apexThreshold: 2.2
   apexGravityMultiplier: 0.65
