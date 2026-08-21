@@ -334,3 +334,7 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 
 **검증**: compile 0/0 · **EditMode 25/25 + PlayMode 8/8 = 33/33 유지** · 플레이 실측 A·B 접지 정상
 **다음**: C7 CombatCore 마무리(Hitbox 미작성) → G2. B는 walk/fall·턴 3프레임이 아직 없다
+| 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\View\BlinkView.cs | [자동 기록] |
+| 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Editor\CompanionBAnimationBuilder.cs | [자동 기록] |
+| 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Editor\CompanionBAnimationBuilder.cs | [자동 기록] |
+| 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Art\Characters\B\Animations\B_Idle.anim | [자동 기록] |
