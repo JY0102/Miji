@@ -162,9 +162,14 @@ namespace Miji.EditorTools
                 go.layer = GroundLayer;
                 var body = go.AddComponent<Rigidbody2D>();
                 body.bodyType = RigidbodyType2D.Static;
+                // ★ 컴포넌트 순서가 중요하다 — TilemapCollider2D 를 CompositeCollider2D 보다 **먼저** 붙인다.
+                //   반대로 붙이면 Merge 등록이 씬 저장에 실려 나가지 않아, 씬을 다시 열었을 때
+                //   컴포지트 도형이 0개가 된다 = 방 전체에 충돌이 없다(A가 바닥을 뚫고 떨어진다).
+                //   만든 직후에는 메모리에 등록이 살아 있어 멀쩡히 플레이되므로 늦게 발견된다.
+                //   2026-08-21에 실제로 밟았다: 저장된 씬에서 ccShapes=0, A가 y=-119 까지 낙하.
+                var tileCollider = go.AddComponent<TilemapCollider2D>();
                 var composite = go.AddComponent<CompositeCollider2D>();
                 composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
-                var tileCollider = go.AddComponent<TilemapCollider2D>();
                 tileCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
             }
 

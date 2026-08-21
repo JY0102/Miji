@@ -5,13 +5,17 @@ namespace Miji.Gameplay.Player
     /// <summary>
     /// A의 몸을 실제로 움직이는 부분. 「어떤 상태인가」는 모르고 「어떻게 움직이나」만 안다.
     ///
-    /// 조작감 척추(`MECHANIC_movement.md` 1절): **묵직·기계적. 스프링 같은 몸이 아니다.**
-    /// 그래서 ⑴ 가속·감속에 시간이 걸리고 ⑵ 공중 제어력이 지상보다 낮고
-    /// ⑶ 낙하가 상승보다 빠르고 ⑷ 점프가 낮다.
+    /// 조작감 척추(2026-08-21 개정 — `MECHANIC_movement.md` 1절 / `MECHANIC_GAME_FEEL.md` 0절):
+    /// **몸은 가볍게, 기계는 연출 층에서.**
+    /// 「묵직·기계적」은 폐기됐다. 무게를 물리(가속 지연·낮은 공중 제어·경직)로 표현하면
+    /// 손에는 100% 「입력이 씹힌다」로만 읽힌다. A가 기계라는 것은
+    /// **소리·애니메이션 관성·파티클**이 말하고, 물리는 즉각 반응한다.
     ///
-    /// 무게와 별개로 **억울하지 않게** 만드는 관용 기법을 얹는다 —
+    /// 그래서 ⑴ 가속이 짧고 ⑵ **공중 제어가 지상에 가깝고** ⑶ 낙하가 상승보다 조금 빠르다.
+    ///
+    /// 여기에 **억울하지 않게** 만드는 관용 기법을 얹는다 —
     /// 코요테 타임 / 점프 버퍼 / 코너 보정 / 에이펙스 조정 / 반전 스냅.
-    /// 이것들은 조작을 가볍게 만드는 게 아니라 「눌렀는데 안 됐다」를 없앤다.
+    /// 관용은 무게와 직교한다 — 가벼워져도 이것들은 그대로 필요하다.
     ///
     /// ⛔ 2단 점프는 여기 없다 — 「A는 스스로 높이를 얻지 못한다」(이원 무브셋 1절).
     /// 두 번째 높이는 F2(B의 받침)에서 온다.
@@ -19,18 +23,20 @@ namespace Miji.Gameplay.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMotor : MonoBehaviour
     {
-        [Header("이동 — 묵직하게")]
-        [SerializeField] float maxSpeed = 5.5f;
-        [SerializeField] float groundAcceleration = 45f;
+        [Header("이동 — 가볍게 (2026-08-21 경량 개정)")]
+        [SerializeField] float maxSpeed = 6.2f;
+        [SerializeField] float groundAcceleration = 60f;
         [SerializeField] float groundDeceleration = 38f;
-        [Tooltip("공중에서는 제어가 둔하다. 기계 몸의 관성.")]
-        [SerializeField] float airAcceleration = 26f;
-        [SerializeField] float airDeceleration = 10f;
+        [Tooltip("공중 제어는 지상에 가깝게. 경량 액션 플랫포머의 공통 문법이다(FEEL_REFERENCES A 계열).")]
+        [SerializeField] float airAcceleration = 40f;
+        [SerializeField] float airDeceleration = 24f;
         [Tooltip("반대 방향을 눌렀을 때의 감속 배수. 턴이 즉각 반응하게 한다(무게는 유지).")]
         [Range(1f, 4f)][SerializeField] float turnAroundMultiplier = 2.1f;
 
         [Header("점프 — 짧은 한 번")]
-        [Tooltip("도달 높이(월드 유닛). 위로 갈 여지를 남겨 낮게 잡는다.")]
+        [Tooltip("도달 높이(월드 유닛). 위로 갈 여지를 남겨 낮게 잡는다.\n" +
+                 "⚠️ 경량 개정에서도 1.7 유지 — 이 값이 F2 게이트의 물리적 근거다. " +
+                 "올리려면 Ledge_TooHigh(3.65)와 WovenNest 다리 높이(2.0/4.0)를 같이 올려야 한다.")]
         [SerializeField] float jumpHeight = 1.7f;
         [Tooltip("상승 중 버튼을 떼면 남은 상승 속도를 이만큼으로 깎는다.")]
         [Range(0f, 1f)][SerializeField] float jumpCutMultiplier = 0.45f;
@@ -39,8 +45,8 @@ namespace Miji.Gameplay.Player
 
         [Header("중력 — 낙하가 더 빠르다")]
         [SerializeField] float gravityScale = 3.6f;
-        [Tooltip("내려갈 때 중력 배수. 1보다 크면 체공이 짧아져 무게가 생긴다.")]
-        [SerializeField] float fallGravityMultiplier = 1.35f;
+        [Tooltip("내려갈 때 중력 배수. 1보다 크면 체공이 짧아진다. 경량 개정에서 1.35 → 1.2로 완화.")]
+        [SerializeField] float fallGravityMultiplier = 1.2f;
         [SerializeField] float maxFallSpeed = 18f;
 
         [Header("에이펙스 조정 — 정점에서만 숨을 준다")]

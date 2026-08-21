@@ -472,17 +472,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c86fd08ee5889645bd0aeacf986372d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.Player.PlayerMotor
-  maxSpeed: 5.5
-  groundAcceleration: 45
+  maxSpeed: 6.2
+  groundAcceleration: 60
   groundDeceleration: 38
-  airAcceleration: 26
-  airDeceleration: 10
+  airAcceleration: 40
+  airDeceleration: 24
   turnAroundMultiplier: 2.1
   jumpHeight: 1.7
   jumpCutMultiplier: 0.45
   jumpLockout: 0.08
   gravityScale: 3.6
-  fallGravityMultiplier: 1.35
+  fallGravityMultiplier: 1.2
   maxFallSpeed: 18
   apexThreshold: 2.2
   apexGravityMultiplier: 0.65
@@ -691,8 +691,8 @@ GameObject:
   - component: {fileID: 218000770}
   - component: {fileID: 218000769}
   - component: {fileID: 218000768}
-  - component: {fileID: 218000767}
   - component: {fileID: 218000766}
+  - component: {fileID: 218000771}
   m_Layer: 6
   m_Name: Tilemap_Platforms
   m_TagString: Untagged
@@ -753,53 +753,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!66 &218000767
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218000764}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 218000766}
-    m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 218000764}
 --- !u!50 &218000768
 Rigidbody2D:
   serializedVersion: 5
@@ -1127,6 +1080,89 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!66 &218000771
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218000764}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 218000766}
+    m_ColliderPaths:
+    - - X: 30000000
+        Y: 40000000
+      - X: 0
+        Y: 40000000
+      - X: 0
+        Y: 35000000
+      - X: 30000000
+        Y: 35000000
+    - - X: -5000000
+        Y: 20000000
+      - X: -35000000
+        Y: 20000000
+      - X: -35000000
+        Y: 15000000
+      - X: -5000000
+        Y: 15000000
+    - - X: -45000000
+        Y: 10000000
+      - X: -70000000
+        Y: 10000000
+      - X: -70000000
+        Y: 5000000
+      - X: -45000000
+        Y: 5000000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 2.999971, y: 3.5}
+      - {x: 2.999971, y: 4}
+      - {x: 0, y: 3.999971}
+      - {x: 0.000029300001, y: 3.5}
+    - - {x: -0.5000293, y: 1.5}
+      - {x: -0.5000293, y: 2}
+      - {x: -3.5, y: 1.9999708}
+      - {x: -3.499971, y: 1.5}
+    - - {x: -4.500029, y: 0.5}
+      - {x: -4.500029, y: 1}
+      - {x: -7, y: 0.99997073}
+      - {x: -6.9999704, y: 0.5}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 218000764}
 --- !u!1 &273453223
 GameObject:
   m_ObjectHideFlags: 0
@@ -7298,8 +7334,8 @@ GameObject:
   - component: {fileID: 398162725}
   - component: {fileID: 398162724}
   - component: {fileID: 398162723}
-  - component: {fileID: 398162722}
   - component: {fileID: 398162721}
+  - component: {fileID: 398162726}
   m_Layer: 6
   m_Name: Tilemap_Terrain
   m_TagString: Untagged
@@ -7360,53 +7396,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!66 &398162722
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398162719}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 398162721}
-    m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 398162719}
 --- !u!50 &398162723
 Rigidbody2D:
   serializedVersion: 5
@@ -13024,6 +13013,89 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!66 &398162726
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398162719}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 398162721}
+    m_ColliderPaths:
+    - - X: 110000000
+        Y: 90000000
+      - X: -110000000
+        Y: 90000000
+      - X: -110000000
+        Y: -40000000
+      - X: 110000000
+        Y: -40000000
+    - - X: -100000000
+        Y: 0
+      - X: -100000000
+        Y: 80000000
+      - X: 100000000
+        Y: 80000000
+      - X: 100000000
+        Y: 10000000
+      - X: 60000000
+        Y: 10000000
+      - X: 60000000
+        Y: 20000000
+      - X: 30000000
+        Y: 20000000
+      - X: 30000000
+        Y: 0
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 10.99997, y: -4}
+      - {x: 10.99997, y: 9}
+      - {x: -11, y: 8.99997}
+      - {x: -10.99997, y: -4}
+    - - {x: 3, y: 0.0000294}
+      - {x: -10, y: 0.0000294}
+      - {x: -9.99997, y: 8}
+      - {x: 10, y: 7.9999704}
+      - {x: 9.99997, y: 1}
+      - {x: 6, y: 1.0000294}
+      - {x: 5.999971, y: 2}
+      - {x: 3, y: 1.9999708}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 398162719}
 --- !u!1 &632519298
 GameObject:
   m_ObjectHideFlags: 0
@@ -14063,7 +14135,7 @@ MonoBehaviour:
   snapDistance: 8
   bobAmplitude: 0.05
   bobFrequency: 9
-  animator: {fileID: 1752243188}
+  animator: {fileID: 0}
   turnQuarterSprite: {fileID: 21300000, guid: ef8c83997735a8c43862e73e8297c086, type: 3}
   turnFrontSprite: {fileID: 21300000, guid: cf6e496754d0e1e45ae6a6ee8227dc83, type: 3}
   turnDuration: 0.14
@@ -14117,7 +14189,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e45a780c6ffb3e246b4cefb7b5107da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01504ca32393dd3489876b53bc360344, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14125,7 +14197,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1752243187
 Transform:
@@ -14150,7 +14222,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752243184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3c65a99441374884481336540a7987b8, type: 2}
   m_CullingMode: 0

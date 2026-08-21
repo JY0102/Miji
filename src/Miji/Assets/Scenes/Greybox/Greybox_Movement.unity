@@ -398,17 +398,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c86fd08ee5889645bd0aeacf986372d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.Player.PlayerMotor
-  maxSpeed: 5.5
-  groundAcceleration: 45
+  maxSpeed: 6.2
+  groundAcceleration: 60
   groundDeceleration: 38
-  airAcceleration: 26
-  airDeceleration: 10
+  airAcceleration: 40
+  airDeceleration: 24
   turnAroundMultiplier: 2.1
   jumpHeight: 1.7
   jumpCutMultiplier: 0.45
   jumpLockout: 0.08
   gravityScale: 3.6
-  fallGravityMultiplier: 1.35
+  fallGravityMultiplier: 1.2
   maxFallSpeed: 18
   apexThreshold: 2.2
   apexGravityMultiplier: 0.65
@@ -1475,7 +1475,7 @@ MonoBehaviour:
   snapDistance: 8
   bobAmplitude: 0.05
   bobFrequency: 9
-  animator: {fileID: 1752243188}
+  animator: {fileID: 0}
   turnQuarterSprite: {fileID: 21300000, guid: ef8c83997735a8c43862e73e8297c086, type: 3}
   turnFrontSprite: {fileID: 21300000, guid: cf6e496754d0e1e45ae6a6ee8227dc83, type: 3}
   turnDuration: 0.14
@@ -1529,7 +1529,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e45a780c6ffb3e246b4cefb7b5107da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01504ca32393dd3489876b53bc360344, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1562,7 +1562,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752243184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3c65a99441374884481336540a7987b8, type: 2}
   m_CullingMode: 0

@@ -316,3 +316,21 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 - **검증**: compile 0/0 · **EditMode 25/25 + PlayMode 8/8 = 33/33 유지** · 플레이 실측 — 카메라 +2u 이동 시 레이어 x 이동량 1.92/1.84/1.72/1.60/1.44/1.10 = 추종계수와 정확히 일치
 - ⚠️ **카메라 추종 스크립트가 아직 없다** — Main Camera는 Transform+Camera뿐이라 실제 플레이에서는 카메라가 고정이고, 따라서 **패럴랙스가 눈에 보이지 않는다.** 스택 자체는 정상 동작(위 실측)이며, 카메라 추종은 별건
 - **다음**: C7 CombatCore 마무리(Hitbox 미작성) → G2
+
+### 7차 — B 인게임 반입 + 🐛 타일 룸 콜라이더 소실 버그 (2026-08-21) ✅ (미커밋)
+
+**① B(무리비)가 게임에 섰다.** 아트 판단(32px 다운스케일 폐기 → 64px 원화 유지)의 경위는 `ART_LOG.md` 2026-08-21 2차가 원본.
+- **에셋**: `Art/Characters/B/Sprites/B_idle_0.png` — 64x64, **PPU 64**(= 1유닛, A와 동일), Point, 무압축
+- **씬**: `Greybox_WovenNest` · `Greybox_Movement` 양쪽 `Companion_B` 의 SpriteRenderer 배선
+- ⚠️ **Animator 를 껐다** — `B_Idle`/`B_Walk`/`B_Sleep` 클립이 8/20에 삭제된 스프라이트를 가리키는 죽은 참조다. 켜두면 `m_Sprite` 를 null 로 덮어써 **스프라이트를 물려도 B가 안 보인다.** `CompanionFollower` 는 애니메이터가 없으면 코드 들썩임으로 대체하도록 이미 설계돼 있어 그 경로를 쓴다. 클립·컨트롤러는 지우지 않고 남겼다
+- **실측**: A y=0.421 접지 / B y=0.421, 스프라이트 하단 −0.079 (A와 같은 발높이)
+
+**② 🐛 타일 룸에 충돌이 아예 없었다 — A가 바닥을 뚫고 떨어진다.**
+- **증상**: 저장된 `Greybox_WovenNest` 를 열어 플레이하면 A가 `y=−119` 까지 낙하. `CompositeCollider2D.shapeCount` 가 **0**
+- **원인**: `WovenNestSampleRoomBuilder.CreateLayer` 가 **`CompositeCollider2D` 를 `TilemapCollider2D` 보다 먼저** 붙였다. 이 순서로 만들면 `compositeOperation = Merge` 등록이 **씬 저장에 실려 나가지 않는다.** 만든 직후에는 메모리에 등록이 살아 있어 멀쩡히 플레이되므로 **8/21 오전 검증은 통과했고 버그는 그대로 커밋됐다**
+- **격리 근거**: `compositeOperation` 을 None 으로 떼면 `TilemapCollider2D` 단독 도형이 **544개**(정상), 다시 Merge 로 붙이면 컴포지트 도형 **7개** 생성. 타일 에셋의 `colliderType` 도 전부 정상(Grid 12종)이었다 — 타일이 아니라 **컴포넌트 부착 순서**가 범인
+- **수정**: 빌더에서 `TilemapCollider2D` → `CompositeCollider2D` 순으로 교체(주석에 함정 기록). 기존 씬은 컴포지트를 떼고 올바른 순서로 재생성해 저장 — **씬을 다시 열어도 도형이 유지됨을 확인**(Terrain 7 / Platforms 3)
+- ★ **교훈: 「만든 직후 플레이 검증」은 씬 저장·재로드를 건너뛴다.** 빌더가 만든 씬은 반드시 **다시 열어서** 확인할 것
+
+**검증**: compile 0/0 · **EditMode 25/25 + PlayMode 8/8 = 33/33 유지** · 플레이 실측 A·B 접지 정상
+**다음**: C7 CombatCore 마무리(Hitbox 미작성) → G2. B는 walk/fall·턴 3프레임이 아직 없다
