@@ -657,6 +657,14 @@ MonoBehaviour:
   turnQuarterSprite: {fileID: 21300000, guid: 3a46fcbbdbe791745814f4a26ce56a40, type: 3}
   turnFrontSprite: {fileID: 21300000, guid: c9c3b82d5979230489fed1c9d8eeedb4, type: 3}
   turnDuration: 0.14
+  fallTiltFrames:
+  - {fileID: 21300000, guid: 76b982f15d3a785479740e69ad25677e, type: 3}
+  - {fileID: 21300000, guid: 0a1596c022d748946b921181e4e30bb5, type: 3}
+  - {fileID: 21300000, guid: cfc7c732a873444ebbb0808db5ad8818, type: 3}
+  - {fileID: 21300000, guid: cfd88cff4c66470f91db57867779eee6, type: 3}
+  - {fileID: 21300000, guid: 0487ca890ab148fbbf1a9c76c485567d, type: 3}
+  - {fileID: 21300000, guid: a272d78fae6b4168b88c6842641c4599, type: 3}
+  fallForMaxTilt: 1.5
 --- !u!95 &214958573
 Animator:
   serializedVersion: 7
@@ -14135,7 +14143,7 @@ MonoBehaviour:
   snapDistance: 8
   bobAmplitude: 0.05
   bobFrequency: 9
-  animator: {fileID: 0}
+  animator: {fileID: 1752243188}
   turnQuarterSprite: {fileID: 21300000, guid: ef8c83997735a8c43862e73e8297c086, type: 3}
   turnFrontSprite: {fileID: 21300000, guid: cf6e496754d0e1e45ae6a6ee8227dc83, type: 3}
   turnDuration: 0.14

@@ -3,11 +3,23 @@
 > 새 세션이나 새 환경에서 이 프로젝트를 이어받을 때 읽는 문서입니다.
 > **"뭐 해야 함?" 이라는 질문의 답은 아래 「다음에 할 일」 절에 있습니다.**
 
-**최종 갱신:** 2026-08-21 (★ **조작감 척추 개정 — 「가벼운 것은 조작감이지 캐릭터가 아니다」, 응답/무게 층 분리** + 레퍼런스 자료집 `FEEL_REFERENCES.md` 신설 / 그 전: B 인게임 반입(64px/PPU 64) + 타일 룸 콜라이더 소실 버그 수정)
+**최종 갱신:** 2026-08-24 (★ **A 애니 64px 전면 반입(run/jump/fall/turn) + fall 거리비례 틸트** + **B jump/fall 신규 생성·구동** + **애니 반입 에디터 툴** 신설 / 그 전: 조작감 척추 개정, B 인게임 반입)
 
 ---
 
 ## 다음에 할 일 ★
+
+**8/24 — A·B 애니메이션 대량 반입. 게임이 훨씬 살아있어졌다.** 상세는 `IMPL_REGISTRY.md` 8차 · `ART_LOG.md` 2026-08-24.
+- **A 64px 애니 전면 반입** — idle에 이어 **run(6f)·jump(3f)·fall(6f)·turn(45°/정면)**을 전부 64px/PPU 64로 교체. 방식은 idle과 동일(.meta를 64px 단일 스프라이트로 재작성, GUID 유지 → 클립이 자동으로 새 그림을 가리킴). `A_run_6/7` 삭제, `A_Run.anim`을 6프레임으로 재작성
+- ★ **fall은 「거리비례 틸트」 코드로 구동** — `PlayerAnimator.ApplyFallTilt()` 신설. 정점부터 잰 하강거리를 `fallForMaxTilt`(현재 **1.5u**)로 정규화해 `A_fall_0`(직립)→`A_fall_5`(다이빙) 프레임을 고른다. **물리 불간섭**(LateUpdate 덮어쓰기, turn과 같은 패턴). 값이 크면 안 기울어 보이므로 4→2→1.5로 낮춤(일반 점프 1.7u 낙하가 fall_4까지 도달). 두 씬 Player_A에 배선
+- ⚠️ **turn은 임시 품질** — 네이티브 64px 프레임이 없어 업스케일 프리뷰 시트(`A_turn_frames.png`)에서 idx2/idx6을 flood-fill 투명화 후 다운스케일해 뽑음. 회전 0.14초 동안만 보이므로 수용. 깔끔히 하려면 PixelLab 네이티브 재생성 필요
+- **B jump/fall 신규** — PixelLab `animate_with_text_v3`로 생성(각 1생성). 1차 초안은 둘 다 idle성 흔들림이라 구분 안 돼 **과장·6프레임으로 재생성**(정점서 40%+ 차이 확인). `B_Jump.anim`(비루프)·`B_Fall.anim`(루프) + `B_Animator`에 Jump/Fall 상태·전이·파라미터(Grounded·VSpeed) 추가
+- ★ **B 공중 상태는 A 기준** — B는 A 높이를 따라다니므로 `CompanionFollower`가 **A의 실제 세로속도(`target.Velocity.y`)**로 VSpeed 구동. B의 SmoothDamp 지연속도로 넣으면 fall이 늦게·짧게 떠서 안 보인다
+- 🐛 ★ **「A 착지 = B 착지」 버그 수정** — B 접지를 A 접지로 넣으면 A가 먼저 닿을 때 B가 공중에서 착지 판정돼 fall이 끊긴다. **`bGrounded = A접지 && (B가 A높이 0.06u 이내로 내려옴)`** 으로 B 자신의 위치 기준 판정. B는 실제로 내려앉을 때까지 fall 유지
+- **애니 반입 에디터 툴 신설** — `Assets/Scripts/Editor/CharacterAnimationTool.cs`, 메뉴 `Miji ▸ Animation ▸ Character Animation Tool`. 외부 폴더(docs/art/assets…) 프레임을 원클릭으로 캐릭터 Sprites에 반입 + .anim 클립 생성/제자리 갱신(PPU 64·Point·무압축·GUID 보존). A·B 공용
+- ⚠️ **B는 sleep 전용 아트가 없어** `B_Sleep.anim`을 idle 프레임으로 임시 재지정(죽은 참조였던 것 복구). 전용 sleep 포즈는 추후
+- ⚠️ **PixelLab MCP 이번 세션엔 붙어 있었다** — Tier 2, 잔여 ~4,325. `.claude/settings.local.json`에 `mcp__pixellab-forge__*` 허용 규칙 추가(auto-mode 분류기 차단 해소)
+- 검증: compile 0/0 · **EditMode 25 + PlayMode 8 = 33/33** · uloop 플레이 실측(fall 틸트·B jump/fall 전이 전부 확인)
 
 8/4에 여행의 구조, **A·B 갈등축**, **B의 성격**, **플레이어 시점**이 확정됐다.
 이야기의 뼈대는 이제 처음부터 재회까지 이어져 있고, 남은 것은 결말과 **세계의 물리적 형태**다.

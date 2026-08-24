@@ -338,3 +338,22 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 | 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Editor\CompanionBAnimationBuilder.cs | [자동 기록] |
 | 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Editor\CompanionBAnimationBuilder.cs | [자동 기록] |
 | 2026-08-21 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Art\Characters\B\Animations\B_Idle.anim | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Art\Characters\A\Animations\A_Run.anim | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Art\Characters\A\Animations\A_Run.anim | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Art\Characters\A\Animations\A_Run.anim | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scenes\Greybox\Greybox_Movement.unity | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scenes\Greybox\Greybox_WovenNest.unity | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scenes\Greybox\Greybox_Movement.unity | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scenes\Greybox\Greybox_WovenNest.unity | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
+| 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
+
+### 8차 — A·B 애니메이션 대량 반입 (2026-08-24) ✅
+
+- **A 64px 애니**: run(6f)/jump(3f)/fall(6f)/turn을 64px/PPU 64로 반입. `A_Run.anim` 6프레임 재작성, `A_run_6/7` 삭제
+- **A fall 거리비례 틸트**: `PlayerAnimator.ApplyFallTilt()` — 하강거리를 `fallForMaxTilt`(1.5u)로 정규화해 fall_0~5 선택, LateUpdate 덮어쓰기(물리 불간섭). 두 씬 Player_A 배선
+- **B jump/fall 신규**: PixelLab `animate_with_text_v3` 생성 → `B_Jump.anim`(비루프)/`B_Fall.anim`(루프) + `B_Animator` Jump/Fall 상태·전이·파라미터(Grounded/VSpeed)
+- **CompanionFollower**: A의 실제 세로속도로 VSpeed 구동, `bGrounded = A접지 && B가 A높이 0.06u 이내`(🐛 A착지=B착지 버그 수정)
+- **에디터 툴**: `Assets/Scripts/Editor/CharacterAnimationTool.cs` (`Miji ▸ Animation ▸ Character Animation Tool`) — A·B 애니 원클릭 반입
+- 검증: compile 0/0 · EditMode 25 + PlayMode 8 = 33/33 · uloop 플레이 실측

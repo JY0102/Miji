@@ -517,3 +517,13 @@ Pending explicit confirmation because these include concept/generation records, 
 [2026-08-22 01:02] STYLE_GUIDE.md 수정됨
 [2026-08-22 01:02] STYLE_GUIDE.md 수정됨
 [2026-08-22 01:03] README.md 수정됨
+[2026-08-24 16:09] A_Run.anim 수정됨
+[2026-08-24 16:09] A_Run.anim 수정됨
+[2026-08-24 16:09] A_Run.anim 수정됨
+
+### 2026-08-24 — A 64px 애니 전면 반입 + B jump/fall 생성
+
+- **A**: run/jump/fall/turn 64px 반입(idle 방식 = .meta 64px 단일화 + GUID 유지). fall은 거리비례 틸트 코드로 구동(fall_0 직립→fall_5 다이빙). turn은 프리뷰 시트 다운스케일 임시본(네이티브 재생성 필요)
+- **B jump/fall**: PixelLab `animate_with_text_v3`, first_frame=B_idle_0. 1차 초안 2종이 idle성 흔들림으로 구분 안 돼 **과장·6프레임 재생성**(seed 7133/4288). 정점서 40%+ 차이 확보, 온모델 유지. 컨펌본 `confirm/b-jump-fall/`(프레임+시트+루프 GIF)
+- ★ **GIF 인코딩 교훈**: 수제 GIF89a LZW 인코더는 버그로 디코더 거부(업로드 400) → **WPF `GifBitmapEncoder` + NETSCAPE 루프/딜레이 바이트 패치**가 안전한 경로
+- PixelLab Tier 2, 이번 세션 4생성 사용(잔여 ~4,325)

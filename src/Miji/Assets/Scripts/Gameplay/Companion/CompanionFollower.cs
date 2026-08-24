@@ -44,8 +44,13 @@ namespace Miji.Gameplay.Companion
         [Tooltip("이 시간 동안 거의 안 움직이면 잠든다. 움직이면 즉시 깬다.")]
         [SerializeField] float sleepDelay = 7f;
 
+        [Tooltip("B가 A 높이에 이만큼(월드 유닛) 이내로 내려오면 착지로 본다. A 접지와 별개.")]
+        [SerializeField] float groundEpsilon = 0.06f;
+
         static readonly int SpeedParam = Animator.StringToHash("Speed");
         static readonly int AsleepParam = Animator.StringToHash("IsAsleep");
+        static readonly int GroundedParam = Animator.StringToHash("Grounded");
+        static readonly int VSpeedParam = Animator.StringToHash("VSpeed");
 
         SpriteRenderer sprite;
         float stillTimer;
@@ -82,13 +87,22 @@ namespace Miji.Gameplay.Companion
 
             var speed = new Vector2(velocity.x, velocity.y).magnitude;
 
+            // B의 접지는 A가 아니라 B 자신이 A 높이까지 내려왔는지로 본다.
+            // A가 먼저 착지해도 B는 SmoothDamp 지연으로 아직 공중에 떠 있으므로,
+            // A 접지만 보면 B가 공중에서 착지 판정이 나 Fall이 끊긴다(=버그).
+            bool bGrounded = target.IsGrounded && (basePosition.y - anchor.y) < groundEpsilon;
+
             if (animator != null)
             {
                 animator.SetFloat(SpeedParam, speed);
+                // ★ VSpeed는 B의 지연된 추종 속도가 아니라 A의 실제 세로속도를 쓴다(진입 트리거).
+                //   Fall 유지는 bGrounded가 false인 동안 계속되므로 B가 실제로 내려앉을 때까지 간다.
+                animator.SetBool(GroundedParam, bGrounded);
+                animator.SetFloat(VSpeedParam, target.Velocity.y);
                 transform.position = basePosition;
 
-                // 오래 가만히 있으면 잠든다. 움직이면 즉시 깬다.
-                stillTimer = speed < 0.15f ? stillTimer + Time.deltaTime : 0f;
+                // 오래 가만히 있으면 잠든다. 움직이면 즉시 깬다. (공중에서는 안 잠든다)
+                stillTimer = (speed < 0.15f && bGrounded) ? stillTimer + Time.deltaTime : 0f;
                 animator.SetBool(AsleepParam, stillTimer >= sleepDelay);
             }
             else
