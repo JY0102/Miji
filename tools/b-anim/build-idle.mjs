@@ -87,7 +87,24 @@ function closeEye(img, seedX, seedY) {
     if (!edge) setPx(img, x, ly + 1, LID);
   }
 }
-function blinkBase() { const b = clone(base); closeEye(b, 35, 25); closeEye(b, 50, 25); return b; }
+// ★ 볼 실루엣 아웃라인 복원 (2026-08-21 사용자 컨펌 픽셀).
+// 뜬 눈은 검은 눈알 자체가 머리 오른쪽 실루엣 경계인데, closeEye 가 그 자리를 피부색으로
+// 메우면 볼 아웃라인이 통째로 사라져 머리가 1px 부풀어 보인다. 컨펌본 픽셀을 그대로 박는다.
+// 좌표는 base(B01_idle) 기준 — 블링크 프레임에서는 headDy 만큼 같이 내려간다.
+function restoreCheekOutline(img) {
+  const BLACK = [0, 0, 0, 255], SHADE = [38, 53, 23, 255];
+  setPx(img, 53, 21, [0, 0, 0, 0]);                       // 부풀었던 코너 제거
+  setPx(img, 52, 21, BLACK); setPx(img, 52, 30, BLACK);   // 위/아래 코너
+  for (let y = 22; y <= 30; y++) setPx(img, 53, y, BLACK); // 세로 아웃라인
+  setPx(img, 51, 21, SHADE);
+  for (const y of [22, 23, 24, 25, 28, 29]) setPx(img, 52, y, SHADE); // 안쪽 명암 (26~27은 눈꺼풀 선)
+}
+function blinkBase() {
+  const b = clone(base);
+  closeEye(b, 35, 25); closeEye(b, 50, 25);
+  restoreCheekOutline(b);
+  return b;
+}
 
 // ── 프레임 조립 ───────────────────────────────────────────────────────────
 function buildFrame(src, headDy, earDx, torsoDy, tailDy) {

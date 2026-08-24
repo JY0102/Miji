@@ -124,4 +124,20 @@ b-current/anim/idle/
 **깜빡임** — 눈 검은 덩어리를 연결요소로 뽑아 바로 위 머리 초록으로 메우고, 높이 55% 지점에 2px 눈꺼풀 선(`#151d06`, 양끝 `#263515`)을 얹는다. ⚠️ **평평한 직선이어야 한다** — 위로 휜 아치는 `B06_laugh` 의 웃는 눈이라 깜빡일 때마다 B가 웃는다.
 
 **인게임**: `Art/Characters/B/Sprites/` 에 동일 6장, `B_Idle.anim` 12키프레임(호흡 3사이클 + 3번째에 깜빡임, 1.54초 루프).
-⚠️ **씬 Animator 는 아직 꺼져 있다** — `B_Walk`·`B_Sleep` 이 죽은 참조라 켜면 B가 사라진다.
+⚠️ **씬 Animator 는 아직 꺼져 있다** — `B_Sleep` 이 죽은 참조라 켜면 B가 사라진다 (`B_Walk` 는 6절에서 복구됨).
+
+---
+
+## 6. Walk 애니메이션 — `anim/walk/` ✅ (2026-08-21 확정)
+
+**PixelLab `animate_image` 생성본 채택** (1생성) — B01_idle 을 기준 프레임으로 8프레임 보행 사이클.
+수제 픽셀 이동 시안(`tools/b-anim/build-walk.mjs`)과 비교 후 사용자 판정으로 채택. 눈 규격·잎귀·목도리·크림 배 전부 유지 확인.
+
+```
+b-current/anim/walk/
+├── B_walk_0~7.png       ← 보행 8프레임 (PixelLab draft_1~8 승격본)
+└── B_walk_preview.gif   ← 확정본 미리보기 (4x, 80ms)
+```
+
+**인게임**: `Art/Characters/B/Sprites/B_walk_0~7.png` (PPU 64 / Point / 무압축, .meta 직접 생성) +
+`B_Walk.anim` 죽은 참조 8건을 새 GUID 로 교체 (12fps, 0.667초 루프 — 기존 클립 타이밍 유지).
