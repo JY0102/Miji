@@ -349,6 +349,25 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 | 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
 | 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
 
+### 9차 — Phase 1 전투 뼈대: C7 Hitbox + G2 근접공격·더미·상호작용 (2026-08-27) 🟡
+
+- **근거**: `PROJECT_HANDOFF.md` 8/27 로드맵 Phase 1 + `MECHANIC_GAME_FEEL.md` §9(게임필 피드백 층 — 히트스톱·플래시·넉백은 여기서 합류)
+- **파일**:
+  - Core ✏️ `Core/Combat/Damage.cs`(`Strong` 추가) · `Core/Combat/Health.cs`(초크포인트에서 `HitSignal` 발행)
+  - Core 🆕 `Core/Combat/HitSignals.cs` · `Core/Combat/Hitbox.cs`
+  - Gameplay 🆕 `Gameplay/Combat/DamageResponse.cs` · `Gameplay/Combat/HitStop.cs` · `Gameplay/Player/PlayerAttack.cs` · `Gameplay/Interaction/IInteractable.cs` · `Gameplay/Interaction/PlayerInteractor.cs` · `Gameplay/Interaction/GreyboxLever.cs`
+- **설계 결정**:
+  - **Hitbox는 쿼리 기반** — 활성 창 동안 `Sweep()`이 허트박스 레이어(10)만 훑는다. 물리 콜백 비의존이라 콜리전 매트릭스에서 9·10층은 전부 끈다(접촉 쌍 생성 비용 0)
+  - **공격은 FSM 상태가 아니라 병행 컴포넌트** — 로드맵 문구는 「Attack 상태 추가」였으나, 상태로 만들어 이동을 잠그면 그게 곧 응답 지연이다(조작감 척추 위반). HK도 이동 중 공격이 병행된다. 무게는 히트스톱이 진다
+  - **히트스톱은 국소 정지**(§9-3 #2) — `Time.timeScale` 아님. 관련 루트의 Animator·Rigidbody2D만 동결
+  - 착지 스쿼시는 §9-7 보류 그대로 — 이번 범위 밖
+- **시작일**: 2026-08-27
+- **결과 (2026-08-27)**: ✅ 완료
+  - 콜리전 매트릭스: 9(Hitbox)·10(Hurtbox)층 물리 접촉 전면 차단 (`Physics2DSettings.asset` 저장 확인)
+  - 씬 배선: 두 씬 Player_A에 HitStop+PlayerAttack+PlayerInteractor+Hitbox_Melee(자식, 레이어 9, 0.7x0.6) + SwingVisual(활성 창 동안만). Movement 씬에 TrainingDummy(hp 999, 레이어 10, Hostile)·Lever_Greybox 추가. 그레이박스용 `Art/Effects/Greybox_White8.png`(8px 흰 사각) 신설
+  - 검증: compile 0/0 · **EditMode 36(+11 CombatCoreTests) + PlayMode 13(+5 CombatPlayTests) = 49/49** · 플레이 실측 — 공격 명중(더미 999→998), 히트스톱 후 이동·점프 정상(동결 복원 OK), 레버 E 상호작용 ON, 콘솔 에러 0
+  - ⚠️ ULoop 함정: `UserSettings/UnityMcpSettings.json`의 `isServerRunning`이 false로 저장돼 있으면 에디터를 띄워도 서버가 자동 기동하지 않는다 — true로 고치고 도메인 리로드(에디터 포커스)를 유발하면 붙는다
+
 ### 8차 — A·B 애니메이션 대량 반입 (2026-08-24) ✅
 
 - **A 64px 애니**: run(6f)/jump(3f)/fall(6f)/turn을 64px/PPU 64로 반입. `A_Run.anim` 6프레임 재작성, `A_run_6/7` 삭제
@@ -357,3 +376,16 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 - **CompanionFollower**: A의 실제 세로속도로 VSpeed 구동, `bGrounded = A접지 && B가 A높이 0.06u 이내`(🐛 A착지=B착지 버그 수정)
 - **에디터 툴**: `Assets/Scripts/Editor/CharacterAnimationTool.cs` (`Miji ▸ Animation ▸ Character Animation Tool`) — A·B 애니 원클릭 반입
 - 검증: compile 0/0 · EditMode 25 + PlayMode 8 = 33/33 · uloop 플레이 실측
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\Damage.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\HitSignals.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\Health.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\Health.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Combat\Hitbox.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Combat\DamageResponse.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Combat\HitStop.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\IInteractable.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\PlayerInteractor.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\GreyboxLever.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\PlayerInteractor.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\EditMode\Core\CombatCoreTests.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\PlayMode\CombatPlayTests.cs | [자동 기록] |

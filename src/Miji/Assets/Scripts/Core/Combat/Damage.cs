@@ -35,14 +35,20 @@ namespace Miji.Core.Combat
         /// <summary>때린 오브젝트. 로그·추적용이며 없어도 된다.</summary>
         public readonly GameObject Source;
 
+        /// <summary>강공격 여부. 카메라 흔들림 같은 전역 효과는 이 플래그가 선 것에만 반응한다
+        /// (`MECHANIC_GAME_FEEL.md` §9 — 어떤 무브가 강공격인지는 무브셋 확정 때 지정).</summary>
+        public readonly bool Strong;
+
         public DamageInfo(int amount, Faction attacker, Vector2 point,
-                          Vector2 knockback = default, GameObject source = null)
+                          Vector2 knockback = default, GameObject source = null,
+                          bool strong = false)
         {
             Amount = Mathf.Max(0, amount);
             Attacker = attacker;
             Point = point;
             Knockback = knockback;
             Source = source;
+            Strong = strong;
         }
     }
 

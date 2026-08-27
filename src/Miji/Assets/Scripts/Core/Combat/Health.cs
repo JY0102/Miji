@@ -1,4 +1,5 @@
 using System;
+using Miji.Core.Events;
 using UnityEngine;
 
 namespace Miji.Core.Combat
@@ -47,7 +48,9 @@ namespace Miji.Core.Combat
             if (invulnerabilityDuration > 0f)
                 invulnerableUntil = Time.time + invulnerabilityDuration;
 
+            // 피격의 유일 합류점 — 로컬 효과는 Damaged를, 전역 효과는 HitSignal을 구독한다 (§9-2).
             Damaged?.Invoke(info);
+            EventBus.Publish(new HitSignal(info, gameObject));
 
             if (!IsAlive) Died?.Invoke(info);
         }
