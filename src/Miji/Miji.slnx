@@ -1,8 +1,8 @@
 ﻿<Solution>
   <Project Path="Miji.Gameplay.csproj" />
-  <Project Path="Miji.Core.Tests.csproj" />
-  <Project Path="Miji.Editor.csproj" />
   <Project Path="Miji.Gameplay.PlayTests.csproj" />
-  <Project Path="Miji.Core.csproj" />
   <Project Path="Miji.Gameplay.Tests.csproj" />
+  <Project Path="Miji.Core.Tests.csproj" />
+  <Project Path="Miji.Core.csproj" />
+  <Project Path="Miji.Editor.csproj" />
 </Solution>

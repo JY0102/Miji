@@ -16,7 +16,7 @@ namespace Miji.Gameplay.Interaction
 
         // ponytail: 레이어 필터 없이 전 콜라이더를 훑는다 — 씬 콜라이더가 수백 개가 되면 Interactable 레이어로 승격
         static readonly Collider2D[] buffer = new Collider2D[16];
-        static readonly ContactFilter2D anyCollider = new ContactFilter2D().NoFilter();
+        static readonly ContactFilter2D anyCollider = ContactFilter2D.noFilter;
 
         void Awake() => controller = GetComponent<PlayerController>();
 

@@ -7,7 +7,10 @@ namespace Miji.Gameplay.Player
     public enum PlayerStateId
     {
         Grounded,
-        Airborne
+        Airborne,
+
+        /// <summary>F1 돌진 중. 모터의 일반 이동·중력이 꺼지고 <see cref="PlayerDash"/>가 몸을 몬다.</summary>
+        Dashing
     }
 
     /// <summary>
@@ -36,6 +39,7 @@ namespace Miji.Gameplay.Player
 
             states.Add(PlayerStateId.Grounded, new GroundedState(this));
             states.Add(PlayerStateId.Airborne, new AirborneState(this));
+            states.Add(PlayerStateId.Dashing, new DashingState());
             states.Change(PlayerStateId.Airborne); // 접지가 확인되면 첫 프레임에 내려온다
         }
 
@@ -55,7 +59,10 @@ namespace Miji.Gameplay.Player
 
         void FixedUpdate()
         {
-            motor.FixedTick(intent.Move, Time.fixedDeltaTime);
+            // 돌진 중에는 모터의 일반 이동·중력 보정이 몸을 되뺏지 않게 통째로 쉰다.
+            if (states.CurrentKey != PlayerStateId.Dashing)
+                motor.FixedTick(intent.Move, Time.fixedDeltaTime);
+
             states.FixedTick(Time.fixedDeltaTime);
         }
 
@@ -83,5 +90,8 @@ namespace Miji.Gameplay.Player
                 if (ctx.motor.IsGrounded) ctx.ChangeState(PlayerStateId.Grounded);
             }
         }
+
+        /// <summary>진입·탈출을 <see cref="PlayerDash"/>가 시키므로 스스로는 아무것도 안 한다.</summary>
+        sealed class DashingState : StateBase { }
     }
 }

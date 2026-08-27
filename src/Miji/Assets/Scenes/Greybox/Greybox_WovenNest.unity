@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 45549909}
   - component: {fileID: 45549908}
   - component: {fileID: 45549907}
+  - component: {fileID: 45549912}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -212,6 +213,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &45549912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45549906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d9c812ca35084448f5708da937ce0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Miji.Core::Miji.Core.Rooms.RoomTracker
+  target: {fileID: 214958571}
 --- !u!1 &173272169
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +457,7 @@ GameObject:
   - component: {fileID: 214958576}
   - component: {fileID: 214958575}
   - component: {fileID: 214958574}
+  - component: {fileID: 214958577}
   m_Layer: 7
   m_Name: Player_A
   m_TagString: Untagged
@@ -735,6 +750,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd21302127e8d3a4fb53269d999bb432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.Combat.HitStop
+--- !u!114 &214958577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214958565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888a40f5c333afb4aaa1bb46f2ae7e80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.Player.PlayerDash
+  abilityId: F1
+  dashSpeed: 14
+  dashDuration: 0.14
+  cooldown: 0.55
+  hitbox: {fileID: 1574971289}
 --- !u!1 &218000764
 GameObject:
   m_ObjectHideFlags: 0
@@ -7378,6 +7410,56 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &343613687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343613689}
+  - component: {fileID: 343613688}
+  m_Layer: 0
+  m_Name: Room_Nest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &343613688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343613687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2c328799948bf44a65cbf044b504a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Miji.Core::Miji.Core.Rooms.Room
+  worldBounds:
+    serializedVersion: 2
+    x: -10.75
+    y: -4
+    width: 21.5
+    height: 12
+--- !u!4 &343613689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343613687}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &398162719
 GameObject:
   m_ObjectHideFlags: 0
@@ -14143,6 +14225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1656870042}
   - component: {fileID: 1656870041}
+  - component: {fileID: 1656870043}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -14216,6 +14299,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1656870043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656870040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f56c45969884e641b5a75726f653bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Miji.Gameplay::Miji.Gameplay.View.CameraFollower
+  target: {fileID: 214958571}
+  motor: {fileID: 214958567}
+  rooms: {fileID: 45549912}
+  offset: {x: 0, y: 1}
+  smoothTime: 0.16
+  lookAheadDistance: 1.3
+  lookAheadResponse: 4
+  shakeAmplitude: 0.14
+  shakeDecay: 8
 --- !u!1 &1715208768
 GameObject:
   m_ObjectHideFlags: 0
@@ -14754,3 +14858,4 @@ SceneRoots:
   - {fileID: 1752243187}
   - {fileID: 1983785432}
   - {fileID: 1715208769}
+  - {fileID: 343613689}

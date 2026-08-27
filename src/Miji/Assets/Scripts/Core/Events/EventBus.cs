@@ -59,6 +59,11 @@ namespace Miji.Core.Events
         /// <summary>씬 재시작·플레이모드 종료 시 남은 구독을 비운다.</summary>
         public static void Clear() => handlers.Clear();
 
+        // Enter Play Mode 도메인 리로드가 꺼진 프로젝트라 static 구독이 플레이 간에 살아남는다.
+        // 진입마다 비운다 — 구독자들의 OnEnable은 이 뒤에 돈다.
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetOnEnterPlay() => Clear();
+
         public static int SubscriberCount<T>() where T : struct =>
             handlers.TryGetValue(typeof(T), out var existing) ? existing.GetInvocationList().Length : 0;
     }

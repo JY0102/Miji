@@ -349,6 +349,23 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 | 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
 | 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
 
+### 10차 — Phase 2 메트로배니아 뼈대: C8 룸 + 카메라 + C4 능력 3상태 + C5 세이브 + G3 F1 돌진 (2026-08-27) 🟡
+
+- **근거**: `PROJECT_HANDOFF.md` 8/27 로드맵 Phase 2 + 아키텍처 스펙 3차(C8→C4→C5→G3)
+- **파일**:
+  - Core 🆕 `Core/Progression/ProgressionState.cs`(능력 3상태 미획득/해금/잠김 + 플래그 + `AbilityChangedSignal`) · `Core/Save/SaveSystem.cs`(JSON 라운드트립, 체크포인트 룸ID 필드 포함) · `Core/Rooms/Room.cs` · `Core/Rooms/RoomTracker.cs`(+`RoomChangedSignal`)
+  - Gameplay 🆕 `Gameplay/View/CameraFollower.cs`(룩어헤드+룸 클램프+강공격 흔들림) · `Gameplay/Player/PlayerDash.cs`(F1 — 이동 게이트+돌진 공격 겸용) · `Gameplay/Interaction/AbilityPickup.cs`(해금 흐름 실사용)
+  - Gameplay ✏️ `Gameplay/Player/PlayerController.cs`(Dashing 상태 추가 — G1 주석의 「의미 있는 상태는 해당 기능과 함께」 이행)
+- **설계 결정**:
+  - **재화는 이번 범위 밖** — 데모에 재화 콘텐츠가 아직 없다(YAGNI). 세이브 DTO에는 자리만 안 만들고, 생기면 그때 필드 추가
+  - **체크포인트 오브젝트도 미구현** — 세이브 포맷에 체크포인트 룸ID·좌표 필드만 예약(룸 단위 저장 청산 준비). 실체는 G9 데모 조립 때
+  - **ProgressionState는 static Current** — 씬 어디서나 접근, 세이브 대상. 도메인 리로드로 초기화(Enter Play Mode Options로 리로드를 끄면 플레이 간 상태가 샌다 — 주의)
+- **시작일**: 2026-08-27
+- **결과 (2026-08-27)**: ✅ 완료
+  - 검증: compile 0/0 · **EditMode 48(+8 Progression/Save, +4 CameraClamp) + PlayMode 18(+4 Dash, +1 Room) = 66/66** · 플레이 실측 — 카메라 룸 클램프 정확치(-5.33 = xMin+halfW) / 미획득 돌진 무시 → Pickup_F1 해금 → Shift 돌진(-5.91→-8.18, 상태 Dashing→Grounded 복귀) / WovenNest 룸 중앙 고정(캔버스=화면) / 콘솔 에러 0
+  - 🐛 ★ **static 상태가 플레이 간에 샌다** — Enter Play Mode 도메인 리로드 꺼짐(EditorSettings enterPlayModeOptions=1). F1 해금이 다음 플레이에 남는 것을 실측으로 발견, `ProgressionState`·`EventBus`에 `[RuntimeInitializeOnLoadMethod(SubsystemRegistration)]` 리셋 추가. **Core static 추가 시 같은 리셋 필수**
+  - 룸 전환 카메라 연출(클램프 점프 스무딩)은 실룸 설계(G9) 때 — 지금은 씬당 룸 1개라 무대상
+
 ### 9차 — Phase 1 전투 뼈대: C7 Hitbox + G2 근접공격·더미·상호작용 (2026-08-27) 🟡
 
 - **근거**: `PROJECT_HANDOFF.md` 8/27 로드맵 Phase 1 + `MECHANIC_GAME_FEEL.md` §9(게임필 피드백 층 — 히트스톱·플래시·넉백은 여기서 합류)
@@ -389,3 +406,19 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 | 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\PlayerInteractor.cs | [자동 기록] |
 | 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\EditMode\Core\CombatCoreTests.cs | [자동 기록] |
 | 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\PlayMode\CombatPlayTests.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Progression\ProgressionState.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Save\SaveSystem.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Rooms\Room.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Rooms\RoomTracker.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerController.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerController.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerController.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerController.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerDash.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\AbilityPickup.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\EditMode\Core\ProgressionAndSaveTests.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\EditMode\Gameplay\CameraClampTests.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\PlayMode\RoomPlayTests.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\PlayerInteractor.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Progression\ProgressionState.cs | [자동 기록] |
+| 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Events\EventBus.cs | [자동 기록] |
