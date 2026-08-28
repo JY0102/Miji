@@ -3,7 +3,9 @@
 > 새 세션이나 새 환경에서 이 프로젝트를 이어받을 때 읽는 문서입니다.
 > **"뭐 해야 함?" 이라는 질문의 답은 아래 「다음에 할 일」 절에 있습니다.**
 
-**최종 갱신:** 2026-08-27 (★ **Phase 1·2 구현 완료** — 전투 뼈대(Hitbox·근접공격·히트스톱·상호작용) + 메트로배니아 뼈대(카메라·룸·능력 3상태·세이브·F1 돌진). 테스트 66/66. 같은 날 로드맵 수립 → 즉시 2단계 완주)
+**최종 갱신:** 2026-08-28 (★ **Phase 3 구현 완료** — B 동행 정식화: G4 `CompanionFollower` FSM(Following/Snapping/Cooperating)+EventBus 구독, G5 F2 받침(둘의 동작, 3상태 게이트). 두 씬에 PlayerBoost+Pickup_F2 배선 재로드 검증. 테스트 **72/72**. 아트 스타일 가이드에 타일 설계 원칙·레이어 스택 저장. **다음은 Phase 4(적·균형자·데모)** — 적은 PlayMaker/지리 설계 대기)
+
+이전: 2026-08-27 Phase 1·2 완료(전투 뼈대 + 메트로배니아 뼈대, 66/66).
 
 ---
 
@@ -21,10 +23,12 @@
   - C8 `Room`/`RoomTracker`(진입·전환 신호) / C4 `ProgressionState` 3상태 + `AbilityChangedSignal` / C5 `SaveSystem` JSON(체크포인트 룸ID 필드 예약) / G3 `PlayerDash`(Dashing 상태, 공중 1회, 해금 흐름 = Pickup_F1 → E → Shift 실측)
   - ⚠️ **이 프로젝트는 Enter Play Mode 도메인 리로드가 꺼져 있다** — static이 플레이 간에 살아남아 F1 해금이 다음 플레이에 새는 것을 실측으로 발견. `ProgressionState`·`EventBus`에 `RuntimeInitializeOnLoadMethod(SubsystemRegistration)` 리셋으로 청산. **앞으로 Core에 static 상태를 추가하면 같은 리셋을 달 것**
   - 미구현으로 명시: 재화(데모에 콘텐츠 없음), 체크포인트 오브젝트(G9 데모 조립 때 — 세이브 포맷엔 자리 있음), 룸 전환 카메라 연출(룸이 화면보다 크면 클램프 점프 — 실룸 설계 때)
-- **Phase 3 — B 동행 정식화 (G4 승격 + G5 F2 받침)** ← **여기부터**
-  - 테스트용 `CompanionFollower` → 정식 G4: C3 상태머신화(Follow/Snap/Cooperate), EventBus 구독(명령 큐 금지)
-  - G5: A 점프 정점에서 B 받침, C4 잠김 연동(결별 시 상실). 지형 검증 기존재(`Ledge_TooHigh` 3.65). 아트: B 받침 포즈 필요
-- **Phase 4 — 적·균형자·데모 조립 (G6→G7→G8→G9)**
+- **Phase 3 — B 동행 정식화 (G4 승격 + G5 F2 받침)** ✅ **완료 (2026-08-28, IMPL 11차)**
+  - G4: `CompanionFollower`가 C3 StateMachine FSM 3상태(Following/Snapping/Cooperating). `EventBus.Subscribe<BoostRequestedSignal>` — 신호 반응(명령 큐 아님). 뷰(애니/턴/facing/sleep)는 상태 무관 공통
+  - G5: `PlayerBoost`(F2, PlayerDash 패턴). 공중 재점프 → `IsUsable("F2")`면 위로 밀어올림 + B가 밑으로 파고듦(Cooperating). **미획득/잠김이면 무시 = 「A는 스스로 높이를 얻지 못한다」 성립**(테스트 3건이 못 박음)
+  - 씬: 두 씬 Player_A에 PlayerBoost, Movement에 Pickup_F2 @(-8,0.35) — Ledge_TooHigh 게이트 시연. 재로드 검증 완료
+  - 남은 것: **결별 트리거(F2→Locked)는 G8/데모 조립 때** · B 받침 포즈 아트(현재 코드 스냅만) · 라이브 실측(로직은 테스트 커버)
+- **Phase 4 — 적·균형자·데모 조립 (G6→G7→G8→G9)** ← **여기부터**
   - G6 적 2종 착수 **직전에** Godot 보류 항목 「Damageable 공용 베이스」 청산(세 번째 HP 복사본 방지). ★ **적 행동 로직은 PlayMaker로**(2026-08-27 사용자 결정, `DECISIONS.md`) — 피격·HP는 CombatCore(C#) 유지 / G7 균형자는 데모용 스크립트 기습 1회만 / G8 스위치 연출+암전 / G9 데모 룸 그레이박스(여관→심부름→튜토리얼·놀이→기습)
 - **횡단 트랙**: ① **연출 층 0개**(발소리·구동음·애니 관성·배기 파티클 — A가 「기계」로 읽히려면 필요, Phase 1~2 사이 1회분 권장) ② 아트 부채(B sleep 전용·A turn 네이티브 64px·B walk/fall 턴)
 - **지킬 규칙**: 조작감 튜닝 전 응답/무게 층 판정(`jumpHeight 1.7` 불가침) · 튜닝 값은 C# + 두 씬 직렬화 동반 갱신 · 빌더 씬은 저장 후 재열기 검증 · >1파일/>200줄이면 IMPL 선등록 · 데모 밖 금지(F3~F5·그릇 UI·전생 기억·맵 실설계·붕괴 페널티)

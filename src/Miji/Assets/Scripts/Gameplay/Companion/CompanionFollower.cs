@@ -1,17 +1,34 @@
+using Miji.Core.Events;
+using Miji.Core.StateMachines;
 using Miji.Gameplay.Player;
 using UnityEngine;
 
 namespace Miji.Gameplay.Companion
 {
+    /// <summary>B(무리비)의 상태. 위치를 어떻게 모느냐만 가른다 — 뷰(애니·턴·facing)는 공통이다.</summary>
+    public enum CompanionStateId
+    {
+        /// <summary>A 뒤를 감쇠 추적. 평상시.</summary>
+        Following,
+
+        /// <summary>너무 처져 연출 없이 즉시 복귀. 한 프레임짜리 보정 후 Following으로.</summary>
+        Snapping,
+
+        /// <summary>F2 받침 — A 밑으로 파고들어 받친다(<see cref="BoostRequestedSignal"/> 반응).</summary>
+        Cooperating
+    }
+
     /// <summary>
-    /// B(무리비)의 테스트용 추종 — A의 바로 뒤를 따라다니는 것이 전부다.
+    /// B(무리비)의 동행 — A 뒤를 따르고, 처지면 스냅하고, F2 받침 때 A 밑으로 파고든다.
     ///
-    /// 확정 설계(이원 무브셋 3절)의 뼈대를 미리 지킨다:
-    /// - 플레이어는 B를 관리하지 않는다 — 입력도 콜라이더도 없다
-    /// - 너무 처지면 연출 없이 즉시 복귀한다 (「B가 멀어서 못 했다」는 상황 금지)
-    /// - B는 무적이므로 Health/Hurtbox를 붙이지 않는다 (붕괴는 전투 피해가 아니다)
+    /// 확정 설계(이원 무브셋 3절):
+    /// - 플레이어는 B를 관리하지 않는다 — 입력도 콜라이더도 없다. B는 <b>자율</b>이다
+    /// - 너무 처지면 연출 없이 즉시 복귀(「B가 멀어서 못 했다」 금지) = <see cref="CompanionStateId.Snapping"/>
+    /// - 협력은 <b>명령 큐가 아니라 신호 반응</b>이다 — A의 <see cref="BoostRequestedSignal"/>을 구독한다
+    /// - B는 무적이므로 Health/Hurtbox를 붙이지 않는다(붕괴는 전투 피해가 아니다)
     ///
-    /// F2 받침·F5 투척의 협력 스냅 로직은 여기가 아니라 G6(B 협력)에서 붙는다.
+    /// 상태가 하는 일은 <c>basePosition</c>을 움직이는 것뿐이다. 그 뒤 <see cref="ApplyView"/>가
+    /// 결과 이동에서 애니/턴/facing/sleep을 파생시킨다 — 상태를 늘려도 뷰는 안 바뀐다.
     /// </summary>
     [RequireComponent(typeof(SpriteRenderer))]
     public class CompanionFollower : MonoBehaviour
@@ -25,8 +42,16 @@ namespace Miji.Gameplay.Companion
         [Tooltip("목표 지점을 향한 감쇠 추적 시간. 클수록 굼뜨다.")]
         [SerializeField] float smoothTime = 0.22f;
 
-        [Tooltip("이보다 멀어지면 연출 없이 즉시 복귀한다.")]
+        [Tooltip("이보다 멀어지면 연출 없이 즉시 복귀한다(Snapping).")]
         [SerializeField] float snapDistance = 8f;
+
+        [Header("F2 받침 — A 밑으로 파고들기")]
+        [Tooltip("받침 때 A 아래 이만큼(월드 유닛) 지점으로 파고든다.")]
+        [SerializeField] float boostUnderOffset = 0.7f;
+        [Tooltip("받침 진입의 감쇠 시간. 따라붙기보다 빨라야 「파고드는」 맛이 난다.")]
+        [SerializeField] float cooperateSmooth = 0.05f;
+        [Tooltip("밑에 받치고 머무는 시간. 지나면 Following으로 돌아간다.")]
+        [SerializeField] float cooperateDuration = 0.25f;
 
         [Header("걸음 들썩임 — 애니메이터가 없을 때만 쓰는 대체 표현")]
         [SerializeField] float bobAmplitude = 0.05f;
@@ -52,39 +77,53 @@ namespace Miji.Gameplay.Companion
         static readonly int GroundedParam = Animator.StringToHash("Grounded");
         static readonly int VSpeedParam = Animator.StringToHash("VSpeed");
 
+        readonly StateMachine<CompanionStateId> states = new();
+
         SpriteRenderer sprite;
         float stillTimer;
         int lastFace = 1;
         float turnTimer;
         int turnFrom = 1;
-        Vector3 basePosition;   // 들썩임을 뺀 실제 추적 위치
+        Vector3 basePosition;   // 들썩임을 뺀 실제 추적 위치. 상태들이 이걸 움직인다.
         Vector3 velocity;
         float bobPhase;
+
+        /// <summary>현재 상태. 디버그·테스트용.</summary>
+        public CompanionStateId CurrentState => states.CurrentKey;
 
         void Awake()
         {
             sprite = GetComponent<SpriteRenderer>();
             if (target == null) target = FindFirstObjectByType<PlayerMotor>();
             basePosition = transform.position;
+
+            states.Add(CompanionStateId.Following, new FollowingState(this));
+            states.Add(CompanionStateId.Snapping, new SnappingState(this));
+            states.Add(CompanionStateId.Cooperating, new CooperatingState(this));
+            states.Change(CompanionStateId.Following);
         }
+
+        void OnEnable() => EventBus.Subscribe<BoostRequestedSignal>(OnBoostRequested);
+        void OnDisable() => EventBus.Unsubscribe<BoostRequestedSignal>(OnBoostRequested);
+
+        // A가 받침을 발동 — 어디에 있든 A 밑으로 파고든다. 신호 반응이지 명령 큐가 아니다.
+        void OnBoostRequested(BoostRequestedSignal _) => states.Change(CompanionStateId.Cooperating);
 
         void LateUpdate()
         {
             if (target == null) return;
+            states.Tick(Time.deltaTime);   // basePosition을 현재 상태의 규칙으로 움직인다
+            ApplyView();                   // 그 이동에서 애니/턴/facing/sleep을 파생 — 상태 무관
+        }
 
-            var anchor = target.transform.position
-                         + new Vector3(-target.Facing * followDistance, 0f, 0f);
+        // A 뒤 followDistance 지점. 평상시 추적 목표이자 스냅·접지 판정의 기준.
+        Vector3 Anchor() =>
+            target.transform.position + new Vector3(-target.Facing * followDistance, 0f, 0f);
 
-            if ((anchor - basePosition).sqrMagnitude > snapDistance * snapDistance)
-            {
-                basePosition = anchor;
-                velocity = Vector3.zero;
-            }
-            else
-            {
-                basePosition = Vector3.SmoothDamp(basePosition, anchor, ref velocity, smoothTime);
-            }
-
+        /// <summary>이동 결과에서 뷰(애니메이터/코드 들썩임/턴/facing/sleep)를 파생시키고 스프라이트를 놓는다.</summary>
+        void ApplyView()
+        {
+            var anchor = Anchor();
             var speed = new Vector2(velocity.x, velocity.y).magnitude;
 
             // B의 접지는 A가 아니라 B 자신이 A 높이까지 내려왔는지로 본다.
@@ -137,6 +176,59 @@ namespace Miji.Gameplay.Companion
             }
 
             if (!Mathf.Approximately(face, 0f)) sprite.flipX = face < 0f;
+        }
+
+        // ── 상태 ─────────────────────────────────────────────────────
+        // 상태는 basePosition/velocity만 건드린다. 나머지(뷰)는 ApplyView가 공통으로 한다.
+
+        sealed class FollowingState : StateBase
+        {
+            readonly CompanionFollower c;
+            public FollowingState(CompanionFollower c) => this.c = c;
+
+            public override void Tick(float dt)
+            {
+                var anchor = c.Anchor();
+                if ((anchor - c.basePosition).sqrMagnitude > c.snapDistance * c.snapDistance)
+                {
+                    c.states.Change(CompanionStateId.Snapping);
+                    return;
+                }
+                c.basePosition = Vector3.SmoothDamp(c.basePosition, anchor, ref c.velocity, c.smoothTime);
+            }
+        }
+
+        sealed class SnappingState : StateBase
+        {
+            readonly CompanionFollower c;
+            public SnappingState(CompanionFollower c) => this.c = c;
+
+            // 진입 즉시 앵커로 순간이동하고 다음 틱에 평상 추적으로 복귀한다.
+            public override void Enter()
+            {
+                c.basePosition = c.Anchor();
+                c.velocity = Vector3.zero;
+            }
+
+            public override void Tick(float dt) => c.states.Change(CompanionStateId.Following);
+        }
+
+        sealed class CooperatingState : StateBase
+        {
+            readonly CompanionFollower c;
+            float timer;
+            public CooperatingState(CompanionFollower c) => this.c = c;
+
+            public override void Enter() => timer = c.cooperateDuration;
+
+            public override void Tick(float dt)
+            {
+                var under = c.target.transform.position + Vector3.down * c.boostUnderOffset;
+                c.basePosition = Vector3.SmoothDamp(c.basePosition, under, ref c.velocity, c.cooperateSmooth);
+
+                timer -= dt;
+                if (timer <= 0f) c.states.Change(CompanionStateId.Following);
+            }
         }
     }
 }

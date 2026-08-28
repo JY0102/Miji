@@ -349,6 +349,26 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 | 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
 | 2026-08-24 | IMPLEMENTATION | C:\Users\User\Game\src\Miji\Assets\Scripts\Gameplay\Player\PlayerAnimator.cs | [자동 기록] |
 
+### 11차 — Phase 3 B 동행 정식화: G4 CompanionFollower FSM + G5 F2 받침 (2026-08-28) ✅
+
+- **근거**: `PROJECT_HANDOFF.md` 8/27 로드맵 Phase 3 + 이원 무브셋 스펙(`specs/2026-08-08-dual-moveset-design.md`) 2·3·4절
+- **파일**:
+  - Gameplay 🆕 `Gameplay/Player/BoostRequestedSignal.cs`(A→B 협력 신호 struct) · `Gameplay/Player/PlayerBoost.cs`(F2 받침 — PlayerDash 패턴 미러, 3상태 게이트)
+  - Gameplay ✏️ `Gameplay/Companion/CompanionFollower.cs`(테스트용 추종 → **C3 StateMachine FSM 3상태**: Following/Snapping/Cooperating + `EventBus` 구독)
+  - Tests 🆕 `Assets/Tests/PlayMode/CompanionAndBoostTests.cs`(6건)
+- **설계 결정**:
+  - **F2는 물리적으로 A를 밀지만 서사·게이트상 B의 것** — 두 번째 높이의 근거는 F2뿐. `IsUsable("F2")`가 false(미획득/**잠김=결별**)면 공중 재점프가 조용히 무시된다. 「A는 스스로 높이를 얻지 못한다」가 코드로 성립(테스트 3건이 못 박음: usable/미획득/잠김)
+  - **협력은 명령 큐가 아니라 신호 반응** — A의 `PlayerBoost`가 `BoostRequestedSignal` 발행, B가 `EventBus.Subscribe`로 받아 Cooperating 진입. 플레이어는 B를 조작하지 않는다(입력 전부 A 버튼). B는 어디 있든 스냅(「멀어서 못 했다」 금지 = Snapping 상태)
+  - **FSM은 위치 구동만, 뷰는 공통** — 상태는 `basePosition`만 움직이고 애니/턴/facing/sleep은 `ApplyView`가 상태 무관하게 파생. 8차의 A착지=B착지 버그 수정 로직 그대로 보존
+  - **클래스명 유지**(CompanionFollower) — 씬 m_Script GUID 수술 회피. "follower"는 여전히 맞다(따르고+협력)
+  - **boostHeight는 자유 튜닝**(2.2, jumpHeight 1.7과 별개) — jumpHeight+boostHeight 가 Ledge_TooHigh를 넘어야 게이트가 열린다
+- **씬 배선**(두 씬 저장 후 재열기 검증 완료): Movement·WovenNest 양쪽 Player_A에 `PlayerBoost` 추가. Movement에 `Pickup_F2`(AbilityPickup, abilityId=F2) @(-8,0.35) 신설 — Ledge_TooHigh(-6, y3.40) F2 게이트 시연용. Companion_B의 CompanionFollower는 기존 인스턴스가 FSM 자동 적용
+- **시작일/완료일**: 2026-08-28
+- **결과 (2026-08-28)**: ✅ 완료
+  - 검증: compile 0/0 · **PlayMode 24(+6 CompanionAndBoost) · EditMode 48 = 72/72** · 두 씬 재로드 후 PlayerBoost·Pickup_F2·CompanionFollower 잔존 확인
+  - 🐛 초기 컴파일 실패 → **Safe Mode 진입 → ULoop 서버 미기동**(연쇄). 원인은 테스트 파일 `using Miji.Core.Input;` 누락 1건(`InputIntent` 미해결). ★ **교훈: `server is not running`이 지속되면 Safe Mode(=컴파일 에러)를 먼저 의심할 것** — Safe Mode에선 uloop 플러그인이 로드 안 된다
+  - 미착수(다음): 라이브 플레이 실측(테스트가 로직은 커버) · B 받침 포즈 아트(현재 코드 스냅만) · 결별 트리거(G8/데모 조립 때 F2를 Locked로)
+
 ### 10차 — Phase 2 메트로배니아 뼈대: C8 룸 + 카메라 + C4 능력 3상태 + C5 세이브 + G3 F1 돌진 (2026-08-27) 🟡
 
 - **근거**: `PROJECT_HANDOFF.md` 8/27 로드맵 Phase 2 + 아키텍처 스펙 3차(C8→C4→C5→G3)
@@ -422,3 +442,5 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 | 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Interaction\PlayerInteractor.cs | [자동 기록] |
 | 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Progression\ProgressionState.cs | [자동 기록] |
 | 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Events\EventBus.cs | [자동 기록] |
+| 2026-08-28 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\BoostRequestedSignal.cs | [자동 기록] |
+| 2026-08-28 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerBoost.cs | [자동 기록] |
