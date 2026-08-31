@@ -3,9 +3,9 @@
 > 새 세션이나 새 환경에서 이 프로젝트를 이어받을 때 읽는 문서입니다.
 > **"뭐 해야 함?" 이라는 질문의 답은 아래 「다음에 할 일」 절에 있습니다.**
 
-**최종 갱신:** 2026-08-28 (★ **Phase 3 구현 완료** — B 동행 정식화: G4 `CompanionFollower` FSM(Following/Snapping/Cooperating)+EventBus 구독, G5 F2 받침(둘의 동작, 3상태 게이트). 두 씬에 PlayerBoost+Pickup_F2 배선 재로드 검증. 테스트 **72/72**. 아트 스타일 가이드에 타일 설계 원칙·레이어 스택 저장. **다음은 Phase 4(적·균형자·데모)** — 적은 PlayMaker/지리 설계 대기)
+**최종 갱신:** 2026-08-31 (★ **Phase 4 G6 착수 — 적 2종 구현(IMPL-006)**. `Gameplay/Enemies/EnemyAI.cs` 하나로 야생 생물(순찰·영역 리시)·붕괴자(휴면 허스크·리시無)를 직렬화 값만으로 가름. enum FSM(Patrol/Chase/Attack/Dead), 전이표는 순수 함수 `NextState`. **전투는 CombatCore 재사용, 신규 전투 코드 0**. ⚠️ **PlayMaker 대체 임시 구현** — 구매 전까지 C# FSM으로 대신(사용자 2026-08-31 결정), PlayMaker 이식 시 `NextState` 상태표를 그대로 옮긴다. Player_A에 여태 없던 Health(5)+Hurtbox(L10)+DamageResponse 배선(적 타격 대상). 테스트 **EditMode 54/54**(+6). 플레이 실측 전 흐름 통과. **다음은 G7 균형자 기습 → G8 스위치 암전 → G9 데모 조립**)
 
-이전: 2026-08-27 Phase 1·2 완료(전투 뼈대 + 메트로배니아 뼈대, 66/66).
+이전: 2026-08-28 Phase 3 완료(B 동행 정식화, 72/72). 2026-08-27 Phase 1·2 완료(전투·메트로배니아 뼈대, 66/66).
 
 ---
 
@@ -28,8 +28,9 @@
   - G5: `PlayerBoost`(F2, PlayerDash 패턴). 공중 재점프 → `IsUsable("F2")`면 위로 밀어올림 + B가 밑으로 파고듦(Cooperating). **미획득/잠김이면 무시 = 「A는 스스로 높이를 얻지 못한다」 성립**(테스트 3건이 못 박음)
   - 씬: 두 씬 Player_A에 PlayerBoost, Movement에 Pickup_F2 @(-8,0.35) — Ledge_TooHigh 게이트 시연. 재로드 검증 완료
   - 남은 것: **결별 트리거(F2→Locked)는 G8/데모 조립 때** · B 받침 포즈 아트(현재 코드 스냅만) · 라이브 실측(로직은 테스트 커버)
-- **Phase 4 — 적·균형자·데모 조립 (G6→G7→G8→G9)** ← **여기부터**
-  - G6 적 2종 착수 **직전에** Godot 보류 항목 「Damageable 공용 베이스」 청산(세 번째 HP 복사본 방지). ★ **적 행동 로직은 PlayMaker로**(2026-08-27 사용자 결정, `DECISIONS.md`) — 피격·HP는 CombatCore(C#) 유지 / G7 균형자는 데모용 스크립트 기습 1회만 / G8 스위치 연출+암전 / G9 데모 룸 그레이박스(여관→심부름→튜토리얼·놀이→기습)
+- **Phase 4 — 적·균형자·데모 조립 (G6→G7→G8→G9)**
+  - **G6 적 2종** ✅ **완료 (2026-08-31, IMPL-006)** — `Gameplay/Enemies/EnemyAI.cs`(enum FSM, 야생·붕괴자 = 값 차이). CombatCore 재사용(신규 전투 코드 0). 「Damageable 공용 베이스」 부채는 **이미 `Health`가 유일 구현이라 청산돼 있었음**(세 번째 사본 없음). ⚠️ **PlayMaker 대체 임시 C# FSM** — 구매 시 `NextState` 상태표 이식 / Player_A에 Health+Hurtbox+DamageResponse 신규 배선(HP 0 죽음·리스폰·UI는 **G9 몫**). EditMode 54/54 + 플레이 실측
+  - ← **여기부터**: G7 균형자는 데모용 스크립트 기습 1회만 / G8 스위치 연출+암전 / G9 데모 룸 그레이박스(여관→심부름→튜토리얼·놀이→기습) + **플레이어 HP 0 처리(죽음/암전)**
 - **횡단 트랙**: ① **연출 층 0개**(발소리·구동음·애니 관성·배기 파티클 — A가 「기계」로 읽히려면 필요, Phase 1~2 사이 1회분 권장) ② 아트 부채(B sleep 전용·A turn 네이티브 64px·B walk/fall 턴)
 - **지킬 규칙**: 조작감 튜닝 전 응답/무게 층 판정(`jumpHeight 1.7` 불가침) · 튜닝 값은 C# + 두 씬 직렬화 동반 갱신 · 빌더 씬은 저장 후 재열기 검증 · >1파일/>200줄이면 IMPL 선등록 · 데모 밖 금지(F3~F5·그릇 UI·전생 기억·맵 실설계·붕괴 페널티)
 

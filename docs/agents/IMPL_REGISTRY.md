@@ -444,3 +444,19 @@ Codex(sprite-gen)가 뽑은 layer pass 01 PNG 7장을 인게임에 배치. 생�
 | 2026-08-27 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Core\Events\EventBus.cs | [자동 기록] |
 | 2026-08-28 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\BoostRequestedSignal.cs | [자동 기록] |
 | 2026-08-28 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Scripts\Gameplay\Player\PlayerBoost.cs | [자동 기록] |
+
+### [IMPL-006] G6 적 2종 — 야생 생물 · 붕괴자 (2026-08-31) 🟡 진행 중
+
+- **근거 기획**: `MECHANIC_movement.md` 전투 절 — 야생 생물(중립·영역 방어) / 붕괴자(망가진 사람들·방어적·헐로우나이트 허스크 계보). 균형자는 잡몹 아님(G7 별도)
+- **범위**: `Gameplay/Enemies/EnemyAI.cs` 한 컴포넌트로 두 종을 파라미터화(FSM: Patrol/Chase/Attack/Dead). 피격·HP·넉백·히트박스는 기존 CombatCore(Health/Hurtbox/Hitbox/DamageResponse) 그대로 재사용 — **신규 전투 코드 0**
+- ★ **PlayMaker 대체 임시 구현** — 적 행동을 PlayMaker FSM으로 짜기로 한 2026-08-27 결정(`DECISIONS.md`)을, **구매 전까지 C# enum-switch FSM으로 대신 짠다**(사용자 2026-08-31 결정). 상태·전이를 PlayMaker 상태표와 1:1로 매핑되게 짜서 나중 이식이 값 옮기기가 되게 한다. 전이 판정은 순수 함수 `EnemyAI.NextState(...)`로 뽑아 EditMode로 잰다
+- **두 종의 차이 = 직렬화 값만**: 야생=순찰 O / 리시(leash) O(영역 밖이면 포기) · 붕괴자=휴면(순찰 X) / 리시 없음(계속 다가옴)·저속
+- **시작일**: 2026-08-31
+- **결과 (2026-08-31)**: ✅ 완료
+  - `Gameplay/Enemies/EnemyAI.cs` — enum FSM(Patrol/Chase/Attack/Dead) + AttackPhase(Windup/Active/Recover). 전이표 `NextState` 순수 함수(리시>사거리>감지 우선순위). 벽·낭떠러지 감지로 자살 방지. 히트박스는 PlayerAttack와 같이 늘 켜두고 활성 창에만 Sweep
+  - **CombatCore 재사용, 신규 전투 코드 0** — Health/Hurtbox/Hitbox/DamageResponse/Faction 그대로. 「Damageable 공용 베이스」 부채는 이미 `Health`가 유일 구현이라 청산돼 있었음(세 번째 사본 없음)
+  - ★ **플레이어에 Health(5)+Hurtbox(L10)+DamageResponse 추가** — 여태 Player_A에 없어 적 타격이 닿을 대상이 없었다. 기존 컴포넌트만 배선. ⚠️ **HP 0 시 죽음·리스폰·UI는 여전히 없음**(HP=0이어도 계속 조작됨) — G9 데모 조립 몫
+  - 씬: `Greybox_Movement`에 Enemy_Wildlife(8,0.6 hp3 순찰2.5 리시6) · Enemy_Collapser(12,0.6 hp4 휴면·리시無·저속). 몸=L8 솔리드(지면) / 자식 Hurtbox L10 · Hitbox L9 · Visual(스케일 자식). 저장 후 재열기로 직렬화 값 유지 확인
+  - 검증: compile 0/0 · **EditMode 54/54**(+6 EnemyAITests) · 플레이 실측 — 적 접지(y0.51)·야생 순찰·Patrol→Chase→Attack·**적 공격이 A 피해(HP 5→3→0)+넉백**·붕괴자 휴면→각성 추격(12→9.56, 리시無)·Died→Dead 정지 전부 확인
+  - ⚠️ **임시 구현 부채**: PlayMaker 구매 시 이 FSM을 상태표로 이식(전이는 `NextState`가 이미 표) · 살아있는 적은 FixedUpdate가 vx를 덮어써 넉백이 수평으론 거의 안 보임(Dead만 밀림) — 필요하면 짧은 stagger 상태 추가
+| 2026-08-31 | IMPLEMENTATION | C:\Work\Project\Game\Miji\src\Miji\Assets\Tests\EditMode\Gameplay\EnemyAITests.cs | [자동 기록] |
