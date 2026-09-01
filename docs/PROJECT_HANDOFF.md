@@ -3,7 +3,9 @@
 > 새 세션이나 새 환경에서 이 프로젝트를 이어받을 때 읽는 문서입니다.
 > **"뭐 해야 함?" 이라는 질문의 답은 아래 「다음에 할 일」 절에 있습니다.**
 
-**최종 갱신:** 2026-08-31 (★ **Phase 4 G6 착수 — 적 2종 구현(IMPL-006)**. `Gameplay/Enemies/EnemyAI.cs` 하나로 야생 생물(순찰·영역 리시)·붕괴자(휴면 허스크·리시無)를 직렬화 값만으로 가름. enum FSM(Patrol/Chase/Attack/Dead), 전이표는 순수 함수 `NextState`. **전투는 CombatCore 재사용, 신규 전투 코드 0**. ⚠️ **PlayMaker 대체 임시 구현** — 구매 전까지 C# FSM으로 대신(사용자 2026-08-31 결정), PlayMaker 이식 시 `NextState` 상태표를 그대로 옮긴다. Player_A에 여태 없던 Health(5)+Hurtbox(L10)+DamageResponse 배선(적 타격 대상). 테스트 **EditMode 54/54**(+6). 플레이 실측 전 흐름 통과. **다음은 G7 균형자 기습 → G8 스위치 암전 → G9 데모 조립**)
+**최종 갱신:** 2026-09-01 — **핸드오프 다이어트.** 962줄로 비대해진 이 문서에서 날짜별 세션 일지(8/4~8/24 상세)를 `docs/HANDOFF_ARCHIVE.md`로 분리하고, 일지에 흩어져 있던 것을 「살아있는 함정」·「아트 부채」 절로 발췌했다. Unity 학습 자료 절(8/31 작성분)도 이번에 함께 커밋. **게임 진척의 최신은 아래 8/31 G6.**
+
+이전: 2026-08-31 (★ **Phase 4 G6 착수 — 적 2종 구현(IMPL-006)**. `Gameplay/Enemies/EnemyAI.cs` 하나로 야생 생물(순찰·영역 리시)·붕괴자(휴면 허스크·리시無)를 직렬화 값만으로 가름. enum FSM(Patrol/Chase/Attack/Dead), 전이표는 순수 함수 `NextState`. **전투는 CombatCore 재사용, 신규 전투 코드 0**. ⚠️ **PlayMaker 대체 임시 구현** — 구매 전까지 C# FSM으로 대신(사용자 2026-08-31 결정), PlayMaker 이식 시 `NextState` 상태표를 그대로 옮긴다. Player_A에 여태 없던 Health(5)+Hurtbox(L10)+DamageResponse 배선(적 타격 대상). 테스트 **EditMode 54/54**(+6). 플레이 실측 전 흐름 통과. **다음은 G7 균형자 기습 → G8 스위치 암전 → G9 데모 조립**)
 
 이전: 2026-08-28 Phase 3 완료(B 동행 정식화, 72/72). 2026-08-27 Phase 1·2 완료(전투·메트로배니아 뼈대, 66/66).
 
@@ -33,133 +35,32 @@
   - ← **여기부터**: G7 균형자는 데모용 스크립트 기습 1회만 / G8 스위치 연출+암전 / G9 데모 룸 그레이박스(여관→심부름→튜토리얼·놀이→기습) + **플레이어 HP 0 처리(죽음/암전)**
 - **횡단 트랙**: ① **연출 층 0개**(발소리·구동음·애니 관성·배기 파티클 — A가 「기계」로 읽히려면 필요, Phase 1~2 사이 1회분 권장) ② 아트 부채(B sleep 전용·A turn 네이티브 64px·B walk/fall 턴)
 - **지킬 규칙**: 조작감 튜닝 전 응답/무게 층 판정(`jumpHeight 1.7` 불가침) · 튜닝 값은 C# + 두 씬 직렬화 동반 갱신 · 빌더 씬은 저장 후 재열기 검증 · >1파일/>200줄이면 IMPL 선등록 · 데모 밖 금지(F3~F5·그릇 UI·전생 기억·맵 실설계·붕괴 페널티)
+- **학습 큐**: G7·G8 연출 → G9 사망·체크포인트 루프 순. 구체적인 최우선·무료 자료는 아래 「Unity 학습 자료」 절 참조
 
-**8/24 — A·B 애니메이션 대량 반입. 게임이 훨씬 살아있어졌다.** 상세는 `IMPL_REGISTRY.md` 8차 · `ART_LOG.md` 2026-08-24.
-- **A 64px 애니 전면 반입** — idle에 이어 **run(6f)·jump(3f)·fall(6f)·turn(45°/정면)**을 전부 64px/PPU 64로 교체. 방식은 idle과 동일(.meta를 64px 단일 스프라이트로 재작성, GUID 유지 → 클립이 자동으로 새 그림을 가리킴). `A_run_6/7` 삭제, `A_Run.anim`을 6프레임으로 재작성
-- ★ **fall은 「거리비례 틸트」 코드로 구동** — `PlayerAnimator.ApplyFallTilt()` 신설. 정점부터 잰 하강거리를 `fallForMaxTilt`(현재 **1.5u**)로 정규화해 `A_fall_0`(직립)→`A_fall_5`(다이빙) 프레임을 고른다. **물리 불간섭**(LateUpdate 덮어쓰기, turn과 같은 패턴). 값이 크면 안 기울어 보이므로 4→2→1.5로 낮춤(일반 점프 1.7u 낙하가 fall_4까지 도달). 두 씬 Player_A에 배선
-- ⚠️ **turn은 임시 품질** — 네이티브 64px 프레임이 없어 업스케일 프리뷰 시트(`A_turn_frames.png`)에서 idx2/idx6을 flood-fill 투명화 후 다운스케일해 뽑음. 회전 0.14초 동안만 보이므로 수용. 깔끔히 하려면 PixelLab 네이티브 재생성 필요
-- **B jump/fall 신규** — PixelLab `animate_with_text_v3`로 생성(각 1생성). 1차 초안은 둘 다 idle성 흔들림이라 구분 안 돼 **과장·6프레임으로 재생성**(정점서 40%+ 차이 확인). `B_Jump.anim`(비루프)·`B_Fall.anim`(루프) + `B_Animator`에 Jump/Fall 상태·전이·파라미터(Grounded·VSpeed) 추가
-- ★ **B 공중 상태는 A 기준** — B는 A 높이를 따라다니므로 `CompanionFollower`가 **A의 실제 세로속도(`target.Velocity.y`)**로 VSpeed 구동. B의 SmoothDamp 지연속도로 넣으면 fall이 늦게·짧게 떠서 안 보인다
-- 🐛 ★ **「A 착지 = B 착지」 버그 수정** — B 접지를 A 접지로 넣으면 A가 먼저 닿을 때 B가 공중에서 착지 판정돼 fall이 끊긴다. **`bGrounded = A접지 && (B가 A높이 0.06u 이내로 내려옴)`** 으로 B 자신의 위치 기준 판정. B는 실제로 내려앉을 때까지 fall 유지
-- **애니 반입 에디터 툴 신설** — `Assets/Scripts/Editor/CharacterAnimationTool.cs`, 메뉴 `Miji ▸ Animation ▸ Character Animation Tool`. 외부 폴더(docs/art/assets…) 프레임을 원클릭으로 캐릭터 Sprites에 반입 + .anim 클립 생성/제자리 갱신(PPU 64·Point·무압축·GUID 보존). A·B 공용
-- ⚠️ **B는 sleep 전용 아트가 없어** `B_Sleep.anim`을 idle 프레임으로 임시 재지정(죽은 참조였던 것 복구). 전용 sleep 포즈는 추후
-- ⚠️ **PixelLab MCP 이번 세션엔 붙어 있었다** — Tier 2, 잔여 ~4,325. `.claude/settings.local.json`에 `mcp__pixellab-forge__*` 허용 규칙 추가(auto-mode 분류기 차단 해소)
-- 검증: compile 0/0 · **EditMode 25 + PlayMode 8 = 33/33** · uloop 플레이 실측(fall 틸트·B jump/fall 전이 전부 확인)
+> 📜 **과거 세션 일지(8/4~8/24 상세)는 `docs/HANDOFF_ARCHIVE.md`로 이동했다** (2026-09-01, 핸드오프 다이어트). 경위·수치·버그 전말이 필요하면 거기를 본다. 아래는 일지에서 발췌한 **지금도 유효한 것**만이다.
 
-8/4에 여행의 구조, **A·B 갈등축**, **B의 성격**, **플레이어 시점**이 확정됐다.
-이야기의 뼈대는 이제 처음부터 재회까지 이어져 있고, 남은 것은 결말과 **세계의 물리적 형태**다.
+### 살아있는 함정 (경위는 `HANDOFF_ARCHIVE.md`)
 
-8/5에 산문 초고를 완독하고 **결말 검토를 시작했으나 결론이 나지 않았다.** 후보 3종과 각각의 문제까지 정리되어 있으므로 「결말 검토」 절에서 이어가면 된다. 같은 날 **말하기=주기 메카닉** 안이 나왔다(전용 절 참조).
+- `EditorSceneManager.OpenScene`은 미사용 에셋을 언로드한다 — **에셋 로드는 반드시 OpenScene 뒤에** (`SetTile`이 조용히 무시되고 null 체크로도 안 잡힌다)
+- PlayMode 테스트 asmdef는 `includePlatforms: []` — Editor 전용이면 EditMode로 돌아 물리 미작동 → 전부 실패
+- 한글 주석 `.ps1`은 **UTF-8 BOM** 저장 — 없으면 PowerShell 5.1이 CP949로 읽어 깨진 주석이 다음 코드 줄을 삼킨다(조용히 오작동)
+- 개명·대규모 자산 이동 뒤 첫 `uloop launch` 타임아웃은 정상(Library 재빌드 180초+). CLI가 없으면 `npx --yes uloop-cli@2.2.0`
+- Unity 기동 시 ULoop이 `src/Miji/.claude/skills/` 33개를 CRLF로 재기록(diff 소음) — 근본 해결은 `.gitattributes` 개행 고정
+- `--capture-mode rendering` 스크린샷은 감마가 어긋나 실제보다 어둡다 — 화면 확인은 `--window-name Game`
+- PixelLab Character(v3) 8방향 워크플로는 횡스크롤에 부적합(7/8 폐기·크레딧 8배). 검증된 경로 = `pixen` 1장 + `animate_image` 파생(회당 1생성)
+- B의 씬 Animator는 꺼둔 상태 — Walk/Sleep 클립이 죽은 참조라 켜면 B가 사라진다. 활성화 선행 조건 = Walk/Sleep 클립 처리
+- 배경은 688x384(PPU 32)로 뽑으면 배율 1로 그대로 얹힌다 — 다른 배율은 한 화면에 픽셀 밀도가 두 종류가 된다
 
-**8/8 — 「이동 능력의 서사적 당위성」에서 시작해 「이원 무브셋」 설계로 번졌다.** 사용자 지적("2단 점프는 B가 밀어주는 식")이 갈등 스펙 5절의 **「결별 = 동행자 시스템 상실」에 구현 수단이 없다는 공백**과 맞물렸다. **1~4절 승인, 5~7절 미승인 상태로 중단.** 「이원 무브셋」 절에서 5절(데모 스코프 변경)부터 이어가면 된다. 승인되면 `specs/2026-08-08-*-design.md` 작성 + `DECISIONS.md` 기록 + `MECHANIC_movement.md` 개정이 남는다.
+### 아트 부채
 
-**8/11 — 「로봇이 왜 있는가」에서 시작해 균형자를 통째로 재설계했다.** 전설의 빈칸(누가 누구와, 무슨 수단으로)이 채워졌고 그 대가로 **확정 4건이 뒤집혔다.** 전용 절 참조. **✅ 2026-08-11 기록 완료** — `DECISIONS.md`에 뒤집힌 4건 + 결정 1·2 기록, 스펙 `specs/2026-08-11-balancer-origin-design.md` 작성, 점화 스펙 5절 개정. **남은 것은 2장 재설계와 산문 9건 승인**(전용 절 참조).
+- A run/jump/fall/turn 14장은 아직 32px(idle 4장만 64px 네이티브) — 전환 시 픽셀 밀도가 튄다
+- A turn은 업스케일 임시 품질 — 네이티브 64px 재생성 필요
+- A Attack/Hurt 애니 없음(그레이박스 스윙 이펙트로 대체 중)
+- B sleep 전용 아트 없음(idle 프레임 임시 재지정) · B walk/fall 턴 없음 · fall 배정 그림 없음
+- `b-current/B_artwork_all.png` 합본엔 수술 전 B01이 박혀 있다(라벨 합본이라 재생성 보류)
+- **연출 층 0개** — 발소리·구동음·애니 관성·배기 파티클. A가 「기계」로 읽히려면 필요
 
-**8/19(코드) — 실제 구현 시작. 게임이 움직인다.** IMPL-005로 **Core 1차 뼈대**(EventBus·InputReader/Router·StateMachine·GameFlow) + **G1 A 컨트롤러** + **조작감 관용 기법**을 구현했다. `Assets/Scenes/Greybox_Movement.unity`에서 A가 걷고 뛴다. **테스트 27/27**(EditMode 19 + PlayMode 8). 상세는 `docs/agents/IMPL_REGISTRY.md` IMPL-005.
-- ★ **asmdef로 「Gameplay → Core」 단방향 의존을 컴파일러가 강제한다** — Core에서 스토리 명사를 쓰면 빌드 에러. 문서 규칙이 아니라 빌드 규칙
-- ★ **F2 게이트가 지형으로 성립함을 수치로 확인** — Ledge_TooHigh(3.65)는 어디서도 단일 점프로 못 닿음. 「A는 스스로 높이를 얻지 못한다」가 코드·지형 양쪽에서 강제된다(2단 점프는 코드에 아예 없음)
-- **조작감**: 코요테 0.09 / 점프버퍼 0.11 / **코너 보정 0.22**(HK식, 천장 모서리 통과) / **에이펙스 조정**(정점만 중력 0.65·제어 1.45) / **반전 스냅 2.1** — 기준은 「무게를 줄이지 않고 '눌렀는데 안 됐다'만 없앤다」
-- 🐛 점프 직후 코요테 재충전으로 **이중 임펄스** 가능했던 버그 발견·차단(`jumpLockout` 0.08)
-- ⚠️ **PlayMode 테스트 asmdef는 `includePlatforms: []`** 여야 한다(Editor 전용이면 EditMode로 돌아 물리 미작동 → 전부 실패)
-- **다음**: C7 CombatCore(Hitbox/Hurtbox/IDamageable) → G2 근접공격·상호작용
-
-**8/20 — A가 얼굴을 얻었다.** 그레이박스 사각형이던 Player_A를 **PixelLab MCP로 생성한 32x32 픽셀 스프라이트 + 애니메이션 4종**(Idle/Run/Jump/Fall)으로 교체했다. 기준 컨셉은 `character_01_A_switch_robot`(스위치·시안 렌즈·이끼 몸통·롤러 전부 32px 생존). `PlayerAnimator.cs`(뷰 전용) 신설, 콜라이더를 그림 몸통에 정합(스위치는 충돌 제외). 상세는 `ART_LOG.md` 2026-08-20 + `IMPL_REGISTRY.md` 3차.
-- ✅ **스프라이트 32x32 이탈 건은 2026-08-20 해소** — AK-xolotl: Together를 밀도 레퍼런스로 채택하며 **캐릭터 기본 32x32 / 타일 16x16 / PPU 32**로 스타일 가이드 공식 개정(밀도만 참고, 톤·IP 복제 금지). `DECISIONS.md`·`ART_LOG.md` 5차
-- ⚠️ **PixelLab 트라이얼 잔여 3생성** — 저비용 파이프라인(pixen 1장 + animate_image 파생, 회당 1생성)은 검증됨. Attack/Hurt 애니는 G2 때 필요
-- **C7 CombatCore는 여전히 중단 상태** — Damage/Health/Hurtbox 3파일 작성됨(미커밋이었다가 이번 커밋에 포함), **Hitbox 미작성·테스트 없음·레지스트리 정식 등록 전.** 여기부터 이어가면 된다
-
-**8/20(후반) — 아트 파이프라인이 섰다.** ① **동굴 타일 2종 적용**(지반·발판·벽 전부 Tiled 렌더 전환, 콜라이더 월드 크기 불변) — PixelLab이 심리스 타일에 실패해서(pixen은 "seamless" 지시를 무시하고 낱개 블록을 그림, 2생성 낭비) **A 팔레트 샘플링 수제 도트**로 제작. ② **B(무리비) 테스트 추종** — 마지막 1생성으로 스프라이트 1장(이마 균열 없음 = 시작 상태), `CompanionFollower.cs`(입력·콜라이더 없음, 처지면 스냅 복귀, 3절 뼈대 준수). ③ 사용자 지적 「B가 2D 같다」 → **릴라이트 파이프라인 개발**(`relight_b.ps1` — 팔레트를 A 올리브 램프로 양자화 + 엣지 릴라이트 + 눈 수술). **재사용 가능 — 생성물 톤 통일의 표준 통로.** ④ **sprite-gen 도입**(`tools/`, 세팅 스크립트 커밋, 리포 자체는 gitignore) — 분업: PixelLab=플레이 레이어 실기, sprite-gen(Codex)=컨셉·배경. `DECISIONS.md` 2026-08-20 행. ⑤ ⚠️ **PixelLab 트라이얼 소진(잔여 0)** — 추가 생성은 Tier 2 구독 필요(월 ~$24, 전체 맵 아트 1~2개월 커버 추산). 상세는 `ART_LOG.md` 2026-08-20 2~4차.
-
-**8/20(Tier 2) — 아트가 프로덕션 품질로 올라섰다.** PixelLab **Tier 2 「Pixel Artisan」 구독**(월 5,000생성) 개시. 이번 세션 누적 **293생성 사용, 잔여 ~4,707.** 상세는 `ART_LOG.md` 6~11차.
-- **A·B 프로 재생성** — `create_image_pro` 후보 64장 풀에서 선별. ★ **교훈: pro는 레퍼런스를 걸어도 정체성 요소(A 스위치·렌즈)를 후보 절반에서 빼먹고, 32px에서도 프롬프트에 없는 소품(우산·책·무기)을 붙인다 → 후보 선별이 필수 공정**
-- **첫 배경** `BG_WovenNest.png` — 구조는 채택된 2-C 엮은 둥지, **색감만** `tech_level_02`(㉯는 기술수준으로는 탈락이나 팔레트 차용은 설정 무충돌). `ParallaxLayer.cs` 신설(카메라 추적 대비)
-- **B 애니 3종** — Idle/Walk/**Sleep**(7초 정지 시 잠들고 움직이면 깸, 베이스는 사용자 지정 `B34_13`)
-- **3프레임 턴** `Gameplay/View/TurnView.cs` — 좌우 반전 대신 **45°(출발) → 정면 → 45°(도착)**. A·B 공용, Animator 상태 증설 없이 LateUpdate 덮어쓰기
-- ★ **후처리보다 생성이 싸다** — 트라이얼 시절 릴라이트 양자화가 B의 붉은 빛·단색 얼굴·A와의 품질 격차를 만들었다. Tier 2에서는 **`style_image`로 측면 스프라이트의 팔레트·명암을 복사해 재생성**하는 쪽이 정답. 릴라이트(`tools/relight_b.ps1`)는 톤 보정 전용으로 강등
-- ★ **선별 기준에 실루엣 치수 추가** — 회전 프레임은 폭·발높이가 어긋나면 크기가 출렁인다. bbox 실측으로 맞추고 1px 시프트로 정렬(A 26 고정 / B 24·22·24, 발 위치 전부 31)
-- **보류**: 점프 애니메이션 개선(사용자 지시 — 마지막에 제작 후 컨펌), PixelLab **캐릭터 회전 기능(v3 8방향)** 시험 중 — 성공하면 수동 조합을 대체
-- **사용자 작업(별도)**: 균형자 컨셉 **변형 15종 생성 + selected/rejected 분류**, `generated-concepts/`를 characters·maps·world 서브폴더로 재편(+README). `DECISIONS.md`에 **균형자 비주얼 가드레일**(이름 직역 금지 — 저울·추·집게 폐기, 역할 기반 시각화) 기록
-
-**8/20(구조) — 구조 감사 + 폴더 규칙 확정. 규칙 문서 `docs/agents/PROJECT_STRUCTURE.md` 신설.** asmdef 위반은 0건이었으나(단방향·네임스페이스·PlayMode 플랫폼 전부 정상) **구멍 3개**를 막았다. 테스트 **27 → 33** (EditMode 25 + PlayMode 8).
-- ★ **`autoReferenced: true`가 단방향 규칙의 우회로였다** — `Assets/` 아무 데나 .cs를 떨구면 Assembly-CSharp에 들어가 Core·Gameplay를 **양쪽 다** 참조할 수 있었다. 「컴파일러가 강제한다」가 asmdef 밖에서는 거짓이었던 것. Core·Gameplay 둘 다 `false`로 바꿔 **모든 스크립트가 asmdef 아래에 있도록 강제**
-- **`Miji.Gameplay.Tests`(EditMode) 신설** — 기존 EditMode가 Core 전용이라 `TurnView` 같은 **Gameplay의 순수 계산**을 잴 자리가 없어 PlayMode로 밀리고 있었다. `TurnViewTests` 6개 작성(3구간 분할·flipX·45° 폴백)
-- **`StartupPossession.cs` → `Gameplay/Bootstrap/`** (유일하게 서브폴더가 없던 스크립트). 네임스페이스와 씬의 `m_EditorClassIdentifier`까지 동반 갱신
-- ★ **아트는 역할이 아니라 정체성으로 가른다** — `Art/Player/`(A·B 혼재) → `Art/Characters/{A,B}/{Sprites,Animations}`. **2장에서 조작권이 인계되므로** A는 1·3장에서만 플레이어다. 역할로 가르면 확정 설계가 폴더를 깨뜨린다. **스크립트는 반대로 역할로** 가른다(`Player/`·`Companion/`) — 층이 다르니 기준이 달라도 된다. 배경·타일은 `Art/Environment/`로
-- ★ **`src/miji`(디스크) vs `src/Miji`(git 인덱스) 대소문자 불일치 해소** — 사용자가 디스크를 대문자로 개명. 방치했으면 이날 만든 미추적 `.meta`들이 **소문자 경로로 커밋되어 리포 트리가 두 갈래로 쪼개질** 뻔했다. ⚠️ **역사 문서의 `src/miji/` 표기는 손대지 말 것** — 삭제된 Godot 프로젝트의 실제 경로다
-- **`SampleScene.unity` 삭제**(사용자 지시). 빌드 세팅을 `Scenes/Greybox/Greybox_Movement.unity`로 교체 — 그냥 비우면 씬 없는 빌드가 나온다. 데모 씬이 생기면 재교체
-- ⚠️ **개명·대규모 자산 이동 뒤 첫 `uloop launch`는 타임아웃이 난다** — `Library/` 전체 재빌드가 180초를 넘긴다. 고장이 아니므로 Unity 프로세스가 살아 있으면 잠시 뒤 명령을 다시 쏘면 된다. ULoop CLI는 전역 설치가 빠져 있어도 **`npx --yes uloop-cli@2.2.0`** 으로 부르면 된다
-- ⚠️ **Unity 기동 시 ULoop이 `.claude/skills/` 33개를 CRLF로 다시 쓴다**(내용 동일). 매번 diff에 뜨므로 신경 쓰이면 `.gitattributes`로 개행 고정이 근본 해결
-- **미해결로 남긴 것**: `Assets/` 루트의 URP 설정 3종은 옮기면 ProjectSettings 경로 참조가 깨질 수 있어 **이득 대비 위험이 커서 두기로 결정**
-
-**8/21 — Codex 타일셋이 게임 안에 깔렸고, B 컨셉이 한 폴더로 정리됐다.** 두 갈래 작업이다.
-
-**① WovenNest 타일셋 인게임 배치.** Codex가 만든 16px 타일 31종을 실제 Unity Tilemap으로 깔았다. `Assets/Scenes/Greybox/Greybox_WovenNest.unity` (Greybox_Movement 복제 → 그레이박스 블록 제거, A·B·카메라·배경 유지). 4레이어(BackWall −60 / Terrain −10 / Platforms −9 / Deco −5), 셀 0.5u, Terrain·Platforms에 `TilemapCollider2D + CompositeCollider2D`(레이어 Ground=6). **바닥 윗면 y=0으로 맞춰 그레이박스와 지면 높이가 같다.** 다리 높이 1.0 / 2.0(도달) / 4.0(단일 점프 불가, F2 게이트 시연). EditMode 25/25 통과.
-- ★ **에디터 어셈블리 `Miji.Editor` 첫 입주** — `Assets/Scripts/Editor/WovenNestSampleRoomBuilder.cs`. 메뉴 `Miji/Tilemap/Woven Nest 예시 룸 빌드`. **도면은 아스키 txt**(`Art/Environment/Tiles/WovenNest/SampleRoom/SampleRoom_{Terrain,Deco}.txt`, 44x26) — txt만 고쳐 메뉴를 다시 누르면 방이 새로 그려진다.
-- ⚠️ **`EditorSceneManager.OpenScene` 은 미사용 에셋을 언로드한다.** 씬을 열기 **전에** 읽어둔 Tile 에셋은 네이티브 객체가 파괴돼 `SetTile` 이 조용히 무시된다(C# 참조는 살아 있어 null 체크로도 안 잡힌다). **에셋 로드는 반드시 OpenScene 뒤에.** 이거 찾는 데 오래 걸렸다.
-- **타일셋 소감(다음 아트 작업 입력)**: 뒷벽과 지반 명도가 같아 바닥이 안 단단해 보인다 / 뒷벽 변주가 벽지처럼 반복된다 / 랜턴은 Light2D 없이는 안 보인다 / RootArch는 지면에 놓으면 민둥 언덕으로 읽힌다. 잘 읽히는 건 뿌리다리와 GroundTop 잔풀.
-- ⚠️ **Companion_B의 스프라이트가 비어 있다** — 8/20 정리에서 `Art/Characters/B/Sprites/*.png` 를 지운 결과다. 원본 `Greybox_Movement.unity` 도 마찬가지. 새 B 스프라이트를 물려야 한다.
-
-**② B 컨셉 정리 — `docs/art/assets/b-current/poses/` 에 `B01`~`B15` 15종.** 흩어져 있던 `split`·`split-ears-unified`·`pose-sheet-64` 를 전부 한 폴더로 통합하고 사용자 선별을 거쳤다. 합본 아트워크 `B_artwork_all.png`.
-- **확정 4종**: B01 Idle · B02 앉기 · B03 앉기+슬픔 · B04 물음표. 나머지 11종은 보류. **`fall` 에 배정된 그림이 없다.**
-- ★ **눈 규격을 확정·문서화했다**(`b-current/README.md` 3절) — **검은 구체 + 크림 하이라이트 + 갈색 크레센트, 눈 하나 9x10px.** 기준은 `B02_sit`. 크기까지 규격이다. B01은 눈이 7x7 탁한 갈색 덩어리였고, **기준 파일의 눈 블록을 좌표만 맞춰 통째로 이식**해 고쳤다(손으로 키우는 것보다 안전 — 크기·색·구조가 자동 일치).
-- **higgsfield로 포즈 시트 생성**(무료 플랜, 2회 4크레딧, **잔여 1.35 = 추가 생성 불가**). PixelLab MCP가 이 세션엔 없었다. 생성 결과 9종 중 4종이 온모델 이탈, 2종은 프레임 밖으로 잘려 폐기.
-- ★ **`STYLE_GUIDE.md` 「생성 프롬프트 금지 사항」 신설** — **평면적으로 보이는 각도를 요청하지 않는다(3/4 앵글 기본)** 가 핵심. 그 외: 흰자위 금지를 써도 모델은 「놀람」을 흰자위로 그리므로 **표정 극단값은 수작업 수정**, 소품 금지해도 받침대를 발명함, 칸 여백 지시는 안 지켜짐.
-- **후처리 도구 `tools/sheet-to-sprites.ps1` 신설** — 생성 시트를 **최빈색(mode) 샘플링**으로 64x64 낱장으로 내린다. 평균 다운스케일과 달리 평면 색과 1px 아웃라인이 안 뭉개진다.
-- ⚠️ **한글 주석이 든 `.ps1` 은 UTF-8 **BOM**으로 저장해야 한다.** BOM이 없으면 PowerShell 5.1이 CP949로 읽어 주석이 깨지고 **깨진 주석이 다음 코드 줄을 삼킨다.** 문법 오류가 안 나고 조용히 오작동한다.
-- ⚠️ **64x64는 스타일 가이드상 보스 크기다.** 이 컨셉들을 그대로 인게임에 넣으면 PPU 32에서 B가 2유닛(A의 두 배)이 된다. **인게임용 32x32 재작업이 별도로 필요하다.**
-- **남은 불균질**: B01만 구 split 판본이라 귀가 갈라져 있고, B10~B15는 생성본이라 손그림 9종과 화풍이 다르다.
-
-**8/21(후반) — 배경이 처음으로 화면에 나왔다.** Codex(sprite-gen)의 WovenNest **레이어 패스 01**(688x384 PNG 7장, 원경 안개 → 근경 뿌리)을 `Greybox_WovenNest.unity` 에 패럴랙스 스택으로 깔았다. 상세는 `IMPL_REGISTRY.md` 6차 · `ART_LOG.md` 2026-08-21.
-- ★ **뒷벽 타일맵이 배경을 통째로 가리고 있었다** — `Tilemap_BackWall`(order −60, 불투명)이 방 내부를 다 덮어서 **`BG_WovenNest.png` 는 한 번도 화면에 나온 적이 없었다.** 8/21 오전의 「타일셋 소감」(뒷벽이 벽지처럼 반복된다 등)은 사실 **배경을 못 본 상태의 감상**이었다. 이제 빌더가 이 렌더러를 끈다 — 뿌리다리 틈으로 「새어 보이는 것」이 이제는 배경이라 막을 이유가 없다
-- **`Assets/Scripts/Editor/WovenNestParallaxBuilder.cs`** 신설 — 메뉴 `Miji/Background/Woven Nest 패럴랙스 배경 구성`. 레이어 표(정렬순서·추종계수·틴트·on/off)가 코드에 있고 씬을 매번 새로 만든다. `Miji.Editor` asmdef 에 `Miji.Core, Miji.Gameplay` 참조 추가(런타임 컴포넌트를 붙이려면 필요 — 방향은 Editor → Gameplay → Core 로 단방향 유지)
-- ★ **배경 배율은 1을 벗어나지 않는다** — 688x384 / PPU 32 = 21.5 x 12u 이고 카메라(ortho 6, 16:9)가 21.33 x 12u 라 **배율 1에서 캔버스 = 화면**이다. 이전 한 장짜리 배경은 1.5였는데, 그러면 배경 픽셀이 16px 타일보다 굵어져 한 화면에 픽셀 밀도가 두 종류가 된다. **다음 배경도 688x384 로 뽑으면 그대로 얹힌다**
-- **깊이 틴트를 인게임에서 넣었다**(원경 0.50 → 근경 0.85 명도). 원본 명도 그대로면 배경 대비가 지형과 같아서 **발판이 안 보인다.** 생성 단계에서 원경을 더 어둡게 뽑으면 이 보정이 필요 없다
-- ⚠️ **props 레이어(L06)는 기본 off** — pass 01의 props는 사실상 「소품 시트」다. 등불이 균등 배열돼 있고 **등불 하나가 A(1u)의 2~3배**라 켜면 플레이 레인에 거대한 등불이 줄줄이 걸린다. pass 02에서 작은 덩어리로 쪼개 다시 뽑아야 한다
-- ⚠️ **캔버스 12u 중 4u가 지형 뒤로 들어간다** — 방의 열린 공간은 y 0~8(8u)인데 캔버스는 12u다. pass 02는 **8u 개구부 기준으로 프레이밍**하거나 룸 높이를 키우는 쪽을 먼저 정해야 한다
-- ⚠️ **카메라 추종 스크립트가 아직 없다** — Main Camera는 Transform+Camera뿐이라 실제 플레이에선 카메라가 고정이고 **패럴랙스가 눈에 안 보인다.** 스택 자체는 정상(플레이 실측: 카메라 +2u → 레이어 1.92/1.84/1.72/1.60/1.44/1.10 = 추종계수 일치). 카메라 추종은 조작감에 직결되는 별건이라 임의로 넣지 않았다
-- **검증**: compile 0/0 · EditMode 25/25 + PlayMode 8/8 = **33/33 유지**
-- ⚠️ **`--capture-mode rendering` 스크린샷은 감마가 어긋나 실제보다 훨씬 어둡게 나온다.** 화면 확인은 `--window-name Game` 으로 할 것 (한 번 「플레이 모드에서 화면이 새까맣다」로 오인했다)
-
-**8/21(조작감) — 조작감 척추 개정. 「응답 지연으로서의 묵직함」만 폐기.** 근거·수치는 `MECHANIC_GAME_FEEL.md` 0절 / 자료집 `FEEL_REFERENCES.md` / `DECISIONS.md` 2026-08-21 3행.
-
-> ★ **가벼운 것은 조작감이지 캐릭터가 아니다. A는 여전히 묵직한 기계다.**
-
-- ★ **핵심은 층 분리다** — 기존 1절의 「묵직」이 **응답 지연**으로 번역돼 있었던 게 문제였다. 무게를 응답 지연으로 표현하면 손에는 100% 「입력이 씹힌다」로만 읽힌다(HK는 무게를 응답 지연이 아니라 **히트스톱**으로 만든다)
-
-  | 층 | 담당 | 방향 |
-  |---|---|---|
-  | **무게** | 최고 이동속도 · 낙하 가중 · 낮은 점프 · 소리 · 애니 관성 · 파티클 | **그대로 무겁게** |
-  | **응답** | 가속·감속률 · 공중 제어 · 관용 기법 | **즉각적으로** |
-
-- **적용 값 = 응답 층 3개뿐**: 공중가속 26→**40**(가장 큰 한 방) / 공중감속 10→**24** / 지상가속 45→**60**. 무게 층(최고속 5.5·낙하가중 1.35·점프 1.7)과 관용 기법(코요테 0.09·버퍼 0.11·코너보정 0.22)은 **전부 불변**. 테스트 33/33
-- ⚠️ **한때 `maxSpeed` 5.5→6.2 / `fallGravityMultiplier` 1.35→1.2 를 적용했다가 되돌렸다**(같은 날 사용자 지적 — 둘 다 무게 층이라 조작감이 아니라 **캐릭터**가 바뀐다). ⚠️ **커밋 `75aa652` 에는 되돌리기 전 값이 들어가 있다** — 최종은 그다음 커밋
-  - 되돌림의 부수 효과로 **「최고속 상향이 점프 거리를 늘려 간격 폭 게이트 재측정이 필요하다」는 부채가 소멸**했다. 점프 아크가 이전과 동일하므로 기존 지형 수치가 전부 유효하다
-- ★ **앞으로의 규칙: 조작감 튜닝은 손대는 값이 응답 층인지 무게 층인지 먼저 정하고 들어간다.** 무게 층을 만지고 있으면 그건 조작감 작업이 아니라 **캐릭터 설계 변경**이다
-- ⚠️ **`jumpHeight` 1.7은 무게 층이자 게이트 근거** — F2 게이트(`Ledge_TooHigh` 3.65, WovenNest 다리 2.0/4.0)의 물리적 근거다. 올리면 아스키 도면도 같이 고쳐야 한다
-- ⚠️ **값이 C# 기본값과 씬 직렬화 값 양쪽에 있다** — 씬에 인스턴스가 있으면 C#만 고쳐서는 인게임이 안 바뀐다(`Greybox_Movement`·`Greybox_WovenNest` 동반 갱신)
-- **다음**: **연출 층이 아직 하나도 없다** — 발소리·구동음·애니 관성·배기 파티클. 물리 층의 무게는 유지됐지만 A가 「기계」로 읽히려면 이쪽이 필요하다
-- **레퍼런스 자료집 `FEEL_REFERENCES.md` 신설** — 경량 정밀 6작(Celeste·Ori WotW·메가맨 X·Guacamelee! 2·PoP:TLC·Gravity Circuit) + 무게 계열 4작(기법만) + **동행자 2작**(ICO / The Last Guardian 반면교사 — F2 때문에 별도 카테고리) + 반면교사 1작. **Rain World는 사용자 판단으로 제외**
-
-**8/21(B) — B가 게임에 처음 섰다. 그리고 타일 룸에 충돌이 없던 것을 찾았다.** 상세는 `IMPL_REGISTRY.md` 7차 · `ART_LOG.md` 2026-08-21 2차 · `b-current/README.md` 2절.
-- ★ **B는 64x64 원화 + PPU 64로 확정** — 「캐릭터 기본 32x32」의 **명시적 예외**(`DECISIONS.md` 2026-08-21). 사용자 판정 「32픽셀로 줄이는건 별로」. 인게임에 셋(A 32px / B 32px 다운스케일 / B 64px@PPU64)을 나란히 세워 실측한 결과다. **PPU 64면 64px = 1유닛 = A와 같은 키**라 크기 문제가 없다. 대가는 B의 픽셀이 A·타일의 **절반 크기**. 이득은 컨셉 15종이 전부 64px이라 **변환 공정이 사라진다**는 것
-  - 다운스케일 도구 `tools/pose-to-sprite32.py` 는 「이 길은 안 된다」는 기록으로 남겼다(최빈색 샘플링 + 아웃라인 복원 — 방법 자체는 유효하나 64→32에서 눈·귀가 죽는다). 밀도를 되찾으려면 **32px 네이티브 재생성**이어야 한다
-- **B01 수술 (귀·배 통일)** — B01만 구 split 판본이라 **귀가 갈라져 있고 크림 배가 없었다.** ★ **B01의 머리 = B02의 머리를 x축 1px 옮긴 것**(머리 645px 중 593px 일치) → 귀는 좌표만 맞춰 통째로 이식. 배는 몸통이 다른 그림이라(서 있는 통일본과도 일치율 16%) **그려 넣었다**. 갈색 주머니는 `CHARACTER_B.md` 외형 절이 허용하므로 남겼다
-- 🐛 ★ **타일 룸에 충돌이 아예 없었다** — 저장된 씬을 열어 플레이하면 A가 `y=−119` 까지 낙하. 원인은 `WovenNestSampleRoomBuilder` 가 **`CompositeCollider2D` 를 `TilemapCollider2D` 보다 먼저** 붙인 것. 이 순서면 Merge 등록이 **씬 저장에 실려 나가지 않는다.** 만든 직후엔 메모리에 등록이 살아 있어 멀쩡히 플레이되므로 8/21 오전 검증을 통과하고 그대로 커밋됐다. 빌더 수정 + 기존 씬 재생성 완료
-  - ★ **교훈: 「만든 직후 플레이 검증」은 저장·재로드를 건너뛴다.** 빌더가 만든 씬은 반드시 **다시 열어서** 확인할 것
-- ⚠️ **B의 Animator를 껐다** — `B_Idle`/`B_Walk`/`B_Sleep` 클립과 `B_Animator` 가 8/20에 삭제된 스프라이트를 가리키는 **죽은 참조**다. 켜두면 `m_Sprite` 를 null 로 덮어써 스프라이트를 물려도 B가 안 보인다. `CompanionFollower` 의 코드 들썩임 대체 경로를 쓰는 중. 클립은 지우지 않고 남겼다
-- ⚠️ **`b-current/B_artwork_all.png`(15포즈 합본)은 수술 전 B01이 박혀 있다** — 라벨이 찍힌 합본이라 재생성 보류
-
-**8/21(PixelLab 함정) — 8방향 회전 워크플로에 잘못 들어가면 idle이 안 나온다.**
-- 증상: 레퍼런스 + 모션 프롬프트를 넣어도 **8방향으로 돌기만** 하고, newState로 재기입해도 동일
-- 진단: **Character(v3) 워크플로는 탑다운/RPG용**이라 캐릭터 자체가 8방향 회전 세트로 정의된다. state는 그 캐릭터의 **모든 방향에 대해 렌더**되고, 그 시스템에서 모션은 **스켈레톤/액션 템플릿**이 만든다 — 자유 텍스트는 모션을 만들지 않는다. 방향 세트는 state가 아니라 **캐릭터에 붙은 속성**이라 state를 새로 만들어도 안 바뀐다
-- ★ **횡스크롤에는 8방향이 필요 없다** — B는 3/4 정면 한 방향 + `flipX`. 8방향은 7/8이 버려지고 **크레딧이 8배**다
-- **검증된 경로로 갈 것**: `pixen` 1장 + **`animate_image` 파생(회당 1생성)** — A의 애니 4종(idle 4 / run 8 / jump 3 / fall 2)이 전부 이 경로다
-- 8방향 기능은 **턴 낱장**(`TurnView` 의 `turnQuarterSprite` 45° / `turnFrontSprite` 정면) 뽑을 때만 쓸모가 있다
-- ⚠️ **PixelLab MCP가 최근 두 세션 연속 안 붙어 있다.** 붙여야 생성 작업을 대신 돌릴 수 있다
-
-**8/19(후반) — 구현 착수 결정.** 이원 무브셋 5절(데모=코어4+F1+F2) 승인으로 8/8 미결 청산, **Core/Gameplay 이층 아키텍처** 확정(`specs/2026-08-19-implementation-core-architecture-design.md` — Core 8모듈은 스토리 명사를 모르고, 결별 잠금·2장 조작권 인계·B 자율 개입이 Core 요구사항). 구현 순서: 뼈대(C1~C3·C6) → A 조작감 → 룸·진행·세이브 → B 협력 → 데모 조립. **다음 세션은 여기서 시작 — C1(EventBus)부터, IMPL-005 등록 후 착수.**
-
-**8/19 — 밀린 승인을 청산하다가 전설의 동력이 바뀌었다.** 산문 임의 결정 9건을 승인 처리하던 중(5건 승인·1건 가승인·3건은 기확정 확인) 사용자가 **「인간 = 집단지성 종, 전멸은 이주라고 믿고 고른 선택」**을 제안했고 검토 후 채택했다. **법칙 5 무손상·신규 규칙 0개**이면서 story-critic 숙제 ①(핵심 아이러니 전달 수단 부재)이 해소됐다 — 전멸이 사고가 아니라 **결단**이 되어 2장에서 플레이어가 집행을 직접 한다. ✅ `DECISIONS.md` 기록·스펙 개정 완료. ✅ **산문 개고 완료**(2026-08-19, story-critic 4/4/4·클리셰 3→4 회복). **남은 것은 3장 설계.** 전용 절 참조.
+### 미결 항목
 
 | # | 항목 | 상태 | 비고 |
 |---|------|------|------|
@@ -807,7 +708,7 @@ B와 함께면 한 번에 뛰어오르던 곳을 혼자면 붙어서 느리게 �
 
 **2026-08-10 엔진을 Godot 4 → Unity 6로 이관했다.** 기존 Godot 프로젝트 `src/miji/`는 **사용자 지시로 전부 삭제**됨(git 이력엔 남음). 리부트(7/30)로 어차피 대부분 폐기 대상이었고, 설계 문서는 전부 엔진 무관 MD라 손실 없음.
 
-**현재 `src/Miji/`에 Unity 6.3 프로젝트가 있다**(2D URP + Pixel Perfect, ULoop 연동). ⚠️ **이 절은 2026-08-10 시점 기록이다** — 게임 C# 코드는 2026-08-19(IMPL-005)부터 실제로 작성됐고 현재 20파일·테스트 33개다. 구조 규칙은 `docs/agents/PROJECT_STRUCTURE.md`, 진행 상황은 위 「다음에 할 일」과 `IMPL_REGISTRY.md`를 볼 것. 구 Phase 1~9는 전부 무효 — `IMPL_ROADMAP.md`·`IMPL_REGISTRY.md`에 폐기 표시됨.
+**현재 `src/Miji/`에 Unity 6.3 프로젝트가 있다**(2D URP + Pixel Perfect, ULoop 연동). ⚠️ **이 절은 2026-08-10 시점 기록이다** — 게임 C# 코드는 2026-08-19(IMPL-005)부터 실제로 작성됐고 현재 37파일(약 3,500줄)·테스트 12파일(EditMode 54 통과, 2026-08-31 기준)이다. 구조 규칙은 `docs/agents/PROJECT_STRUCTURE.md`, 진행 상황은 위 「다음에 할 일」과 `IMPL_REGISTRY.md`를 볼 것. 구 Phase 1~9는 전부 무효 — `IMPL_ROADMAP.md`·`IMPL_REGISTRY.md`에 폐기 표시됨.
 
 ### Unity 착수 시 표준 조합
 - **Unity 6.3 LTS** (지원 2027-12까지 — 6.0 LTS는 2026-10 종료라 배제) + **2D URP** + **Pixel Perfect Camera** 패키지
@@ -822,6 +723,32 @@ Unity에서 처음부터 짜되, 아래 기능은 이미 한 번 설계·검증�
 - ⛔ 스왑·매개체 관련 전부 = 폐기된 세계관 소산, 재구현 금지
 
 문서 쪽 구 스펙(`specs/2026-07-24-*` 4종, `2026-07-29-medium-worldbuilding-design.md`)은 여전히 남아 있다(폐기 표시만).
+
+---
+
+## Unity 학습 자료 — 데모 완성 병목 기준 (2026-08-31)
+
+> 범용 Unity 입문 목록이 아니라 현재 G7→G9와 연출 층을 막는 기술만 골랐다. 링크·가격·한글 지원은 2026-08-31 확인 기준이며, 수강 전에 다시 확인한다.
+
+### 최우선 추천 3개
+
+| 순위 | 강의 | 한글 지원 | 비용(확인 시점) | 프로젝트 적용 지점 |
+|---:|---|---|---:|---|
+| 1 | [유니티6 타임라인 2D도트 감성 연출](https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B06-%ED%83%80%EC%9E%84%EB%9D%BC%EC%9D%B8-2d%EB%8F%84%ED%8A%B8-%EA%B0%90%EC%84%B1%EC%97%B0%EC%B6%9C) | 한국어 음성 | 정가 55,000원 | G7 매복·G8 스위치 정전의 Timeline 연출. 1시간 22분이라 가장 먼저 소화 |
+| 2 | [[유니티6] 따라하면서 배우는 실전 게임 제작 2D Platformer](https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B06-%EC%8B%A4%EC%A0%84%EA%B2%8C%EC%9E%84-2d-platformer) | 한국어 음성 | 정가 49,500원 | G7~G9: Tilemap, HP·저장·UI, 적·사망, 씬 흐름을 Unity 6 기준으로 연결 |
+| 3 | [유니티 시스템 프로그래밍 Pt.1](https://www.inflearn.com/course/%EC%9C%A0%EB%8B%88%ED%8B%B0-%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-pt1) | 한국어 음성 | 정가 220,000원 | G9 이후 저장/불러오기·비동기 씬·UI·오디오·구조화. 당장 필요한 부분부터 선택 수강 |
+
+### 무료로 먼저 볼 것 5개
+
+| 순서 | 자료 | 한글 지원 | 먼저 볼 범위 | 바로 적용할 것 |
+|---:|---|---|---|---|
+| 1 | [픽셀 아티스트를 위한 2D 프로젝트 워크플로](https://www.youtube.com/watch?v=7SryCP_q2a8) | 한국어 음성 | 약 39분 전체 | Pixel Perfect·Light2D·Secondary Texture·Shader Graph의 프로젝트 적용 판단 |
+| 2 | [파티클 시스템만을 활용한 2D 이펙트 제작](https://coloso.co.kr/products/free-gamegraphic-kimchungkyeom) | 한국어 음성 | 약 51분 전체 | 빈 상태인 타격·환경 FX에 Billboard, Stretched Render, Sub Emitter 적용 |
+| 3 | [Unity 6.1 Auto Tile](https://www.youtube.com/watch?v=50u5IeH494k) | 한국어 음성 | Rule Tile·Auto Tile 부분 | 동굴/룸 타일 제작 반복 작업 단축 |
+| 4 | [유니티를 활용한 2D 플랫포머 게임 개발](https://www.kocw.net/home/search/kemView.do?kemId=1525739) | 한국어 음성 | HP·적·UI·오디오 차시 우선 | G9 루프의 무료 보충 자료. Unity 버전 차이는 현재 API와 대조 |
+| 5 | [픽셀 아트를 위한 2D 라이팅](https://learn.unity.com/course/2d-lighting-for-pixel-art-kr) | 한국어 텍스트 튜토리얼 | Light2D·그림자·발광·후처리 | Unity 6.0 기준 조명 레시피를 G7·G8 가독성과 분위기에 적용 |
+
+**추천 학습 순서:** 무료 1→2로 연출 기반을 잡고, 최우선 1을 G7·G8과 병행한다. G9에 들어갈 때 최우선 2의 HP·저장·사망·UI 구간을 보고, 최우선 3은 구조화가 실제 병목이 될 때 선택 수강한다.
 
 ---
 
@@ -894,23 +821,25 @@ Game/
 ├── docs/
 │   ├── DECISIONS.md                 ← 의사결정 로그 (7/30 리부트 표시 포함)
 │   ├── PROJECT_HANDOFF.md           ← 이 파일
+│   ├── HANDOFF_ARCHIVE.md           ← 과거 세션 일지 원문 (2026-09-01 분리)
 │   ├── planning/
 │   │   ├── story/
 │   │   │   ├── CHARACTER_B.md               ← ★ 현행 (B — 어린 첫 여행자)
+│   │   │   ├── CAST_SUPPORTING.md           ← 조연 캐스트 (2026-08-10)
 │   │   │   ├── PROSE_BALANCER_ORIGIN.md     ← ★ 균형자 기원 산문 (2026-08-11)
+│   │   │   ├── PROSE_MIDPOINT_DRAFT.md      ← 본편 산문 초고
 │   │   │   ├── STORY_CRITIC_RUBRIC.md       ← ★ 채점 기준 (story-critic 전용)
 │   │   │   ├── STORY_REFERENCES.md          ← 유효 (메트로배니아 10작)
-│   │   │   ├── STORY_REFERENCES_NARRATIVE.md ← ★ 서사 명작 10작
-│   │   │   └── CHARACTER_{매개체,얼개,온기}.md  ← ⚠️ 폐기 대상
-│   │   ├── map/MAP_FORMAT.md
-│   │   ├── level-design/  (비어 있음)
-│   │   └── mechanics/     (비어 있음)
+│   │   │   └── STORY_REFERENCES_NARRATIVE.md ← ★ 서사 명작 10작
+│   │   ├── map/                     ← MAP_FORMAT + MAP_DESIGN_PRINCIPLES + MAP_REFERENCES (MAP_[area]는 아직 0개)
+│   │   └── mechanics/               ← MECHANIC_movement + MECHANIC_GAME_FEEL + FEEL_REFERENCES
 │   ├── art/
 │   │   ├── style-guide/STYLE_GUIDE.md
 │   │   └── ART_LOG.md
 │   ├── agents/
 │   │   ├── IMPL_REGISTRY.md
-│   │   └── IMPL_ROADMAP.md
+│   │   ├── IMPL_ROADMAP.md
+│   │   └── PROJECT_STRUCTURE.md     ← 어셈블리·폴더·명명 규칙
 │   └── superpowers/specs/
 │       ├── 2026-08-04-conflict-design.md                     ← ★ 현행 (갈등·결별)
 │       ├── 2026-08-04-journey-design.md                      ← ★ 현행 (여행)
