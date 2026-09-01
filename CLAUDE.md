@@ -185,5 +185,6 @@ Format: `[DATE] [AGENT] Decision — Reason`
 
 ## Git / 커밋 규칙
 - **사용자가 커밋 또는 푸쉬를 요청하면, 먼저 `docs/PROJECT_HANDOFF.md`를 이번 세션 작업 내용으로 자동 갱신한 뒤 커밋·푸쉬한다.** (2026-08-19 사용자 요청) — 핸드오프가 항상 최신 상태로 커밋되도록 보장한다.
+- **푸쉬 후 Notion 「미지」 개발 허브의 📓 작업일지에 같은 요약을 1페이지 추가한다.** (2026-09-01 도입) — 허브: `https://app.notion.com/p/3cec345adb488175896ad24f1621000a`, 작업일지 data source: `collection://5284046b-7f95-47c0-a463-0e6a6c7071c2`. 속성: 작업(제목)·날짜·트랙(impl/art/story/planning/infra)·커밋·메모. **원본은 git MD이고 Notion은 미러다** — 상세를 복붙하지 않고 리포 문서 포인터만 쓴다. Notion MCP 미연결 세션이면 건너뛴다.
 - 솔로 프로젝트이므로 **main에 직접 커밋·푸쉬**한다 (별도 브랜치·PR 불필요).
 - 커밋 메시지는 Conventional Commits + 한국어 요약 형식 (`feat(story): …`).
