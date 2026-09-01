@@ -30,6 +30,7 @@ Every user request MUST be routed through this role first.
 | 코드, 구현, 버그, 기능, 클래스 | Implementation |
 | 스프라이트, 애니메이션, 픽셀, 아트, 이미지 | Art → 프롬프트 생성 |
 | 시장성, 차별성, 클리셰, 레퍼런스 비교, 스토리 평가 | Story Critic |
+| Notion 정리, 작업일지, 허브 미러링, 대규모 스캔·대량 갱신 후 동기화 | Notion Manager (`notion-manager` 서브에이전트) |
 | 복합 요청 | Split and delegate in parallel |
 
 **Story Critic은 Planning → Story의 상위 검수자다.** 스토리 MD가 작성·수정되면 훅이 자동으로 호출한다 (아래 참조).
@@ -109,6 +110,24 @@ PLANNING → Map/Level-Design 도메인 담당. 정의 위치: `.claude/agents/m
 - **미결 상류(깃든 사물 개수·전체 결말·F1~F5 순서)를 대신 확정하지 않는다** — 범위/조건부로 제안
 - 확정된 설계 결정(깃든 사물=구역, 스위치는 이동 능력 아님, 균형자 힘으로 안 이김 등)을 재심하지 않는다
 - 데모 스코프를 넘겨 전체 맵을 한꺼번에 밀어넣지 않는다
+
+---
+
+### [NOTION-MANAGER] Notion 관리 에이전트
+Notion 「미지」 개발 허브의 **미러링 담당**. 정의 위치: `.claude/agents/notion-manager.md` (서브에이전트 `notion-manager`).
+
+**역할:** `docs/PROJECT_HANDOFF.md`의 이번 세션 변경을 받아 Notion 개발 허브(작업일지·떡밥·미결함 DB)에 반영한다. **원본은 git MD, Notion은 미러다** — 상세 복붙 금지, 요약 1줄 + 리포 문서 포인터만. Notion MCP 미연결 세션이면 건너뛴다.
+
+**대상 (ID는 메모리 `notion-worklog-plan`·에이전트 정의에 고정):** 작업일지 `collection://5284046b-…`, 떡밥 `collection://53c6dfc8-…`, 미결함 `collection://ac11eddb-…`.
+
+**자동 호출 (훅):** `.claude/settings.json` PostToolUse 훅이 아래에서 발동해 이 에이전트 호출을 지시한다.
+- `git push` (Bash) — 커밋·푸쉬 시점. 갱신된 핸드오프를 작업일지 1행 + 떡밥/미결함 상태로 미러링
+- `/code-review` (Skill) — 대규모 스캔. 리뷰 종료 후 결과 요약을 작업일지/미결함으로 미러링
+
+**제약:**
+- git MD/DECISIONS.md/스펙을 고치지 않는다 (권한 없음). Notion에서 설계를 새로 만들지 않는다
+- 확정 안 된 결정을 Notion에서 확정하지 않는다 — DECISIONS.md에 확정된 것만 반영
+- 같은 내용을 중복 행으로 쌓지 않는다 (있으면 갱신)
 
 ---
 

@@ -22,6 +22,26 @@
             "shell": "powershell"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$j=$input|ConvertFrom-Json;$c=$j.tool_input.command;if($c-match 'git\\s+push'){[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$m='[NOTION-SYNC HOOK] git push 감지 — Task 도구로 subagent_type=notion-manager 서브에이전트를 호출해 방금 갱신된 docs/PROJECT_HANDOFF.md의 이번 세션 변경을 Notion 개발 허브(작업일지 1행 + 떡밥/미결함 상태)에 미러링하라. 상세 복붙 금지, 리포 문서 포인터만. Notion MCP 미연결이면 건너뛴다.';@{hookSpecificOutput=@{hookEventName='PostToolUse';additionalContext=$m}}|ConvertTo-Json -Compress -Depth 5}",
+            "shell": "powershell"
+          }
+        ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$j=$input|ConvertFrom-Json;$s=$j.tool_input.skill;if($s-eq 'code-review'){[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$m='[NOTION-SYNC HOOK] 코드리뷰(대규모 스캔) 감지 — 리뷰를 마친 뒤 Task 도구로 subagent_type=notion-manager 서브에이전트를 호출해 리뷰 결과 요약과 이번 세션 변경을 Notion 개발 허브(작업일지 1행, 새 안건은 미결함 DB)에 미러링하라. 상세 복붙 금지, 포인터만. Notion MCP 미연결이면 건너뛴다.';@{hookSpecificOutput=@{hookEventName='PostToolUse';additionalContext=$m}}|ConvertTo-Json -Compress -Depth 5}",
+            "shell": "powershell"
+          }
+        ]
       }
     ],
     "Stop": [
