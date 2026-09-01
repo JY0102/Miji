@@ -207,3 +207,8 @@ Format: `[DATE] [AGENT] Decision — Reason`
 - **푸쉬 후 Notion 「미지」 개발 허브의 📓 작업일지에 같은 요약을 1페이지 추가한다.** (2026-09-01 도입) — 허브: `https://app.notion.com/p/3cec345adb488175896ad24f1621000a`, 작업일지 data source: `collection://5284046b-7f95-47c0-a463-0e6a6c7071c2`. 속성: 작업(제목)·날짜·트랙(impl/art/story/planning/infra)·커밋·메모. **원본은 git MD이고 Notion은 미러다** — 상세를 복붙하지 않고 리포 문서 포인터만 쓴다. Notion MCP 미연결 세션이면 건너뛴다.
 - 솔로 프로젝트이므로 **main에 직접 커밋·푸쉬**한다 (별도 브랜치·PR 불필요).
 - 커밋 메시지는 Conventional Commits + 한국어 요약 형식 (`feat(story): …`).
+
+## 다이어그램 / 시각물 규칙 (2026-09-01)
+- **문서·Notion에 넣는 다이어그램·차트는 mermaid 코드블록으로 두지 않는다.** `diagram-design` 스킬로 그려 PNG로 export한 뒤 **이미지로 올린다**. (Notion 업로드는 `notion-create-file-upload` → 이미지 블록 교체)
+- Claude가 만들 수 있는 시각물은 여기서 만들어 이미지로 첨부한다. **소스(.mmd/.html)는 보관**하고, 내용이 바뀌면 재생성→재업로드한다.
+- 근거·트레이드오프는 `DECISIONS.md`(2026-09-01) 참조. Notion은 미러라 정적 이미지로 충분하나, 인라인 편집은 불가하다.
