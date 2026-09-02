@@ -114,9 +114,9 @@ PLANNING → Map/Level-Design 도메인 담당. 정의 위치: `.claude/agents/m
 ---
 
 ### [NOTION-MANAGER] Notion 관리 에이전트
-Notion 「미지」 개발 허브의 **미러링 담당**. 정의 위치: `.claude/agents/notion-manager.md` (서브에이전트 `notion-manager`).
+Notion 「미지」 개발 허브의 **핸드오프 원본 담당** (2026-09-02 이관 — 핸드오프는 git이 아니라 Notion에 산다). 정의 위치: `.claude/agents/notion-manager.md` (서브에이전트 `notion-manager`).
 
-**역할:** `docs/PROJECT_HANDOFF.md`의 이번 세션 변경을 받아 Notion 개발 허브(작업일지·떡밥·미결함 DB)에 반영한다. **원본은 git MD, Notion은 미러다** — 상세 복붙 금지, 요약 1줄 + 리포 문서 포인터만. Notion MCP 미연결 세션이면 건너뛴다.
+**역할:** 이번 세션 변경을 받아 Notion 개발 허브(개발현황·작업일지·떡밥·미결함 DB)에 **핸드오프를 직접 쓴다 — Notion이 핸드오프 원본이다** (2026-09-02 이관). 진행·다음 할 일·미결은 Notion에 산다. 단 설계·결정·코드 상세는 여전히 git이 원본이므로 그쪽은 포인터만 건다(이중 기록은 어긋난다). Notion MCP 미연결 세션이면 건너뛴다.
 
 **대상 (ID는 메모리 `notion-worklog-plan`·에이전트 정의에 고정):** 작업일지 `collection://5284046b-…`, 떡밥 `collection://53c6dfc8-…`, 미결함 `collection://ac11eddb-…`.
 
@@ -203,8 +203,8 @@ Format: `[DATE] [AGENT] Decision — Reason`
 ---
 
 ## Git / 커밋 규칙
-- **사용자가 커밋 또는 푸쉬를 요청하면, 먼저 `docs/PROJECT_HANDOFF.md`를 이번 세션 작업 내용으로 자동 갱신한 뒤 커밋·푸쉬한다.** (2026-08-19 사용자 요청) — 핸드오프가 항상 최신 상태로 커밋되도록 보장한다.
-- **푸쉬 후 Notion 「미지」 개발 허브의 📓 작업일지에 같은 요약을 1페이지 추가한다.** (2026-09-01 도입) — 허브: `https://app.notion.com/p/3cec345adb488175896ad24f1621000a`, 작업일지 data source: `collection://5284046b-7f95-47c0-a463-0e6a6c7071c2`. 속성: 작업(제목)·날짜·트랙(impl/art/story/planning/infra)·커밋·메모. **원본은 git MD이고 Notion은 미러다** — 상세를 복붙하지 않고 리포 문서 포인터만 쓴다. Notion MCP 미연결 세션이면 건너뛴다.
+- **핸드오프 원본 = Notion 「미지」 개발 허브다 (2026-09-02 사용자 결정, 완전 이관).** `docs/PROJECT_HANDOFF.md`는 2026-09-02부로 **동결된 읽기용 아카이브**이며 더 이상 갱신하지 않는다. 진행 상태·다음 할 일·세션 로그·미결 안건은 전부 Notion에 쓴다. (설계·결정·코드·누적 함정의 원본은 여전히 git: `DECISIONS.md`, `specs/`, 코드, 동결된 핸드오프 아카이브.)
+- **사용자가 커밋 또는 푸쉬를 요청하면, 먼저 Notion 개발현황·📓 작업일지를 이번 세션 내용으로 갱신한 뒤 커밋·푸쉬한다.** 허브: `https://app.notion.com/p/3cec345adb488175896ad24f1621000a`. 개발현황(로드맵·다음 할 일) 페이지: `3cec345adb48819884afc11a252c68da`. 작업일지 data source: `collection://5284046b-7f95-47c0-a463-0e6a6c7071c2` (속성: 작업·날짜·트랙 impl/art/story/planning/infra·커밋·메모). 미결함: `collection://ac11eddb-5ef3-41a7-b334-abb0e5f9b238`. **Notion MCP 미연결 세션이면 핸드오프를 갱신하지 못하므로 그 사실을 커밋 메시지/보고에 남긴다** — 동결된 MD를 되살리지 않는다.
 - 솔로 프로젝트이므로 **main에 직접 커밋·푸쉬**한다 (별도 브랜치·PR 불필요).
 - 커밋 메시지는 Conventional Commits + 한국어 요약 형식 (`feat(story): …`).
 

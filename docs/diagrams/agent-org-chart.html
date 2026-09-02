@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>「미지」 에이전트 보고체계</title><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--paper:#f5f5f5;--paper-2:#fff;--ink:#2d3142;--muted:#4f5d75;--soft:#7a8399;--rule:rgba(45,49,66,.12);--accent:#eb6c36;--accent-tint:rgba(235,108,54,.08);--link:#2e5aa8;--sans:'Geist',system-ui,sans-serif;--serif:'Instrument Serif',serif;--mono:'Geist Mono',ui-monospace,monospace;--kr:'Noto Sans KR',sans-serif}
+body{font-family:var(--kr),var(--sans);background:var(--paper);color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 32px}.frame{max-width:1120px;width:100%}.eyebrow{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}h1{font-family:var(--serif);font-size:32px;font-weight:400;line-height:1.08;letter-spacing:-.02em;margin-bottom:20px}.subtitle{font-family:var(--kr);color:var(--muted);font-size:14px;line-height:1.5;max-width:760px;margin-bottom:24px}svg{width:100%;min-width:1000px;display:block}@media(max-width:900px){body{display:block;padding:32px 20px}.frame{overflow-x:auto}}
+</style></head><body><div class="frame">
+<p class="eyebrow">Org chart · 「미지」 개발 허브</p>
+<h1>에이전트 보고체계</h1>
+<p class="subtitle">모든 요청은 🧭 최고 관리자(Orchestrator)를 단일 진입점으로 거친 뒤 담당 에이전트로 갈라진다. 🎭 Story-Critic은 Planning→Story의 검수자이며, 훅(HOOK) 표시 노드는 특정 이벤트에서 자동 호출된다.</p>
+<svg viewBox="0 0 1040 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="miji-org-title miji-org-desc">
+<title id="miji-org-title">「미지」 에이전트 보고체계 조직도</title>
+<desc id="miji-org-desc">사용자의 요청이 최고 관리자(Orchestrator)를 단일 진입점으로 거쳐 기획·구현·맵 설계·아트(Codex)·Notion 관리 에이전트로 분배되고, 스토리 비평 에이전트가 기획의 스토리 산출물을 검수하는 조직도.</desc>
+<rect width="1040" height="660" fill="#f5f5f5"/>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#4f5d75"/></marker>
+</defs>
+
+<!-- connectors (drawn before boxes) -->
+<!-- user -> orchestrator -->
+<path d="M 520 88 L 520 140" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<!-- orchestrator -> bus -->
+<path d="M 520 196 L 520 240" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<!-- horizontal bus -->
+<path d="M 112 240 L 928 240" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<!-- drops to tier2 -->
+<path d="M 112 240 L 112 280" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<path d="M 316 240 L 316 280" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<path d="M 520 240 L 520 280" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<path d="M 724 240 L 724 280" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<path d="M 928 240 L 928 280" fill="none" stroke="#4f5d75" stroke-width="1"/>
+<!-- planning -> story-critic (dashed = review, not command) -->
+<path d="M 112 344 L 112 420" fill="none" stroke="#7a8399" stroke-width="1" stroke-dasharray="5,4"/>
+
+<!-- USER node -->
+<rect x="440" y="48" width="160" height="40" rx="6" fill="#f5f5f5"/>
+<rect x="440" y="48" width="160" height="40" rx="6" fill="rgba(79,93,117,.10)" stroke="#7a8399"/>
+<text x="520" y="74" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">사용자</text>
+
+<!-- ORCHESTRATOR (focal) -->
+<rect x="440" y="140" width="160" height="56" rx="6" fill="#f5f5f5"/>
+<rect x="440" y="140" width="160" height="56" rx="6" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/>
+<rect x="448" y="148" width="40" height="12" rx="2" fill="transparent" stroke="#eb6c36" opacity=".55"/>
+<text x="468" y="157" fill="#eb6c36" font-family="'Geist Mono',monospace" font-size="7" text-anchor="middle" letter-spacing=".08em">ENTRY</text>
+<text x="520" y="176" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">🧭 최고 관리자</text>
+<text x="520" y="190" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" text-anchor="middle">Orchestrator · single entry</text>
+
+<!-- TIER 2 -->
+<!-- Planning -->
+<rect x="24" y="280" width="176" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="24" y="280" width="176" height="64" rx="6" fill="#ffffff" stroke="#2d3142"/>
+<text x="112" y="312" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">📐 기획</text>
+<text x="112" y="330" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" text-anchor="middle">docs/planning/</text>
+
+<!-- Map-Designer -->
+<rect x="228" y="280" width="176" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="228" y="280" width="176" height="64" rx="6" fill="#ffffff" stroke="#2d3142"/>
+<text x="316" y="312" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">🗺️ 맵 설계</text>
+<text x="316" y="330" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" text-anchor="middle">map · gating · flow</text>
+
+<!-- Implementation -->
+<rect x="432" y="280" width="176" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="432" y="280" width="176" height="64" rx="6" fill="#ffffff" stroke="#2d3142"/>
+<text x="520" y="312" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">🔨 구현</text>
+<text x="520" y="330" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" text-anchor="middle">src/ · code</text>
+
+<!-- Art -> Codex (external, dashed) -->
+<rect x="636" y="280" width="176" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="636" y="280" width="176" height="64" rx="6" fill="rgba(45,49,66,.03)" stroke="#2d3142" stroke-opacity=".30" stroke-dasharray="4,4"/>
+<rect x="644" y="288" width="30" height="12" rx="2" fill="transparent" stroke="#7a8399" opacity=".7"/>
+<text x="659" y="297" fill="#7a8399" font-family="'Geist Mono',monospace" font-size="7" text-anchor="middle" letter-spacing=".08em">EXT</text>
+<text x="724" y="314" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">🎨 Art → Codex</text>
+<text x="724" y="332" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" text-anchor="middle">codex · manual</text>
+
+<!-- Notion-Manager (hook) -->
+<rect x="840" y="280" width="176" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="840" y="280" width="176" height="64" rx="6" fill="#ffffff" stroke="#2d3142"/>
+<rect x="848" y="288" width="34" height="12" rx="2" fill="transparent" stroke="#eb6c36" opacity=".7"/>
+<text x="865" y="297" fill="#eb6c36" font-family="'Geist Mono',monospace" font-size="7" text-anchor="middle" letter-spacing=".08em">HOOK</text>
+<text x="928" y="314" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">📓 Notion-Manager</text>
+<text x="928" y="332" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" text-anchor="middle">git push hook</text>
+
+<!-- TIER 3: Story-Critic (hook) -->
+<rect x="44" y="420" width="136" height="64" rx="6" fill="#f5f5f5"/>
+<rect x="44" y="420" width="136" height="64" rx="6" fill="rgba(45,49,66,.05)" stroke="#4f5d75" stroke-width=".8"/>
+<rect x="52" y="428" width="34" height="12" rx="2" fill="transparent" stroke="#eb6c36" opacity=".7"/>
+<text x="69" y="437" fill="#eb6c36" font-family="'Geist Mono',monospace" font-size="7" text-anchor="middle" letter-spacing=".08em">HOOK</text>
+<text x="112" y="456" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="600" text-anchor="middle">🎭 스토리 비평</text>
+<text x="112" y="474" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" text-anchor="middle">story MD hook</text>
+<!-- review label on dashed link -->
+<rect x="120" y="374" width="52" height="12" rx="2" fill="#f5f5f5"/>
+<text x="146" y="384" fill="#7a8399" font-family="'Geist Mono',monospace" font-size="8" text-anchor="middle" letter-spacing=".06em">REVIEW</text>
+
+<!-- hook callout strip -->
+<rect x="240" y="424" width="776" height="56" rx="6" fill="#f5f5f5"/>
+<rect x="240" y="424" width="776" height="56" rx="6" fill="rgba(45,49,66,.02)" stroke="#7a8399" stroke-dasharray="4,4"/>
+<text x="264" y="448" fill="#2d3142" font-family="'Noto Sans KR',sans-serif" font-size="12" font-weight="600">훅 자동호출</text>
+<text x="264" y="466" fill="#4f5d75" font-family="'Noto Sans KR',sans-serif" font-size="12">🎭 Story-Critic — 스토리 MD 저장 시  ·  📓 Notion-Manager — git push / code-review 시</text>
+
+<!-- legend -->
+<line x1="40" y1="600" x2="1000" y2="600" stroke="rgba(45,49,66,.12)"/>
+<text x="40" y="624" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9" letter-spacing=".14em">LEGEND</text>
+<rect x="132" y="612" width="16" height="12" rx="2" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/>
+<text x="156" y="622" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9">entry point</text>
+<rect x="268" y="612" width="16" height="12" rx="2" fill="#ffffff" stroke="#2d3142"/>
+<text x="292" y="622" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9">agent</text>
+<rect x="372" y="612" width="16" height="12" rx="2" fill="rgba(45,49,66,.03)" stroke="#2d3142" stroke-opacity=".30" stroke-dasharray="4,4"/>
+<text x="396" y="622" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9">external (codex)</text>
+<rect x="520" y="612" width="16" height="12" rx="2" fill="transparent" stroke="#eb6c36" opacity=".7"/>
+<text x="544" y="622" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9">HOOK = auto-triggered</text>
+<line x1="720" y1="618" x2="748" y2="618" stroke="#7a8399" stroke-width="1" stroke-dasharray="5,4"/>
+<text x="756" y="622" fill="#4f5d75" font-family="'Geist Mono',monospace" font-size="9">review link</text>
+</svg>
+</div></body></html>
