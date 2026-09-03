@@ -2,7 +2,7 @@
 
 ## Project Overview
 - **Genre**: Metroidvania
-- **Art Style**: Pixel Art (OpenAI DALL-E / gpt-image-1 — 프롬프트 생성 후 수동 실행)
+- **Art Style**: Pixel Art (OpenAI GPT Image 계열 — 프롬프트 생성 후 수동 실행)
 - **Engine**: Unity 6.3 LTS — 2D URP + Pixel Perfect Camera
 - **Language**: C#
 - **Planning Format**: All planning documents are MD files under `docs/`
@@ -88,16 +88,21 @@ Orchestrator가 아트 요청을 감지하면 Codex에게 위임한다.
 **Codex 아트 프롬프트 프로토콜:**
 1. `docs/art/style-guide/STYLE_GUIDE.md` 읽기
 2. `docs/art/ART_LOG.md` 읽기 — 이전 승인 프롬프트와 스타일 비교
-3. 아래 항목을 포함한 일관성 유지된 OpenAI 프롬프트 생성:
+3. `gpt-image-2-style-library`를 보조 프레임워크로 사용해 요청 유형과 프롬프트 구조를 선택한다.
+   - 우선순위: `STYLE_GUIDE.md` > `ART_LOG.md`의 사용자 승인 정본·실패 기록 > 외부 스킬 템플릿
+   - 캐릭터/스프라이트는 `character-design-sheet`, 구역 컨셉은 `scene-storytelling` 또는 `architecture-space`를 우선 후보로 사용한다.
+   - 픽셀 크기·PPU·프레임 수·팔레트·투명 배경·금지사항은 프로젝트 규칙으로 외부 템플릿을 덮어쓴다.
+   - 선택한 템플릿명과 case ID는 복사용 프롬프트 밖의 메타데이터로 표시하고 `ART_LOG.md`에 기록한다.
+4. 아래 항목을 포함한 일관성 유지된 OpenAI 프롬프트 생성:
    - 스프라이트 크기 (예: 16x16, 32x32)
    - 스타일 가이드의 팔레트 제약
    - 필요한 애니메이션 프레임 수
    - 구역/캐릭터 분위기, 게임 톤
    - 이전 승인 에셋과의 스타일 연속성
-4. 완성된 프롬프트를 사용자에게 출력 (복사해서 ChatGPT에 붙여넣기)
-5. `docs/art/ART_LOG.md`에 요청 내역 자동 기록
-6. 사용자가 결과물을 가져오면 스타일 가이드 기준으로 검토
-7. 불일치 시 수정 프롬프트 재생성 후 ART_LOG.md 업데이트
+5. 완성된 프롬프트를 사용자에게 출력 (복사해서 ChatGPT에 붙여넣기)
+6. `docs/art/ART_LOG.md`에 요청 내역 자동 기록
+7. 사용자가 결과물을 가져오면 스타일 가이드 기준으로 검토
+8. 불일치 시 수정 프롬프트 재생성 후 ART_LOG.md 업데이트
 
 ---
 

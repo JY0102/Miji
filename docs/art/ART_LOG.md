@@ -2,11 +2,31 @@
 
 All previous B-character art direction is superseded by the user-approved B concept sheet provided in the current chat on 2026-08-20.
 
-This project still follows `docs/art/style-guide/STYLE_GUIDE.md`: 32x32 character sprites, dense indie pixel art, 1px dark outline, limited palette, no anti-aliasing, no soft glow, no direct copying of reference game IP.
+This project still follows `docs/art/style-guide/STYLE_GUIDE.md`: 16x16 tiles, 32x32 general characters, A/B hero artwork at 64x64 with PPU 64, dense indie pixel art, 1px dark outline, limited palette, no anti-aliasing, no soft glow, no direct copying of reference game IP.
 
 ---
 
 ## Active Request
+
+### 2026-09-03 — Woven Nest map + prop exploration pass (`gpt-image-2-style-library` + built-in ImageGen)
+
+- **Purpose**: Test the newly integrated prompt-selection workflow against Miji's existing pixel-art canon by generating two playable-room concepts and two separated prop sheets.
+- **Templates / cases**: maps use `architecture-space` + `scene-storytelling` (case 331, 330); props use the separation/layout rules from `concept-product-breakdown` (case 370, 361).
+- **References**: approved Woven Nest composite, Woven Nest in-engine sample room, the 64px A idle scale anchor, and the older oversized lantern/folk-machine sheet. References were used for style, palette, density, and scale only.
+- **Outputs**: `docs/art/assets/generated-concepts/woven-nest/2026-09-03-prompt-library-pass/` — two 1672x941 map concepts, one 1254x1254 everyday-prop sheet (16 objects), and one 1448x1086 folk-machine sheet (12 objects). Exact prompts and metadata are in the folder `README.md`.
+- **Map review**: `Root-Loom Crossing` has the richer architecture but remains busy; `Lantern-Silt Well` has stronger negative space and more readable traversal edges. Neither is a collision map or final room layout.
+- **Prop review**: object counts and cell separation passed. Scale remains concept-level and must be normalized during extraction. Both outputs failed real-alpha generation: the checkerboard is baked into `Format24bppRgb`, and a targeted background-removal retry failed the same check. Files are explicitly named `rgb-checkerboard` and must not be imported directly into Unity.
+- **Status**: Exploration only; no asset or room is approved canon. Awaiting user selection before extraction, transparent cleanup, tile breakdown, or Unity import.
+- **사용자 의견 (2026-09-03)**: 이 PNG 4장은 **에셋 확정이 아니라 "이런 분위기·느낌을 선호한다"는 방향 레퍼런스**다. 픽셀 하나하나가 아니라 톤(차분한 멜랑콜리), 팔레트(딥 틸 + 앰버/시안 소액센트), 유기적 비인간 건축, 밀도감을 참고한다. 이후 아트 프롬프트는 이 무드를 기준선으로 삼되, 여기 그려진 개별 오브젝트·룸 레이아웃은 정본으로 인용하지 않는다.
+
+### 2026-09-03 — GPT-Image2 Style Library workflow integration
+
+- **Purpose**: Add the external `gpt-image-2-style-library` as a structured prompt-selection aid without changing Miji's approved visual canon or manual image-generation workflow.
+- **Source**: `freestylefly/awesome-gpt-image-2`, skill path `agents/skills/gpt-image-2-style-library` (MIT). Installed through Codex's audited `skill-installer`; the package's own overwrite installer was not run.
+- **Precedence**: `STYLE_GUIDE.md` > user-approved canon and failure records in `ART_LOG.md` > external style-library templates and example cases.
+- **Preferred template mapping**: `character-design-sheet` for characters/sprites; `scene-storytelling` or `architecture-space` for area concepts. These templates provide structure only and do not override pixel size, PPU, frame count, palette, transparency, or prohibited-detail rules.
+- **Output rule**: Keep the selected template name and case IDs outside the copyable generation prompt and record them here as metadata.
+- **Status**: Workflow integration approved. No art asset, palette, character identity, or world-art decision changed.
 
 ### 2026-08-20 — B character concept reset
 
@@ -527,3 +547,4 @@ Pending explicit confirmation because these include concept/generation records, 
 - **B jump/fall**: PixelLab `animate_with_text_v3`, first_frame=B_idle_0. 1차 초안 2종이 idle성 흔들림으로 구분 안 돼 **과장·6프레임 재생성**(seed 7133/4288). 정점서 40%+ 차이 확보, 온모델 유지. 컨펌본 `confirm/b-jump-fall/`(프레임+시트+루프 GIF)
 - ★ **GIF 인코딩 교훈**: 수제 GIF89a LZW 인코더는 버그로 디코더 거부(업로드 400) → **WPF `GifBitmapEncoder` + NETSCAPE 루프/딜레이 바이트 패치**가 안전한 경로
 - PixelLab Tier 2, 이번 세션 4생성 사용(잔여 ~4,325)
+[2026-09-03 13:46] ART_LOG.md 수정됨
