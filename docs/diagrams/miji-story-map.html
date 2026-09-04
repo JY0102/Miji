@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>「미지」 스토리 3장 구조 · Story map</title><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--paper:#f5f5f5;--ink:#2d3142;--muted:#4f5d75;--soft:#7a8399;--accent:#eb6c36;--sans:'Geist',system-ui,sans-serif;--serif:'Instrument Serif',serif;--mono:'Geist Mono',ui-monospace,monospace;--kr:'Noto Sans KR',sans-serif}
+body{font-family:var(--kr),var(--sans);background:var(--paper);color:var(--ink);padding:32px}
+.frame{max-width:1256px;width:100%}
+.eyebrow{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+h1{font-family:var(--serif),var(--kr);font-size:32px;font-weight:400;line-height:1.08;letter-spacing:-.02em;margin-bottom:20px}
+svg{width:100%;min-width:1000px;display:block}
+</style></head><body><div class="frame">
+<p class="eyebrow">Story map · 「미지」 개발 허브</p>
+<h1>스토리 3장 구조 — 점화에서 대립까지</h1>
+<svg viewBox="0 0 1256 704" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="miji-story-map-title miji-story-map-desc">
+<title id="miji-story-map-title">「미지」 스토리 3장 구조 스토리 맵</title>
+<desc id="miji-story-map-desc">점화·놀이·기습·균형자 기원·대립의 다섯 서사 활동을 백본으로, 확정된 1장 데모 아래 데모 컷 라인을 긋고 2장과 3장·본편의 비트를 슬라이스로 배치한 스토리 맵. 전체 결말 미결이 최대 리스크 카드로 표시된다.</desc>
+
+<rect width="1256" height="704" fill="#f5f5f5"/>
+
+<!-- slice bands (alternating) -->
+<rect x="32" y="176" width="1216" height="144" fill="rgba(45,49,66,0.02)"/>
+<rect x="32" y="488" width="1216" height="144" fill="rgba(45,49,66,0.02)"/>
+
+<!-- slice labels (left margin) -->
+<text x="48" y="240" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">1장 · 데모</text>
+<text x="48" y="260" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">🟢 확정</text>
+<text x="48" y="400" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">2장</text>
+<text x="48" y="420" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">🟡 진행</text>
+<text x="48" y="552" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">3장 · 본편</text>
+<text x="48" y="572" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">🔴 미결</text>
+
+<!-- column separators (gappy grid) -->
+<line x1="116" y1="112" x2="116" y2="632" stroke="rgba(45,49,66,0.10)" stroke-width="0.8" stroke-dasharray="4,4"/>
+<line x1="340" y1="112" x2="340" y2="632" stroke="rgba(45,49,66,0.10)" stroke-width="0.8" stroke-dasharray="4,4"/>
+<line x1="564" y1="112" x2="564" y2="632" stroke="rgba(45,49,66,0.10)" stroke-width="0.8" stroke-dasharray="4,4"/>
+<line x1="788" y1="112" x2="788" y2="632" stroke="rgba(45,49,66,0.10)" stroke-width="0.8" stroke-dasharray="4,4"/>
+<line x1="1012" y1="112" x2="1012" y2="632" stroke="rgba(45,49,66,0.10)" stroke-width="0.8" stroke-dasharray="4,4"/>
+<line x1="1236" y1="112" x2="1236" y2="632" stroke="rgba(45,49,66,0.10)" stroke-width="0.8" stroke-dasharray="4,4"/>
+
+<!-- backbone: 5 activities, narrative order -->
+<rect x="128" y="40" width="200" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="228" y="68" fill="#2d3142" font-size="16" font-weight="600" font-family="'Noto Sans KR',sans-serif" text-anchor="middle">점화</text>
+<text x="228" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle" letter-spacing="0.14em">ACT 1</text>
+
+<rect x="352" y="40" width="200" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="452" y="68" fill="#2d3142" font-size="16" font-weight="600" font-family="'Noto Sans KR',sans-serif" text-anchor="middle">놀이</text>
+<text x="452" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle" letter-spacing="0.14em">ACT 2</text>
+
+<rect x="576" y="40" width="200" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="676" y="68" fill="#2d3142" font-size="16" font-weight="600" font-family="'Noto Sans KR',sans-serif" text-anchor="middle">기습 · 암전</text>
+<text x="676" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle" letter-spacing="0.14em">ACT 3</text>
+
+<rect x="800" y="40" width="200" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="900" y="68" fill="#2d3142" font-size="16" font-weight="600" font-family="'Noto Sans KR',sans-serif" text-anchor="middle">균형자 기원</text>
+<text x="900" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle" letter-spacing="0.14em">ACT 4</text>
+
+<rect x="1024" y="40" width="200" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+<text x="1124" y="68" fill="#2d3142" font-size="16" font-weight="600" font-family="'Noto Sans KR',sans-serif" text-anchor="middle">대립 · 결말</text>
+<text x="1124" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle" letter-spacing="0.14em">ACT 5</text>
+
+<!-- walking skeleton -->
+<rect x="140" y="120" width="176" height="32" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="0.8"/>
+<text x="152" y="140" fill="#2d3142" font-size="12" font-family="'Noto Sans KR',sans-serif">B가 스위치를 켠다</text>
+<rect x="364" y="120" width="176" height="32" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="0.8"/>
+<text x="376" y="140" fill="#2d3142" font-size="12" font-family="'Noto Sans KR',sans-serif">목적 없이 논다</text>
+<rect x="588" y="120" width="176" height="32" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="0.8"/>
+<text x="600" y="140" fill="#2d3142" font-size="12" font-family="'Noto Sans KR',sans-serif">균형자가 기습한다</text>
+<rect x="812" y="120" width="176" height="32" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="0.8"/>
+<text x="824" y="140" fill="#2d3142" font-size="12" font-family="'Noto Sans KR',sans-serif">과거가 열린다</text>
+<rect x="1036" y="120" width="176" height="32" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="0.8"/>
+<text x="1048" y="140" fill="#2d3142" font-size="12" font-family="'Noto Sans KR',sans-serif">딸각 vs 균형자</text>
+
+<!-- 1장 데모 slice -->
+<rect x="140" y="192" width="176" height="56" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="152" y="212" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">켜짐을 당한다</text>
+<text x="152" y="232" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">스위치는 B의 손</text>
+
+<rect x="364" y="192" width="176" height="56" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="376" y="212" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">조작에 정 붙이기</text>
+<text x="376" y="232" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">B의 상식 설명 = 복선</text>
+
+<rect x="588" y="192" width="176" height="56" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="600" y="212" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">대사 없는 이행</text>
+<text x="600" y="232" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">A는 밀린다</text>
+
+<rect x="588" y="256" width="176" height="56" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="600" y="276" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">B의 재누름 → 암전</text>
+<text x="600" y="296" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">켜짐과 수미상관</text>
+
+<!-- demo cut line (accent 1) -->
+<line x1="32" y1="328" x2="1248" y2="328" stroke="#eb6c36" stroke-width="1.5"/>
+<rect x="1136" y="308" width="88" height="12" rx="2" fill="#f5f5f5"/>
+<text x="1180" y="317" fill="#eb6c36" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle" letter-spacing="0.10em">DEMO CUT</text>
+
+<!-- 2장 slice -->
+<rect x="812" y="352" width="176" height="56" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="824" y="372" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">이주 실패 · 찬탈</text>
+<text x="824" y="392" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">열하나 + 여산 시점</text>
+
+<rect x="812" y="416" width="176" height="56" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="824" y="436" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">관측기 착용</text>
+<text x="824" y="456" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">「나는 균형자다」</text>
+
+<text x="376" y="400" fill="#7a8399" font-size="12" font-family="'Noto Sans KR',sans-serif">3장 중에 쪼개 배치 —</text>
+<text x="376" y="420" fill="#7a8399" font-size="12" font-family="'Noto Sans KR',sans-serif">조작 설계 진행 중</text>
+
+<!-- 3장 slice -->
+<rect x="1036" y="504" width="176" height="56" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="1048" y="524" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">재점화의 선택</text>
+<text x="1048" y="544" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">켜면 다시 표적</text>
+
+<!-- riskiest card (accent 2) -->
+<rect x="1036" y="568" width="176" height="56" rx="4" fill="rgba(235,108,54,0.05)" stroke="#eb6c36" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="1048" y="588" fill="#2d3142" font-size="12" font-weight="600" font-family="'Noto Sans KR',sans-serif">전체 결말 미결</text>
+<text x="1048" y="608" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">유력: 지연 + 반환</text>
+<rect x="1164" y="576" width="40" height="12" rx="2" fill="transparent" stroke="#eb6c36" stroke-width="0.8"/>
+<text x="1184" y="585" fill="#eb6c36" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle" letter-spacing="0.08em">RISK</text>
+
+<text x="600" y="552" fill="#7a8399" font-size="12" font-family="'Noto Sans KR',sans-serif">잠긴 결정: 힘으로 이기는</text>
+<text x="600" y="572" fill="#7a8399" font-size="12" font-family="'Noto Sans KR',sans-serif">결말 배제 · A만 조작</text>
+
+<!-- legend -->
+<line x1="32" y1="656" x2="1248" y2="656" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
+<text x="32" y="672" fill="#4f5d75" font-size="8" font-family="'Geist Mono',monospace" letter-spacing="0.18em">LEGEND</text>
+<rect x="104" y="664" width="16" height="8" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+<text x="128" y="672" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">스토리 비트</text>
+<rect x="264" y="664" width="16" height="8" fill="rgba(235,108,54,0.05)" stroke="#eb6c36" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="288" y="672" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">최대 리스크 (미결)</text>
+<line x1="456" y1="668" x2="488" y2="668" stroke="#eb6c36" stroke-width="1.5"/>
+<text x="496" y="672" fill="#4f5d75" font-size="12" font-family="'Noto Sans KR',sans-serif">데모 컷 — 여기까지 확정 (1장)</text>
+</svg>
+</div></body></html>

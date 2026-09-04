@@ -8,15 +8,43 @@ This project still follows `docs/art/style-guide/STYLE_GUIDE.md`: 16x16 tiles, 3
 
 ## Active Request
 
+### 2026-09-03 — Session-wide artwork verdict
+
+- **Sole positive result**: `docs/art/assets/generated-concepts/key-art/2026-09-03-concept-art-pass/05_old_song_reunion.png` is the only image from this session that the user considers a useful visual direction.
+- **Rejected results**: every other image generated during this session is considered visually unsuccessful. This includes the other four narrative frames, all three painterly panorama images, all four Woven Nest map/prop exploration images, and the already-deleted three-map strict-composition pass.
+- **Reuse rule**: rejected results must not be treated as canon, style anchors, palette anchors, composition references, or positive prompt examples unless the user explicitly re-approves one later. This verdict supersedes the earlier favorable review notes below.
+- **Retention**: all rejected image files were deleted from the project at the user's request to avoid increasing GitHub repository size. Only `05_old_song_reunion.png` remains. Small README prompt records remain as failure documentation. The strict-composition pass and its documentation had already been deleted separately.
+- **Status**: `05_old_song_reunion.png` is a preferred direction reference, not automatically an approved final asset or canon scene layout.
+
+### 2026-09-03 — Painterly panoramic artwork direction test (`gpt-image-2-style-library` + built-in ImageGen)
+
+- **Purpose**: Translate three user-provided landscape references into an original Miji concept-art direction: immense environments, very small travelers, painterly value masses, selective drawn contours, and strong atmospheric depth.
+- **Reference boundaries**: references were used only for general mood, scale, lighting, composition language, and medium. Their locations, characters, buildings, logos, text, red-eye motifs, and proprietary designs were excluded.
+- **Templates / cases**: `illustration-art-style` (case 346) as primary, `scene-storytelling` (case 330) for narrative framing, and `architecture-space` (case 331) for environment hierarchy. ImageGen taxonomy: `stylized-concept`.
+- **Project continuity**: A and B identity references remained authoritative. Miji's non-human organic architecture rules were preserved. This pass intentionally uses high-resolution painterly concept art and does not alter the in-game pixel-art standard.
+- **Outputs**: the three generated PNGs were rejected and deleted. `docs/art/assets/generated-concepts/key-art/2026-09-03-painterly-artwork-pass/README.md` remains only as a failure/prompt record.
+- **Review**: output 1 best matches the requested contour-rich bright landscape feeling; output 2 is the strongest world-overview image; output 3 is the strongest tonal match for Miji's melancholy. A/B remain readable at small scale. Floating geography, settlements, and the extinguished bell vessel remain exploratory.
+- **Status**: Rejected by the user's later session-wide verdict. Do not reuse these images as positive references.
+
+### 2026-09-03 — Five-scene narrative concept-art pass (`gpt-image-2-style-library` + built-in ImageGen)
+
+- **Purpose**: Test the game's current story and art direction as a coherent five-frame visual arc rather than isolated assets.
+- **Routing**: ORCHESTRATOR → Planning/Story scene selection → Art generation. Scene selection used only current confirmed material from `PROJECT_HANDOFF.md`, `PROSE_MIDPOINT_DRAFT.md`, `CHARACTER_B.md`, and `DECISIONS.md`; no new lore was promoted.
+- **Templates / cases**: primary `scene-storytelling` (case 330), supported by `illustration-art-style` (case 346). Project `STYLE_GUIDE.md` and this log remained authoritative.
+- **References**: 64px A idle identity, B01 idle identity, the preferred Woven Nest mood/palette concept, the refined Balancer identity, and the first generated frame as the cross-image style anchor.
+- **Outputs**: only `docs/art/assets/generated-concepts/key-art/2026-09-03-concept-art-pass/05_old_song_reunion.png` remains. Images 01–04 were rejected and deleted. Prompt framework and historical QA notes remain in the folder `README.md`.
+- **Review**: visual continuity passed for A/B identity, scale, palette, pixel density, organic framing, and restrained cyan/amber lighting. Known exploratory deviations: scene 1 switch contact is ambiguous; scene 2 spoon is readability-scaled; scene 3 wall handle is subtle; scene 4's first crack is slightly stronger than prose; scene 5 uses sound ticks as cinematic shorthand.
+- **Status**: `05_old_song_reunion.png` is the sole preferred direction reference from this pass. Images 01–04 are rejected and must not be reused as positive references. Image 05 is not automatically a final/canon asset.
+
 ### 2026-09-03 — Woven Nest map + prop exploration pass (`gpt-image-2-style-library` + built-in ImageGen)
 
 - **Purpose**: Test the newly integrated prompt-selection workflow against Miji's existing pixel-art canon by generating two playable-room concepts and two separated prop sheets.
 - **Templates / cases**: maps use `architecture-space` + `scene-storytelling` (case 331, 330); props use the separation/layout rules from `concept-product-breakdown` (case 370, 361).
 - **References**: approved Woven Nest composite, Woven Nest in-engine sample room, the 64px A idle scale anchor, and the older oversized lantern/folk-machine sheet. References were used for style, palette, density, and scale only.
-- **Outputs**: `docs/art/assets/generated-concepts/woven-nest/2026-09-03-prompt-library-pass/` — two 1672x941 map concepts, one 1254x1254 everyday-prop sheet (16 objects), and one 1448x1086 folk-machine sheet (12 objects). Exact prompts and metadata are in the folder `README.md`.
+- **Outputs**: all four generated PNGs were rejected and deleted. `docs/art/assets/generated-concepts/woven-nest/2026-09-03-prompt-library-pass/README.md` remains only as a failure/prompt record.
 - **Map review**: `Root-Loom Crossing` has the richer architecture but remains busy; `Lantern-Silt Well` has stronger negative space and more readable traversal edges. Neither is a collision map or final room layout.
 - **Prop review**: object counts and cell separation passed. Scale remains concept-level and must be normalized during extraction. Both outputs failed real-alpha generation: the checkerboard is baked into `Format24bppRgb`, and a targeted background-removal retry failed the same check. Files are explicitly named `rgb-checkerboard` and must not be imported directly into Unity.
-- **Status**: Exploration only; no asset or room is approved canon. Awaiting user selection before extraction, transparent cleanup, tile breakdown, or Unity import.
+- **Status**: All four images were rejected by the user's later session-wide verdict. Do not use them as style or palette anchors, despite the earlier provisional mood note below.
 - **사용자 의견 (2026-09-03)**: 이 PNG 4장은 **에셋 확정이 아니라 "이런 분위기·느낌을 선호한다"는 방향 레퍼런스**다. 픽셀 하나하나가 아니라 톤(차분한 멜랑콜리), 팔레트(딥 틸 + 앰버/시안 소액센트), 유기적 비인간 건축, 밀도감을 참고한다. 이후 아트 프롬프트는 이 무드를 기준선으로 삼되, 여기 그려진 개별 오브젝트·룸 레이아웃은 정본으로 인용하지 않는다.
 
 ### 2026-09-03 — GPT-Image2 Style Library workflow integration
@@ -548,3 +576,169 @@ Pending explicit confirmation because these include concept/generation records, 
 - ★ **GIF 인코딩 교훈**: 수제 GIF89a LZW 인코더는 버그로 디코더 거부(업로드 400) → **WPF `GifBitmapEncoder` + NETSCAPE 루프/딜레이 바이트 패치**가 안전한 경로
 - PixelLab Tier 2, 이번 세션 4생성 사용(잔여 ~4,325)
 [2026-09-03 13:46] ART_LOG.md 수정됨
+[2026-09-04 14:15] README.md 수정됨
+[2026-09-04 14:31] README.md 수정됨
+[2026-09-04 14:49] README.md 수정됨
+
+[2026-09-04 14:54] README.md 수정됨
+[2026-09-04 15:00] README.md 수정됨
+
+### 2026-09-04 — 그린 톤 튜토리얼 연결 맵 v1 (built-in ImageGen)
+
+- **요청:** `docs/art/confirm/2026-09-04-pixellab-demo-green/`의 이미지와 README를 레퍼런스로 실제 튜토리얼 맵 이미지를 생성한다. 사용자의 명시적 정정에 따라 프롬프트 전달만 하지 않고 built-in ImageGen을 실행했다.
+- **라우팅:** ORCHESTRATOR → Art. 기존 6개 룸의 비트를 한 장의 연결된 횡스크롤 컷어웨이 레벨로 통합했다.
+- **템플릿 / 사례:** `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조. ImageGen 분류 `stylized-concept`.
+- **입력:** 도구의 5장 제한 때문에 `demo_01`, `demo_03`, `demo_04`, `demo_05`, `demo_06`을 직접 참조했다. `demo_02_first_corridor`의 평탄 바닥·낮은 턱·좌우 출구는 프롬프트 구조 지시로 반영했다.
+- **프롬프트 핵심:** 개별 룸 보드나 콜라주가 아닌 하나의 실제 연결 지형. 깨어남 방 → 첫 통로 → 포드 놀이터 → 완만한 수직방·상단 숏컷 → 갈대 통로 → 밝은 거짓 출구. 하드 엣지 픽셀 아트, forced green-teal palette, 플레이면 세이지 림라이트, 비인간 유기 건축, 텍스트·UI·캐릭터 없음.
+- **산출물:** `docs/art/assets/generated-concepts/maps/first-play-area/tutorial_map_green_reference_v1.png` (1680×945 PNG). 컨펌 후 대기함에서 승인 레퍼런스 위치로 이동했다.
+- **사용자 승인:** ★ 맵·타일 아트 레퍼런스로 채택. 특히 「타일이 타일처럼 안 보이는」 이음새 은폐와, 플레이어가 타지 못하는 부분의 곡선·비선형 실루엣을 긍정했다.
+- **승인 범위:** 플레이 가능 면은 명료하게 정돈하고, 비플레이 지형은 타일 격자를 무시한 큰 유기적 곡선·비반복 덩어리로 처리한다. 정확한 룸 배치·게이팅·비율과 팔레트 정식 등록은 아직 확정하지 않는다.
+- **상태:** ✅ 스타일·표면 처리 정본 레퍼런스. 생산용 타일 에셋이나 확정 맵 구조는 아님.
+[2026-09-04 15:14] README.md 수정됨
+
+### 2026-09-04 — B 정착지 거목 캐노피 허브 v1 (built-in ImageGen)
+
+- **요청:** 사용자 제공 이미지 3장을 B가 사는 마을 느낌의 레퍼런스로 삼아 실제 환경 이미지를 제작한다.
+- **라우팅:** ORCHESTRATOR → Art. 기존 `2026-09-04-pixellab-b-village`의 실패 기록을 적용해 탑다운 타원 바닥·종이 표지판·문자·워터마크를 금지했다.
+- **템플릿 / 사례:** `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조. ImageGen 분류 `stylized-concept`.
+- **입력:** 사용자 제공 거목 주거 3장 + 승인된 `tutorial_map_green_reference_v1.png`를 지형 표현 앵커로 사용했다.
+- **프롬프트 핵심:** 거대한 살아 있는 나무 두 그루가 만든 엄격한 측면 시점 허브. 하층 공동 광장, 중층 포드 주거, 상층 엮은 현수 통로, 좌우 숲 출구. 플레이면은 명료한 림라이트, 비플레이 지형은 곡선·비선형·비반복 덩어리. 깊은 청록·이끼색에 앰버 점광원 10% 미만.
+- **산출물:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_06_tree_canopy_hub_imagegen_v1.png` (1680×945 PNG).
+- **1차 검수:** 측면 시점·다층 동선·타일 격자 은폐는 성공. 일부 지붕·문·바구니·통은 인간식 숲 마을 문법에 가까워, 사용자 채택 시 허용 범위를 확인하거나 포드·씨앗 껍질·매듭 구조로 재생성한다.
+- **상태:** 컨펌 대기. B의 고향/여관촌 설정과 정본 팔레트는 자동 확정하지 않는다.
+[2026-09-04 15:20] README.md 수정됨
+
+### 2026-09-04 — B 정착지 분위기 5종 병렬 탐색 (built-in ImageGen)
+
+- **요청:** `village_06` 방향을 유지하면서 서로 다른 느낌의 B 마을 이미지 5장을 동시에 제작한다.
+- **방식:** built-in ImageGen 5회 병렬 호출. `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조, 분류 `stylized-concept`.
+- **공통 입력:** 사용자 제공 거목 마을 레퍼런스 3장 + `village_06_tree_canopy_hub_imagegen_v1.png` + 승인된 `tutorial_map_green_reference_v1.png`.
+- **공통 고정:** 엄격한 측면 시점, 캐릭터 없음, 플레이면 가독성, 비플레이 곡선 덩어리, 타일 격자 은폐, 청록·이끼색 + 앰버 10% 미만, 비인간 엮은 둥지 건축.
+- **07 심장나무 공동광장:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_07_heart_tree_commons_imagegen_v1.png` — 중심 거목 랜드마크와 다층 순환.
+- **08 안개 현수교 지구:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_08_mist_bridge_quarter_imagegen_v1.png` — 여백·안개·수평 탐색.
+- **09 뿌리물길 골목:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_09_rootwater_lane_imagegen_v1.png` — 습윤 수로·저층 생활권.
+- **10 매달린 포드 공동:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_10_hanging_pod_hollow_imagegen_v1.png` — 수직 둥지 군락과 상하 이동.
+- **11 비 오는 밤 쉼터:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_11_rain_night_shelter_imagegen_v1.png` — 비·어둠·따뜻한 피난처.
+- **1차 판정:** 08은 동선 가독성, 10은 비인간 둥지 언어, 11은 정서가 특히 강하다. 07의 심장형 공동과 09·11의 인간식 생활 소품은 채택 시 조정 후보.
+- **상태:** 5장 모두 컨펌 대기. 어떤 방향도 정본으로 자동 승격하지 않는다.
+
+### 2026-09-04 — 07 하트 제거 + B 정착지 맵 우선 룸 3종 (built-in ImageGen)
+
+- **사용자 피드백:** “하트는 좀 짜친다.” 07의 자연 공동이 문자 그대로의 하트 아이콘으로 굳어 공간보다 상징이 먼저 읽힌 것이 실패 원인이다.
+- **가드레일 추가:** 나무 구멍·뿌리 아치·암벽 공동을 하트·얼굴·문장처럼 정면 대칭 상징으로 만들지 않는다. 비대칭 침식·성장 흔적으로 처리한다.
+- **07 수정 방식:** `precise-object-edit`. v1의 구도·동선·조명·주거는 유지하고 중앙 하트 공동만 비대칭 뿌리 매듭과 자연 공동으로 교체했다.
+- **07 수정 산출물:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_07_old_root_commons_imagegen_v2.png` (1672×941 PNG). v1은 반려 사례로 보존한다.
+- **신규 요청 해석:** 레퍼런스 일러스트와 닮은 분위기 변주가 아니라, 실제 게임에서 연결 가능한 맵 룸을 설계한다.
+- **템플릿 / 사례:** `architecture-space` (case 331) + 맵 우선 공간 설계. ImageGen 분류는 신규 룸 3종 `stylized-concept`, 07 수정 `precise-object-edit`.
+- **입력 분리:** 신규 룸 3종에는 사용자 제공 거목 레퍼런스와 기존 마을 이미지를 직접 입력하지 않았다. 프로젝트 STYLE_GUIDE의 그린 톤·비인간 유기 건축·타일 격자 은폐 규칙만 텍스트로 계승했다.
+- **12 여관 척추:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_map_12_fallen_root_inn_spine_imagegen_v1.png` — 낮고 긴 좌우 척추, 중앙 여관 대화면, 상단 분기와 하층 비밀.
+- **13 수직 주거구:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_map_13_split_reed_vertical_quarter_imagegen_v1.png` — 좌하단에서 우상단으로 상승하는 지그재그 주동선과 좌측 보조 루프.
+- **14 수로 루프:** `docs/art/confirm/2026-09-04-pixellab-b-village/village_map_14_rootwater_service_loop_imagegen_v1.png` — 좌우 고지대를 중앙 저지대와 하층 수로가 잇는 U자 동선.
+- **1차 검수:** 세 장의 대형 실루엣과 진행 축은 서로 충분히 다르다. 12는 여관 소품 비인간화, 13은 실제 점프 간격, 14는 물 위험·부서지는 바닥 메카닉을 블록아웃 단계에서 재검증한다.
+- **상태:** 4장 모두 컨펌 대기. 이미지상의 발판 간격과 룸 연결은 생산 수치로 자동 확정하지 않는다.
+
+### 2026-09-04 — B 정착지 네이티브 픽셀 배경 5종 (built-in ImageGen + deterministic pixel export)
+
+- **사용자 피드백:** 직전 결과는 픽셀 아트가 아니라 고해상도 디지털 페인팅에 픽셀 질감만 얹힌 것으로 보인다. 12~14는 구도 참고용으로만 남기고 픽셀 결과물 판정에서는 반려한다.
+- **요청:** 사용자가 선택한 뿌리 여관·거목 정착지 이미지 2장의 감각을 진짜 픽셀 배경으로 1장 만들고, 분위기가 다른 픽셀 배경 4장을 추가한다.
+- **라우팅:** ORCHESTRATOR → Art. built-in ImageGen을 자산별 1회씩 사용했다.
+- **템플릿 / 사례:** `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조. 15는 `style-transfer`, 16~19는 `stylized-concept`.
+- **직접 참조:** 15만 사용자 제공 이미지 2장을 참조했다. 16~19는 구도 복제를 피하려 직접 이미지 입력 없이 STYLE_GUIDE의 비인간 유기 건축·측면 시점·타일 격자 은폐 규칙을 프롬프트로 전달했다.
+- **생성 프롬프트 픽셀 규칙:** 416×234 논리 캔버스, 24~32색, 1px 다크 아웃라인, 계단식 곡선, 하드 픽셀 클러스터, 광원 3~4단. 안티앨리어싱·연속 그라데이션·소프트 글로우·회화 브러시·고해상도 미세 질감 금지.
+- **결정론적 출력:** built-in 원본을 중앙 1664×936으로 크롭한 뒤 nearest-neighbor로 416×234에 축소하고, 32색·디더링 없음의 PNG로 저장했다. 이 네이티브 파일을 nearest-neighbor 4배로 확대한 1664×936 미리보기도 함께 저장했다.
+- **도구:** `tools/pixelize-imagegen-background.mjs` (bundled Sharp 사용).
+- **15 청록 뿌리 여관:** `village_pixel_15_root_inn_teal_native_416x234.png` / `village_pixel_15_root_inn_teal_preview_4x.png`.
+- **16 비바람 현수로:** `village_pixel_16_rain_cord_canopy_native_416x234.png` / `village_pixel_16_rain_cord_canopy_preview_4x.png`.
+- **17 포자우물의 아침:** `village_pixel_17_sporewell_dawn_native_416x234.png` / `village_pixel_17_sporewell_dawn_preview_4x.png`.
+- **18 마른 씨앗껍질 단구:** `village_pixel_18_amber_husk_autumn_native_416x234.png` / `village_pixel_18_amber_husk_autumn_preview_4x.png`.
+- **19 달빛 갈대 습지:** `village_pixel_19_moon_reed_marsh_native_416x234.png` / `village_pixel_19_moon_reed_marsh_preview_4x.png`.
+- **1차 검수:** 5장 모두 동일 크기 픽셀·무안티앨리어싱·제한 팔레트 조건을 충족한다. 15는 기존 정착지 정서, 16은 사선 동선, 17은 밝은 안개, 18은 건조한 계절색, 19는 저층 수로 실루엣으로 분리된다.
+- **상태:** 컨펌 대기. 선택 전에는 416×234와 개별 팔레트를 프로젝트 정본으로 승격하지 않는다.
+
+### 2026-09-04 — B 정착지 동일 팔레트 지형 변형 4종 v2
+
+- **사용자 정정:** 이전 요청의 “다른 분위기”는 팔레트·날씨·계절을 다르게 하라는 뜻이 아니었다. 15의 색감과 지역 분위기는 유지하고 지형을 다르게 구성하는 것이 의도였다.
+- **오류 판정:** 16~19 v1은 픽셀 규격은 맞지만 비·옅은 아침·늦가을·달빛으로 색온도와 조명을 바꿔 같은 구역 묶음으로 실패했다. 삭제하지 않고 반려 탐색 자료로 보존한다.
+- **재생성 고정값:** `village_pixel_15_root_inn_teal_preview_4x.png`를 네 장 모두의 유일한 스타일·팔레트·조명 레퍼런스로 입력했다. 건조한 황혼, 청록 배경, 이끼·세이지 지형, 희소한 앰버 조명은 고정했다.
+- **재생성 변경값:** 지형과 동선만 수직 협곡 / 저층 수로 / 사선 스위치백 / 비대칭 돔형 공동으로 분리했다.
+- **템플릿 / 사례:** `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조. ImageGen 분류 `style-transfer`.
+- **후처리:** `tools/pixelize-imagegen-background.mjs`에 선택 팔레트 입력 기능을 추가했다. 네 v2의 모든 출력색을 15 네이티브 마스터의 동일 32색에 최근접 매핑하고 416×234 네이티브 + 1664×936 nearest-neighbor 미리보기로 저장했다.
+- **16 v2:** `village_pixel_16_root_cleft_ascent_v2_native_416x234.png` / `village_pixel_16_root_cleft_ascent_v2_preview_4x.png`.
+- **17 v2:** `village_pixel_17_rootwater_undercroft_v2_native_416x234.png` / `village_pixel_17_rootwater_undercroft_v2_preview_4x.png`.
+- **18 v2:** `village_pixel_18_moss_switchback_bank_v2_native_416x234.png` / `village_pixel_18_moss_switchback_bank_v2_preview_4x.png`.
+- **19 v2:** `village_pixel_19_hollow_ring_crossroads_v2_native_416x234.png` / `village_pixel_19_hollow_ring_crossroads_v2_preview_4x.png`.
+- **1차 검수:** 15와 네 v2는 동일 팔레트·조명 묶음으로 읽힌다. 차이는 대형 지형 실루엣과 동선 방향에 한정된다.
+- **상태:** 컨펌 대기. 15 팔레트를 프로젝트 정본으로 자동 승격하지 않는다.
+
+### 2026-09-04 — B 정착지 직선 플레이면 + 밝은 팔레트 5종 v3
+
+- **사용자 정정:** 플레이어가 밟는 면까지 곡선이면 실제 충돌 지형과 착지 가능 구간이 모호하다. 걷기·착지 상단은 선형으로 두고, 비선형 실루엣은 천장·벽타기가 불가능한 벽·타일 아랫부분에만 사용한다. 색감은 새로 제공한 밝은 거목 다리 이미지에 맞춘다.
+- **라우팅:** ORCHESTRATOR → Art. built-in ImageGen으로 5개 맵 룸을 생성하고 21번의 세로 비율 및 처진 로프 다리만 추가 교정했다.
+- **템플릿 / 사례:** `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조. ImageGen 분류 `style-transfer`; 21의 로프 제거는 `precise-object-edit`.
+- **입력 역할:** 사용자 제공 밝은 거목 다리 이미지는 팔레트·명도·조명 전용, `docs/art/assets/generated-concepts/maps/first-play-area/tutorial_map_green_reference_v1.png`는 비플레이 지형의 유기적 경계 처리 전용으로 사용했다. 두 입력의 룸 토폴로지는 복제하지 않았다.
+- **충돌면 가드레일:** 모든 걷기·착지 상단은 수평 직선, 모든 벽타기 면은 수직 직선, 90도 턱을 갖는다. 경사·아치·처진 로프·곡선 뿌리 상단은 플레이 경로로 금지한다. 곡선은 천장·비등반 오버행·발판 아랫부분·전후경에만 허용한다.
+- **공통 팔레트:** 사용자 이미지에서 32색 앵커 `village_pixel_bright_reference_palette_native_416x234.png`를 만들고, 20~24의 모든 픽셀을 이 팔레트에 최근접 매핑했다. 밝은 세이지·셀라돈 안개, 깊은 청록, 네이비 외곽, 희소한 주황 조명이 전 장면에 동일하다.
+- **결정론적 출력:** 각 원본을 중앙 1664×936으로 크롭한 뒤 nearest-neighbor로 416×234에 축소하고, 동일 32색·디더링 없음으로 저장했다. 4배 미리보기는 1664×936이다.
+- **20 밝은 여관 훈련실:** `village_pixel_20_bright_inn_training_hall_v3_native_416x234.png` / `village_pixel_20_bright_inn_training_hall_v3_preview_4x.png`.
+- **21 수직 상승 뜰:** `village_pixel_21_bright_vertical_climb_court_v3_native_416x234.png` / `village_pixel_21_bright_vertical_climb_court_v3_preview_4x.png`.
+- **22 중앙 다리 공동:** `village_pixel_22_bright_bridge_commons_v3_native_416x234.png` / `village_pixel_22_bright_bridge_commons_v3_preview_4x.png`.
+- **23 낙하 루프 하층부:** `village_pixel_23_bright_drop_loop_undercroft_v3_native_416x234.png` / `village_pixel_23_bright_drop_loop_undercroft_v3_preview_4x.png`.
+- **24 층계 우물 교차로:** `village_pixel_24_bright_stepwell_crossroads_v3_native_416x234.png` / `village_pixel_24_bright_stepwell_crossroads_v3_preview_4x.png`.
+- **검수:** 다섯 네이티브 모두 416×234, 32색, 공통 팔레트 밖 색상 0개. 플레이면 직선과 비플레이 유기적 밑면이 분리되어 읽힌다.
+- **상태:** 컨펌 대기. 사용자 승인 전까지 밝은 32색 앵커와 20~24의 맵 구조를 프로젝트 정본으로 자동 승격하지 않는다.
+
+### 2026-09-04 — B 정착지 타일·배경 통합 수정 v4
+
+- **사용자 피드백:** 20의 타일과 배경이 분리되어 보이고 ㄴ자 타일이 돌출된 것처럼 읽힌다. 21의 하단 독립 공중 발판은 다소 뜬금없다. 22의 배경과 전반 구성은 매우 좋다. 23·24의 수직 벽 타일은 맥락 없이 갑자기 생긴 오류처럼 보인다.
+- **수정 범위:** 20·21·23·24만 built-in ImageGen `precise-object-edit`로 수정하고, 승인된 22 v3는 그대로 유지했다.
+- **템플릿 / 사례:** `architecture-space` (case 331)로 지형의 물리적 연결과 공간 기능을 고정하고, `scene-storytelling` (case 330)로 생활감 있는 배경 불변값을 유지했다.
+- **프롬프트 세트 핵심:** 20은 반복 석재 캡과 ㄴ자 기둥을 연속된 거목·뿌리 재질로 교체. 21은 하단 중앙 독립 발판만 삭제. 23은 좌측·중앙 수직 벽을 상·하 지형에 고정된 뿌리 버트레스로 교체. 24는 양쪽 회색 벽 타일 스트립을 천장·바닥·측면 거목에서 이어지는 뿌리 절벽으로 교체.
+- **새 가드레일:** 직선 충돌면을 표현하기 위해 반복 사각 캡·회색 벽 블록·독립 ㄴ자 기둥을 노출하지 않는다. 나무결·이끼·크랙은 가상의 타일 경계를 가로지르고, 수직 벽은 반드시 천장·바닥·거목에 시각적으로 고정한다.
+- **불변값:** 기존 룸 토폴로지, 밝은 세이지·청록·주황 팔레트, 416×234 네이티브 픽셀 규격, 수평 착지면, 수직 벽타기 면, 비선형 비플레이 밑면.
+- **20 v4:** `village_pixel_20_integrated_inn_training_hall_v4_native_416x234.png` / `village_pixel_20_integrated_inn_training_hall_v4_preview_4x.png`.
+- **21 v4:** `village_pixel_21_clean_vertical_climb_court_v4_native_416x234.png` / `village_pixel_21_clean_vertical_climb_court_v4_preview_4x.png`.
+- **22:** `village_pixel_22_bright_bridge_commons_v3_native_416x234.png` / `village_pixel_22_bright_bridge_commons_v3_preview_4x.png` 유지.
+- **23 v4:** `village_pixel_23_rooted_drop_loop_undercroft_v4_native_416x234.png` / `village_pixel_23_rooted_drop_loop_undercroft_v4_preview_4x.png`.
+- **24 v4:** `village_pixel_24_rooted_stepwell_crossroads_v4_native_416x234.png` / `village_pixel_24_rooted_stepwell_crossroads_v4_preview_4x.png`.
+- **검수:** 수정된 네 장 모두 네이티브 416×234, 동일 32색 앵커 밖 색상 0개. 20의 ㄴ자 기둥, 21의 하단 독립 발판, 23·24의 독립 벽 타일이 제거되었고 기능 충돌면은 유지됐다.
+- **상태:** 컨펌 대기. 22의 배경 방향은 사용자 긍정 평가로 유지하지만, 세트 전체를 정본으로 확정한 것은 아니다.
+
+### 2026-09-04 — B 정착지 고밀도 픽셀·타일·프롭 제작 키트 v1
+
+- **사용자 판정:** 직전 수정본의 1·2번은 품질이 낮아 폐기. 416×234·32색 강제 후처리 이후 픽셀 덩어리가 커지고 디테일이 뭉개진 점을 실패 원인으로 확정했다. `village_pixel_20_integrated_inn_training_hall_v4_*`, `village_pixel_21_clean_vertical_climb_court_v4_*`는 반려 기록으로만 보존한다.
+- **요청:** 새로 첨부한 세 장을 스타일 기준으로 삼아 세 번째 이미지를 고밀도 픽셀로 업스케일하고, 타일맵 지형 모듈과 프롭을 제작한다.
+- **라우팅:** ORCHESTRATOR → Art. built-in ImageGen 3회 병렬 실행.
+- **템플릿 / 사례:** `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조. 장면·아틀라스 모두 ImageGen 분류 `style-transfer`.
+- **입력 역할:** 사용자 이미지 3은 장면 업스케일의 구도·토폴로지 편집 대상. 이미지 1은 높은 픽셀 밀도·등불·정착지 프롭 기준, 이미지 2는 수평 발판·거목 프레임·밝은 숲 배경 기준. 신규 타일·프롭에는 세 장 모두를 공통 스타일 입력으로 사용했다.
+- **장면 프롬프트 핵심:** 이미지 3의 지형·출구·등불 위치를 유지하고 논리 832×468에서 모든 윤곽을 재픽셀링. 작은 나무결·이끼·잔뿌리·금속 픽셀을 추가하되 안티앨리어싱과 회화식 스무딩은 금지.
+- **타일 프롬프트 핵심:** 수평 플레이 캡, 바크 필, 끝단·코너, 수직 벽, 벽-바닥/천장 접합, 뿌리 버트레스, 비플레이 천장·밑면, 데코 오버레이를 투명 시트로 생성. 반복 석재 캡·독립 ㄴ자 벽·회색 벽 블록 금지.
+- **프롭 프롬프트 핵심:** 6×4 배열에 등불·포드·문틀·난간·생활 소품·식생 24종을 격리. 인간식 가구·문자·종이 표지·하트·얼굴 금지.
+- **고밀도 후처리:** `tools/pixelize-imagegen-asset-hd.mjs`를 추가했다. 임의 네이티브 크기, 실제 색상 수 검증, 참조 팔레트 매핑, 밝은 중성 체크무늬 제거, 0/255 알파 고정, nearest-neighbor 미리보기를 지원한다.
+- **팔레트:** `production-kit-v1/b_village_hd_palette_reference_64_v2_native_832x468.png` — 실제 opaque 61색.
+- **고밀도 장면:** `production-kit-v1/b_village_room_23_hd_native_832x468.png` / `production-kit-v1/b_village_room_23_hd_preview_2x.png`.
+- **지형 모듈:** `production-kit-v1/b_village_terrain_modules_native_627x627.png` / `production-kit-v1/b_village_terrain_modules_preview_2x.png`.
+- **프롭:** `production-kit-v1/b_village_props_native_768x512.png` / `production-kit-v1/b_village_props_preview_2x.png`.
+- **검수:** 장면 832×468·61색. 지형 시트 627×627·59색·투명 픽셀 206,961개. 프롭 시트 768×512·58색·투명 픽셀 322,643개. 세 결과 모두 공통 팔레트 밖 색상 0개, 반투명 픽셀 0개.
+- **제한:** 지형 시트의 개별 모듈은 유용하지만 ImageGen이 요청한 정확한 8×8 셀 수를 지키지 않았다. 현 단계는 모듈 선택용 컨셉 시트이며 Unity 자동 슬라이스 정본으로 표기하지 않는다.
+- **상태:** 컨펌 대기. 고밀도 832×468·61색 규격과 개별 타일/프롭은 사용자 승인 후에만 정본으로 승격한다.
+
+### 2026-09-04 — B 정착지 레퍼런스별 제작 키트 v2 (built-in ImageGen)
+
+- **요청:** 사용자 제공 세 이미지를 기준으로 전용 타일을 제작한다. 1번에는 배경을 추가하고, 3번은 먼저 1·2번의 밝은 색감에 맞춘 다음 타일과 프랍을 제작한다.
+- **라우팅:** ORCHESTRATOR → Art. built-in ImageGen 6회 사용: 1번 타일, 1번 배경, 2번 타일, 3번 색감 교정, 3번 타일, 3번 프랍.
+- **템플릿 / 사례:** `architecture-space` (case 331) 주 템플릿 + `scene-storytelling` (case 330) 보조.
+- **ImageGen 분류:** 타일·프랍 `style-transfer`, 1번 배경 `background-extraction`, 3번 색감 교정 `lighting-weather`.
+- **참조 역할:** 1번은 뿌리·토양·이끼 지형과 안개 숲 배경, 2번은 나무 판재·거목 기둥·로프 하부 구조, 3번은 거대한 뿌리 여관의 구조·생활 소품 원본으로 분리했다. 세 구조를 한 시트에 혼합하지 않았다.
+- **3번 색감 프롬프트 핵심:** 원래 룸 토폴로지, 출구, 가구, 화로와 등불 위치를 고정하고 어두운 청록·황금색 대비를 밝은 세이지·셀라돈 안개와 깊은 청록으로 이동한다. 따뜻한 앰버는 소형 광원에만 남긴다.
+- **타일 프롬프트 핵심:** 각 시트 6×4, 24종. 걷기·착지 상단은 수평, 벽타기 면은 수직, 유기적 곡선은 밑면·천장·비등반 외벽·장식에만 허용한다. 반복 가능한 접합선, 독립 모듈 간 간격, 투명 배경을 요구했다.
+- **프랍 프롬프트 핵심:** 3번 보정본에서 등불 6종, 건축 6종, 생활 6종, 식생·장식 6종을 분리했다. 문자·캐릭터·하트·얼굴·현대 물건은 금지했다.
+- **후처리:** `tools/pixelize-imagegen-asset-hd.mjs`의 중성 배경 제거 범위를 옅은 접촉 그림자까지 확장했다. `tools/inspect-png-asset.mjs`를 추가해 크기, opaque 색상 수, 0/255 알파, 참조 팔레트 밖 색상을 검증했다.
+- **1번 산출물:** `production-kit-v2-by-reference/ref01_terrain_tiles_native_768x512.png`, `ref01_background_native_832x468.png`.
+- **2번 산출물:** `production-kit-v2-by-reference/ref02_terrain_tiles_native_768x512.png`.
+- **3번 산출물:** `production-kit-v2-by-reference/ref03_color_matched_master_native_832x468.png`, `ref03_terrain_tiles_native_768x512.png`, `ref03_props_native_768x512.png`.
+- **검수:** 1번 타일 64색·투명 289,186px, 1번 배경 39색, 2번 타일 58색·투명 292,899px, 3번 보정본 64색, 3번 타일 64색·투명 281,890px, 3번 프랍 64색·투명 299,214px. 전 파일 반투명 픽셀 0개, 대응 팔레트 밖 색상 0개.
+- **제한:** 6×4 배열은 모듈 선택에 충분히 명확하지만 Unity용 32×32 자동 슬라이스 정본은 아니다. 채택 모듈은 셀 크기·피벗·심리스 접합·콜라이더를 후속 패킹 단계에서 보정한다.
+- **상태:** 컨펌 대기. 세 레퍼런스의 전용 지형 문법과 3번의 색감 교정 방향은 사용자 승인 후 정본 후보로 승격한다.
+[2026-09-04 17:39] README.md 수정됨
+[2026-09-04 17:51] README.md 수정됨
+[2026-09-04 17:58] README.md 수정됨
